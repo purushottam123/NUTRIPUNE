@@ -203,6 +203,26 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:48px 5% 2
   .hero-actions{flex-direction:column;align-items:flex-start}
   .features-grid{grid-template-columns:1fr}
 }
+ .checkout-btn{
+   background: #f9c74f;
+ }
+  .upi-btn{
+width:100%;
+margin-top:10px;
+padding:12px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#6a11cb,#2575fc);
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.upi-btn:hover{
+transform:scale(1.03);
+box-shadow:0 6px 15px rgba(0,0,0,0.3);
+}
 </style>
 </head>
 <body>
@@ -382,8 +402,8 @@ Order Now
 
     <textarea class="cart-note" id="cartNote" placeholder="Special instructions? (delivery area, preferred time...)"></textarea>
     <button class="checkout-btn" onclick="placeOrder()">Place Order via WhatsApp 📲</button>
-    <button onclick="window.location.href='upi://pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar'">
-Pay via UPI
+    <button class="upi-btn" onclick="payUPI()">
+💳 Pay via UPI
 </button>
   </div>
 </div>
@@ -605,6 +625,9 @@ const observer=new IntersectionObserver(entries=>{
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 renderProducts();renderCafe();
+ function payUPI(){
+window.location.href="upi://pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar&cu=INR";
+}
 </script> 
 </body>
 </html>
