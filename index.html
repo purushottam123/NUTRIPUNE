@@ -400,7 +400,10 @@ Order Now
 </select>
 </div>
 
-    <textarea class="cart-note" id="cartNote" placeholder="Special instructions? (delivery area, preferred time...)"></textarea>
+ <div class="checkout-section">
+
+<textarea class="cart-note" id="cartNote"
+placeholder="Special instructions? (delivery area, preferred time...)"></textarea>
 
 <button class="checkout-btn" onclick="placeOrder()">
 Place Order via WhatsApp
@@ -409,7 +412,7 @@ Place Order via WhatsApp
 <button class="upi-btn" onclick="payUPI()">
 💳 Pay via UPI
 </button>
-  </div>
+
 </div>
 <div id="upiPopup" style="display:none;text-align:center;padding:20px">
 <h3>Scan & Pay</h3>
@@ -553,12 +556,11 @@ function toggleCart(){document.getElementById('cartOverlay').classList.toggle('o
 function closeCartOutside(e){if(e.target===document.getElementById('cartOverlay'))toggleCart()}
 function placeOrder(){
 
-let total = document.getElementById("cartTotalVal").innerText;
+let note = document.getElementById("cartNote").value;
 
 let message =
-"Hi NutriPune! I want to order:%0A%0A" +
-"Total: ₹" + total + "%0A" +
-"Payment Method: " + document.getElementById("paymentMethod").value;
+"Hello NutriPune!%0A%0AI want to place an order.%0A%0ASpecial instructions: "
++ encodeURIComponent(note);
 
 window.open(
 "https://wa.me/917992296841?text=" + message,
@@ -597,14 +599,6 @@ const observer=new IntersectionObserver(entries=>{
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 renderProducts();renderCafe();
-}
-  function payUPI(){
-
-let total = document.getElementById("cartTotalVal").innerText;
-
-window.location.href =
-"upi://pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar&am=" + total + "&cu=INR";
-
 }
 
 </script> 
