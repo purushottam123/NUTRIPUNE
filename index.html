@@ -382,9 +382,19 @@ Order Now
 
     <textarea class="cart-note" id="cartNote" placeholder="Special instructions? (delivery area, preferred time...)"></textarea>
     <button class="checkout-btn" onclick="placeOrder()">Place Order via WhatsApp 📲</button>
+    <button onclick="window.location.href='upi://pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar'">
+Pay via UPI
+</button>
   </div>
 </div>
+<div id="upiPopup" style="display:none;text-align:center;padding:20px">
+<h3>Scan & Pay</h3>
 
+<img src="YOUR_UPI_QR_IMAGE_LINK" width="200">
+
+<p>UPI ID: nutripune@upi</p>
+
+</div>
 <div class="success-modal" id="successModal">
   <div class="success-box">
     <span class="success-icon">🎉</span>
@@ -534,6 +544,21 @@ let payment = document.getElementById("paymentMethod").value;
 if(payment === "cod"){
 total += 30;
 message += "\nCOD Fee: ₹30";
+
+let location = note.toLowerCase();
+
+let delivery = 40;
+
+if(location.includes("viman")){
+delivery = 0;
+}
+else if(location.includes("dhanori")){
+delivery = 20;
+}
+
+total += delivery;
+
+message += "\nDelivery: ₹" + delivery;  
 }
 
 message += "\n\nTotal: ₹" + total;
