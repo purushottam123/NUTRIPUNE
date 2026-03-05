@@ -519,20 +519,36 @@ function toggleCart(){document.getElementById('cartOverlay').classList.toggle('o
 function closeCartOutside(e){if(e.target===document.getElementById('cartOverlay'))toggleCart()}
 
 function placeOrder(){
-  const items=Object.values(cart);
-  if(!items.length){showToast('Your cart is empty!');return;}
-  const total=items.reduce((s,i)=>s+i.price*i.qty,0);
-  const note=document.getElementById('cartNote').value;
-  const ref='NP-'+Date.now().toString().slice(-6);
-  const lines=items.map(i=>`• ${i.name} x${i.qty} = ₹${(i.price*i.qty).toLocaleString('en-IN')}`).join('\n');
-  const msg=`🛒 *New Order — NutriPune*\n\nRef: ${ref}\n\n${lines}\n\n*Total: ₹${total.toLocaleString('en-IN')}*${note?'\n\nNote: '+note:''}`;
-  const confirm=`Hi! 👋 Thank you for ordering from NutriPune!\n\nOrder Ref: ${ref}\nTotal: ₹${total.toLocaleString('en-IN')}\n\nWe have received your order and will confirm within 30 minutes. We'll also share estimated delivery/pickup time.\n\nFor any questions just reply here. 💪\n\n— NutriPune Team`;
-  document.getElementById('orderRef').textContent='Order '+ref;
-  document.getElementById('confirmMsg').textContent=confirm;
-  document.getElementById('cartOverlay').classList.remove('open');
-  document.getElementById('successModal').classList.add('open');
-  window.open(`https://wa.me/${SHOP.phone}?text=${encodeURIComponent(msg)}`,'_blank');
-  cart={};updateCartUI();
+
+let items = cart;
+let total = 0;
+let message = "🧾 NutriPune Order\n\n";
+
+items.forEach(item => {
+message += item.name + " x" + item.qty + " - ₹" + (item.price * item.qty) + "\n";
+total += item.price * item.qty;
+});
+
+let payment = document.getElementById("paymentMethod").value;
+
+if(payment === "cod"){
+total += 30;
+message += "\nCOD Fee: ₹30";
+}
+
+message += "\n\nTotal: ₹" + total;
+message += "\nPayment: " + payment;
+
+let note = document.getElementById("cartNote").value;
+
+if(note){
+message += "\nNote: " + note;
+}
+
+let whatsappURL = "https://wa.me/917992296841?text=" + encodeURIComponent(message);
+
+window.open(whatsappURL, "_blank");
+
 }
 
 function closeSuccess(){document.getElementById('successModal').classList.remove('open')}
