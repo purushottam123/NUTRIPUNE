@@ -547,52 +547,20 @@ function changeQty(id,d){
 
 function toggleCart(){document.getElementById('cartOverlay').classList.toggle('open')}
 function closeCartOutside(e){if(e.target===document.getElementById('cartOverlay'))toggleCart()}
-
 function placeOrder(){
 
-let items = cart;
-let total = 0;
-let message = "🧾 NutriPune Order\n\n";
+let cartText = "Hi NutriPune! I want to order:%0A";
 
-items.forEach(item => {
-message += item.name + " x" + item.qty + " - ₹" + (item.price * item.qty) + "\n";
-total += item.price * item.qty;
+cart.forEach(item=>{
+cartText += `${item.name} x${item.qty}%0A`;
 });
 
-let payment = document.getElementById("paymentMethod").value;
+cartText += "%0AThank you.";
 
-if(payment === "cod"){
-total += 30;
-message += "\nCOD Fee: ₹30";
-
-let location = note.toLowerCase();
-
-let delivery = 40;
-
-if(location.includes("viman")){
-delivery = 0;
-}
-else if(location.includes("dhanori")){
-delivery = 20;
-}
-
-total += delivery;
-
-message += "\nDelivery: ₹" + delivery;  
-}
-
-message += "\n\nTotal: ₹" + total;
-message += "\nPayment: " + payment;
-
-let note = document.getElementById("cartNote").value;
-
-if(note){
-message += "\nNote: " + note;
-}
-
-let whatsappURL = "https://wa.me/917992296841?text=" + encodeURIComponent(message);
-
-window.open(whatsappURL, "_blank");
+window.open(
+"https://wa.me/917992296841?text="+cartText,
+"_blank"
+);
 
 }
 
@@ -626,7 +594,12 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 renderProducts();renderCafe();
 function payUPI(){
-window.open("https://pay.google.com/gp/p/ui/pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar&cu=INR","_blank");
+
+let amount = document.getElementById("cartTotalVal").innerText;
+
+window.location.href =
+`upi://pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar&am=${amount}&cu=INR`;
+
 }
 </script> 
 </body>
