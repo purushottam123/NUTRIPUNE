@@ -625,8 +625,8 @@ const observer=new IntersectionObserver(entries=>{
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 renderProducts();renderCafe();
- function payUPI(){
-window.location.href="upi://pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar&cu=INR";
+function payUPI(){
+window.open("https://pay.google.com/gp/p/ui/pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar&cu=INR","_blank");
 }
 </script> 
 </body>
