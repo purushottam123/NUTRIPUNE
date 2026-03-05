@@ -128,7 +128,16 @@ section{padding:86px 5%;position:relative;z-index:1}
 .cafe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:15px}
 .cafe-item{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 16px;text-align:center;transition:border-color .2s,transform .2s;cursor:pointer}
 .cafe-item:hover{border-color:var(--blue);transform:translateY(-3px)}
-.ci-icon{font-size:36px;margin-bottom:9px;display:block}
+.ci-icon{
+width:60px;
+height:60px;
+object-fit:cover;
+border-radius:10px;
+margin-bottom:10px;
+display:block;
+margin-left:auto;
+margin-right:auto;
+}
 .ci-name{font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px}
 .ci-price{font-family:var(--fm);font-size:13px;color:var(--green)}
 .ci-margin{display: none}
@@ -435,8 +444,7 @@ function renderCafe(){
   const g=document.getElementById('cafeGrid');g.innerHTML='';
   CAFE.forEach(c=>{
     const el=document.createElement('div');el.className='cafe-item';
-    el.innerHTML=`<span class="ci-icon">${c.icon}</span><div class="ci-name">${c.name}</div><div class="ci-price">${c.price}</div><div class="ci-margin">${c.margin}</div>`;
-    g.appendChild(el);
+    el.innerHTML=`<span class="ci-icon">${c.icon}</span><div class="ci-name">${c.name}</div><div class="ci-price">${c.price}</div>;
   });
 }
 
