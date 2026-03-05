@@ -568,7 +568,12 @@ window.open(
 );
 
 }
+function payUPI(){
 
+window.location.href =
+"upi://pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar&cu=INR";
+
+}
 
 function closeSuccess(){document.getElementById('successModal').classList.remove('open')}
 
@@ -599,7 +604,7 @@ const observer=new IntersectionObserver(entries=>{
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 renderProducts();renderCafe();
-}
+
 
 </script> 
 </body>
