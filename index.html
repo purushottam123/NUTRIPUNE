@@ -567,14 +567,6 @@ window.open(
 
 }
 
-function payUPI(){
-
-let total = document.getElementById("cartTotalVal").innerText;
-
-window.location.href =
-"upi://pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar&am=" + total + "&cu=INR";
-
-}
 
 function closeSuccess(){document.getElementById('successModal').classList.remove('open')}
 
@@ -606,6 +598,15 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 renderProducts();renderCafe();
 }
+  function payUPI(){
+
+let total = document.getElementById("cartTotalVal").innerText;
+
+window.location.href =
+"upi://pay?pa=7992296841@ptsbi&pn=Purushottam%20Kumar&am=" + total + "&cu=INR";
+
+}
+
 </script> 
 </body>
 </html>
