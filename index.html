@@ -371,6 +371,15 @@ Order Now
     <h3>🛒 Your Cart</h3>
     <div id="cartItems"><div class="cart-empty">Your cart is empty.<br>Add some products above!</div></div>
     <div class="cart-total" id="cartTotal" style="display:none">Total: <strong id="cartTotalVal">₹0</strong></div>
+   <div class="payment-method">
+<label>Payment Method</label>
+
+<select id="paymentMethod">
+<option value="upi">UPI</option>
+<option value="cod">Cash on Delivery (+₹30)</option>
+</select>
+</div>
+
     <textarea class="cart-note" id="cartNote" placeholder="Special instructions? (delivery area, preferred time...)"></textarea>
     <button class="checkout-btn" onclick="placeOrder()">Place Order via WhatsApp 📲</button>
   </div>
