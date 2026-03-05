@@ -441,11 +441,20 @@ function renderProducts(){
 }
 
 function renderCafe(){
-  const g=document.getElementById('cafeGrid');g.innerHTML='';
-  CAFE.forEach(c=>{
-    const el=document.createElement('div');el.className='cafe-item';
-    el.innerHTML=`<span class="ci-icon">${c.icon}</span><div class="ci-name">${c.name}</div><div class="ci-price">${c.price}</div>';
-  });
+const g=document.getElementById('cafeGrid');
+g.innerHTML="";
+
+CAFE.forEach(c=>{
+const el=document.createElement('div');
+el.className='cafe-item';
+
+el.innerHTML=`<img src="${c.icon}" class="ci-icon">
+<div class="ci-name">${c.name}</div>
+<div class="ci-price">${c.price}</div>`;
+
+g.appendChild(el);
+
+});
 }
 
 function filterCat(cat,btn){
