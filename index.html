@@ -458,10 +458,11 @@ CAFE.forEach(c=>{
 const el=document.createElement('div');
 el.className='cafe-item';
 
-el.innerHTML=`<img src="${c.icon}" class="ci-icon">
+el.innerHTML = `
+<img src="${c.icon}" class="ci-icon">
 <div class="ci-name">${c.name}</div>
-<div class="ci-price">${c.price}</div>`;
-
+<div class="ci-price">${c.price}</div>
+`;
 g.appendChild(el);
 
 });
