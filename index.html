@@ -125,15 +125,26 @@ section{padding:86px 5%;position:relative;z-index:1}
 .feature-desc{font-size:12px;color:var(--muted);line-height:1.7}
 /* CAFE */
 #cafe{background:var(--bg)}
-.cafe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:15px}
-.cafe-item{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 16px;text-align:center;transition:border-color .2s,transform .2s;cursor:pointer}
+.cafe-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:24px;
+}
+.cafe-item{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:16px;
+padding:22px;
+text-align:center;
+transition:0.3s;
+}
 .cafe-item:hover{border-color:var(--blue);transform:translateY(-3px)}
 .ci-icon{
-width:60px;
-height:60px;
+width:90px;
+height:90px;
 object-fit:cover;
-border-radius:10px;
-margin-bottom:10px;
+border-radius:14px;
+margin-bottom:14px;
 display:block;
 margin-left:auto;
 margin-right:auto;
@@ -410,21 +421,21 @@ const PRODUCTS = [
 
 const CAFE = [
 
-{icon:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80",name:"Black Coffee",price:"₹40–₹60"},
+{icon:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",name:"Black Coffee",price:"₹40–₹60"},
 
-{icon:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=300&q=80",name:"Cold Brew",price:"₹80–₹100"},
+{icon:"https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80",name:"Cold Brew",price:"₹80–₹100"},
 
-{icon:"https://images.unsplash.com/photo-1551024709-8f23befc6c36?auto=format&fit=crop&w=300&q=80",name:"Protein Coffee",price:"₹90–₹120"},
+{icon:"https://images.unsplash.com/photo-1553531889-56cc480ac5cb?auto=format&fit=crop&w=400&q=80",name:"Protein Coffee",price:"₹90–₹120"},
 
-{icon:"https://images.unsplash.com/photo-1600271886742-f049cd5bba4c?auto=format&fit=crop&w=300&q=80",name:"Protein Shake",price:"₹100–₹150"},
+{icon:"https://images.unsplash.com/photo-1600271886742-f049cd5bba4c?auto=format&fit=crop&w=400&q=80",name:"Protein Shake",price:"₹100–₹150"},
 
-{icon:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=300&q=80",name:"Pre-Workout Shot",price:"₹70–₹90"},
+{icon:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=400&q=80",name:"Pre-Workout Shot",price:"₹70–₹90"},
 
-{icon:"https://images.unsplash.com/photo-1572441710534-680ebc0c1f31?auto=format&fit=crop&w=300&q=80",name:"Green Detox Shake",price:"₹80–₹110"},
+{icon:"https://images.unsplash.com/photo-1615485737651-a620de3f1f29?auto=format&fit=crop&w=400&q=80",name:"Green Detox Shake",price:"₹80–₹110"},
 
-{icon:"https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=300&q=80",name:"Chocolate Protein Shake",price:"₹120–₹150"},
+{icon:"https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80",name:"Chocolate Protein Shake",price:"₹120–₹150"},
 
-{icon:"https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=300&q=80",name:"Post-Workout Recovery",price:"₹130–₹160"}
+{icon:"https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=400&q=80",name:"Post-Workout Recovery",price:"₹130–₹160"}
 
 ];
 let cart = {};
