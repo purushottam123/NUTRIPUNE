@@ -287,6 +287,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 .tb-item{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;color:var(--mu);text-align:center}
 .tb-item .tbi{font-size:26px}
 .tb-item strong{font-size:11px;color:var(--tx);font-weight:600;line-height:1.4}
+.tb-item[href],.tb-item[onclick]{transition:transform var(--t)}
+.tb-item[href]:hover,.tb-item[onclick]:hover{transform:translateY(-3px)}
+.tb-item[href]:hover strong,.tb-item[onclick]:hover strong{color:var(--or)}
+.tb-item[href]:hover .tbi,.tb-item[onclick]:hover .tbi{filter:brightness(1.3)}
 
 /* SHOP BY LEVEL */
 .level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:0}
@@ -302,9 +306,14 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 .level-card.advanced::before{background:linear-gradient(135deg,rgba(245,86,74,.2),transparent)}
 .level-geo{position:absolute;inset:0;opacity:.25}
 .level-geo polygon{fill:rgba(255,255,255,.08)}
-.level-card .lc-label{position:relative;z-index:1;font-family:var(--fd);font-size:28px;color:var(--wh);letter-spacing:2px;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.6)}
-.level-card .lc-sub{position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;letter-spacing:1px;font-family:var(--fm);text-align:center}
+.level-card .lc-label{position:relative;z-index:1;font-family:var(--fd);font-size:28px;color:var(--wh);letter-spacing:2px;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.6);transition:opacity .3s}
+.level-card .lc-sub{position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;letter-spacing:1px;font-family:var(--fm);text-align:center;transition:opacity .3s}
 .lc-inner{display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;z-index:1}
+.lc-hover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;opacity:0;transition:opacity .3s;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);border-radius:var(--r)}
+.lc-hover .lc-quote{font-size:22px;margin-bottom:10px}
+.lc-hover .lc-desc{font-size:13px;color:rgba(255,255,255,.9);line-height:1.65;font-weight:400}
+.level-card:hover .lc-hover{opacity:1}
+.level-card:hover .lc-inner{opacity:0}
 
 /* SHOP BY GOAL */
 .goal-tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
@@ -421,12 +430,20 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 
 <!-- TRUST BAR -->
 <div class="trust-bar">
-  <div class="tb-item"><div class="tbi">🛡️</div><strong>100% Genuine<br>Products</strong></div>
-  <div class="tb-item"><div class="tbi">🚚</div><strong>Same Day<br>Pune Delivery</strong></div>
-  <div class="tb-item"><div class="tbi">💬</div><strong>Free Expert<br>Advice</strong></div>
-  <div class="tb-item"><div class="tbi">💰</div><strong>Best Price<br>Guaranteed</strong></div>
-  <div class="tb-item"><div class="tbi">📲</div><strong>WhatsApp<br>Orders</strong></div>
-  <div class="tb-item"><div class="tbi">✅</div><strong>Authenticity<br>Guaranteed</strong></div>
+  <div class="tb-item" style="cursor:default"><div class="tbi">🛡️</div><strong>100% Genuine<br>Products</strong></div>
+  <a class="tb-item" href="https://wa.me/917992296841?text=Hi%20NutriPune!%20I%20need%20delivery%20to%20Pune." target="_blank" style="cursor:pointer;text-decoration:none;color:inherit" title="Order for same day delivery">
+    <div class="tbi">🚚</div><strong>Same Day<br>Pune Delivery</strong>
+  </a>
+  <a class="tb-item" href="https://wa.me/917992296841?text=Hi%20NutriPune!%20I%20need%20advice%20on%20which%20supplement%20to%20buy." target="_blank" style="cursor:pointer;text-decoration:none;color:inherit" title="Get free expert advice on WhatsApp">
+    <div class="tbi">💬</div><strong>Free Expert<br>Advice</strong>
+  </a>
+  <a class="tb-item" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="cursor:pointer" title="Contact us for best price">
+    <div class="tbi">💰</div><strong>Best Price<br>Guaranteed</strong>
+  </a>
+  <a class="tb-item" href="https://wa.me/917992296841" target="_blank" style="cursor:pointer;text-decoration:none;color:inherit" title="Order on WhatsApp">
+    <div class="tbi">📲</div><strong>WhatsApp<br>Orders</strong>
+  </a>
+  <div class="tb-item" style="cursor:default"><div class="tbi">✅</div><strong>Authenticity<br>Guaranteed</strong></div>
 </div>
 
 
@@ -448,6 +465,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
         <div class="lc-label">BEGINNER</div>
         <div class="lc-sub">0–1 year training</div>
       </div>
+      <div class="lc-hover">
+        <div class="lc-quote">💬</div>
+        <div class="lc-desc">For all budding health buffs who are just starting out on their fitness journey. Whey protein and multivitamins are your foundation.</div>
+      </div>
     </div>
     <div class="level-card intermediate" onclick="filterAndScroll('intermediate')">
       <svg class="level-geo" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
@@ -459,6 +480,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
         <div class="lc-label">INTERMEDIATE</div>
         <div class="lc-sub">1–3 years training</div>
       </div>
+      <div class="lc-hover">
+        <div class="lc-quote">💬</div>
+        <div class="lc-desc">In the middle of your fitness journey and looking to improve? This range is for you. Add creatine, BCAA and pre-workout to your stack.</div>
+      </div>
     </div>
     <div class="level-card advanced" onclick="filterAndScroll('advanced')">
       <svg class="level-geo" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
@@ -469,6 +494,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
       <div class="lc-inner">
         <div class="lc-label">ADVANCED</div>
         <div class="lc-sub">3+ years · competition level</div>
+      </div>
+      <div class="lc-hover">
+        <div class="lc-quote">💬</div>
+        <div class="lc-desc">The perfect range for serious athletes who have advanced well into their fitness journey. Full stack — isolate, creatine, pre-workout, fat burner.</div>
       </div>
     </div>
   </div>
@@ -836,6 +865,135 @@ const PRODUCTS = [
    desc:"Combo pack of MuscleBlaze Creatine MonoHydrate CreAMP 100g and Pre-Workout 200 Xtreme. Stack creatine with your pre-workout for maximum strength and performance.",
    facts:[["Creatine","5g/serving"],["Pre-Workout","Included"],["Savings","35%"],["Best For","Strength + Pump"]],
    tags:["Combo Pack","Save 35%","Creatine + PWO","Stack Deal"]},
+
+  // ─── MUSCLEBLAZE VITAMINS & SUPPLEMENTS ───
+  {id:30,cat:"vitamins",brand:"MuscleBlaze",name:"Koshaveda Ashwagandha AF-43 600mg 60 caps",shortName:"Koshaveda Ashwagandha AF-43 60 caps",icon:"🌿",
+   img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",
+   price:499,mrp:749,badge:"33% OFF",
+   desc:"AF-43 ashwagandha extract — highest concentration full-spectrum root. Clinically proven to reduce cortisol, boost testosterone and improve strength. 600mg per capsule.",
+   facts:[["Ashwagandha","600mg AF-43"],["Withanolides","5%+"],["Capsules","60"],["Type","Full Spectrum Root"]],
+   tags:["AF-43 Extract","Reduces Cortisol","Boosts Testosterone","Ayurvedic"]},
+  {id:31,cat:"vitamins",brand:"MuscleBlaze",name:"Biozyme 5 in 1 Multivitamin 90 tabs",shortName:"MB Biozyme 5-in-1 Multivitamin 90 tabs",icon:"💊",
+   img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",
+   price:949,mrp:1159,badge:"18% OFF",
+   desc:"5-in-1 formula: protein absorption, gut health, energy, immunity and joint support. With digestive enzymes and probiotics for enhanced nutrient utilisation.",
+   facts:[["Vitamins","20+"],["Probiotics","Yes"],["Enzymes","Digestive"],["Tablets","90"]],
+   tags:["5-in-1 Formula","Protein Absorption","Gut Health","Energy"]},
+  {id:32,cat:"vitamins",brand:"MuscleBlaze",name:"Fish Oil 1000mg + MB-Vite Multivitamin Combo 60 tabs",shortName:"MB Fish Oil + Multivitamin Combo",icon:"🐟",
+   img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",
+   price:899,mrp:1199,badge:"25% OFF",
+   desc:"Powerful combo of omega-3 fish oil and daily multivitamin. Supports joint health, immunity and complete daily nutrition for active individuals.",
+   facts:[["Fish Oil","1000mg"],["EPA+DHA","300mg"],["Multivitamin","Included"],["Tablets","60"]],
+   tags:["Omega-3 Combo","Joint Health","Immunity","Daily Nutrition"]},
+  {id:33,cat:"vitamins",brand:"MuscleBlaze",name:"Omega 3 Fish Oil 1000mg 90 caps",shortName:"MB Omega 3 Fish Oil 90 caps",icon:"🐟",
+   img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",
+   price:599,mrp:849,badge:"29% OFF",
+   desc:"Omega-3 fish oil with 180mg EPA and 120mg DHA per capsule. Promotes lean muscle growth, reduces inflammation, enhances joint flexibility and boosts immunity.",
+   facts:[["Fish Oil","1000mg"],["EPA","180mg"],["DHA","120mg"],["Capsules","90"]],
+   tags:["180mg EPA","120mg DHA","No Fishy Aftertaste","Joint Health"]},
+  {id:34,cat:"vitamins",brand:"MuscleBlaze",name:"Koshaveda Shilajit Pro Gold 60 tabs",shortName:"Koshaveda Shilajit Pro Gold 60 tabs",icon:"🌿",
+   img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",
+   price:659,mrp:939,badge:"29% OFF",
+   desc:"Pure Himalayan shilajit gold formula. Rich in fulvic acid and 84+ minerals. Supports testosterone, strength, stamina and cognitive function.",
+   facts:[["Fulvic Acid","Yes"],["Minerals","84+"],["Tablets","60"],["Type","Gold Formula"]],
+   tags:["Himalayan Shilajit","Fulvic Acid","Testosterone Support","84+ Minerals"]},
+  {id:35,cat:"vitamins",brand:"MuscleBlaze",name:"MB-VITE Daily Multivitamin 60 tabs",shortName:"MB-VITE Daily Multivitamin 60 tabs",icon:"💊",
+   img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",
+   price:529,mrp:629,badge:"15% OFF",
+   desc:"Daily multivitamin for enhanced energy, stamina and gut health. 20+ vitamins and minerals. Supports energy metabolism, immunity and muscle function.",
+   facts:[["Vitamins","20+"],["Gut Health","Yes"],["Energy","Enhanced"],["Tablets","60"]],
+   tags:["Daily Use","20+ Nutrients","Energy & Stamina","Gut Health"]},
+  {id:36,cat:"vitamins",brand:"MuscleBlaze",name:"MB-VITE Daily Multivitamin 120 tabs",shortName:"MB-VITE Daily Multivitamin 120 tabs",icon:"💊",
+   img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",
+   price:949,mrp:1159,badge:"18% OFF",
+   desc:"Economy 120-tablet pack of MB-VITE. Best value for daily multivitamin supplementation. Covers energy, immunity, stamina and gut health.",
+   facts:[["Vitamins","20+"],["Tablets","120"],["Best For","Daily Use"],["Value","Economy Pack"]],
+   tags:["120 Tabs","Economy Pack","Daily Multivitamin","Best Value"]},
+  {id:37,cat:"vitamins",brand:"MuscleBlaze",name:"Omega 3 Fish Oil Gold 3x Triple Strength 60 caps",shortName:"MB Fish Oil Gold 3x Strength 60 caps",icon:"🐟",
+   img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",
+   price:875,mrp:1209,badge:"27% OFF",
+   desc:"Triple strength omega-3 with 3x concentrated EPA and DHA per capsule. Fewer capsules, more benefit. Superior joint, heart and brain support.",
+   facts:[["Strength","3x Triple"],["EPA+DHA","900mg+"],["Capsules","60"],["Type","Gold Formula"]],
+   tags:["3x Triple Strength","High EPA+DHA","Fewer Capsules","Gold Formula"]},
+  {id:38,cat:"vitamins",brand:"MuscleBlaze",name:"Koshaveda Shilajit Pro 20g",shortName:"Koshaveda Shilajit Pro 20g",icon:"🌿",
+   img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",
+   price:939,mrp:1299,badge:"27% OFF",
+   desc:"Pure Himalayan shilajit resin. 85+ minerals in ionic form. Traditionally used to improve strength, stamina, testosterone and overall vitality.",
+   facts:[["Form","Pure Resin"],["Minerals","85+"],["Weight","20g"],["Origin","Himalayan"]],
+   tags:["Pure Resin","Himalayan Source","85+ Minerals","Testosterone"]},
+  {id:39,cat:"vitamins",brand:"MuscleBlaze",name:"Koshaveda Ayurveda Ashwagandha 500mg 60 tabs",shortName:"Koshaveda Ashwagandha 500mg 60 tabs",icon:"🌿",
+   img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",
+   price:349,mrp:399,badge:"12% OFF",
+   desc:"Ayurveda for Performance series. KSM-66 ashwagandha root extract. Reduces stress, boosts stamina and supports natural testosterone levels.",
+   facts:[["Ashwagandha","500mg"],["Type","KSM-66 Root"],["Tablets","60"],["Series","Ayurveda for Performance"]],
+   tags:["KSM-66 Root","Reduces Stress","Stamina","Natural Testosterone"]},
+  {id:40,cat:"vitamins",brand:"MuscleBlaze",name:"StrongHer Women Multivitamin 60 tabs",shortName:"MB StrongHer Women Multivitamin 60 tabs",icon:"💊",
+   img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",
+   price:599,mrp:719,badge:"16% OFF",
+   desc:"Specially formulated multivitamin for active women. Supports energy, stamina, bone health, skin and hormonal balance. With iron, calcium and folate.",
+   facts:[["For","Women"],["Iron","Yes"],["Calcium","Yes"],["Tablets","60"]],
+   tags:["For Women","Bone Health","Hormonal Balance","Iron + Calcium"]},
+  {id:41,cat:"vitamins",brand:"MuscleBlaze",name:"L-Arginine 90 caps",shortName:"MB L-Arginine 90 caps",icon:"💊",
+   img:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=500&q=80",
+   price:675,mrp:979,badge:"31% OFF",
+   desc:"L-Arginine is a conditionally essential amino acid. Supports nitric oxide production for better blood flow, pumps, endurance and recovery.",
+   facts:[["L-Arginine","Per capsule"],["Capsules","90"],["Benefit","Nitric Oxide"],["Best For","Pump & Endurance"]],
+   tags:["Nitric Oxide","Blood Flow","90 Caps","Pump & Endurance"]},
+  {id:42,cat:"vitamins",brand:"MuscleBlaze",name:"CLA 1000 Fat Burner 90 caps",shortName:"MB CLA 1000 Fat Burner 90 caps",icon:"🔥",
+   img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?auto=format&fit=crop&w=500&q=80",
+   price:825,mrp:889,badge:"7% OFF",
+   desc:"Conjugated Linoleic Acid supplement. Supports fat loss while preserving lean muscle mass. Works best combined with diet and regular training.",
+   facts:[["CLA","1000mg"],["Capsules","90"],["Best For","Fat Loss"],["Type","Soft Gel"]],
+   tags:["CLA 1000mg","Preserves Muscle","Fat Oxidation","Soft Gel"]},
+  {id:43,cat:"vitamins",brand:"MuscleBlaze",name:"Koshaveda Gokshura Pro 60 tabs",shortName:"Koshaveda Gokshura Pro 60 tabs",icon:"🌿",
+   img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",
+   price:319,mrp:399,badge:"20% OFF",
+   desc:"Tribulus terrestris based testosterone booster. Supports strength, stamina and libido. Traditional Ayurvedic formula validated for sports performance.",
+   facts:[["Gokshura","500mg"],["Tablets","60"],["Benefit","Testosterone"],["Type","Ayurvedic"]],
+   tags:["Testosterone Support","Ayurvedic","Strength","Stamina"]},
+  {id:44,cat:"vitamins",brand:"MuscleBlaze",name:"Koshaveda Tribulus 500mg 60 tabs",shortName:"Koshaveda Tribulus 500mg 60 tabs",icon:"🌿",
+   img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",
+   price:299,mrp:379,badge:"21% OFF",
+   desc:"Tribulus terrestris extract at 500mg per tablet. Natural testosterone support. Improves strength, stamina and muscle growth naturally.",
+   facts:[["Tribulus","500mg"],["Tablets","60"],["Benefit","Natural Testosterone"],["Extract","Standardised"]],
+   tags:["Tribulus 500mg","Natural T-Booster","60 Tabs","Standardised Extract"]},
+  {id:45,cat:"vitamins",brand:"MuscleBlaze",name:"Koshaveda Shilajit Ashwa Gold WSG-77 20g",shortName:"Koshaveda Shilajit Ashwa Gold 20g",icon:"🌿",
+   img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",
+   price:1319,mrp:1689,badge:"21% OFF",
+   desc:"Premium combination of Shilajit and Ashwagandha in gold formula WSG-77. Dual adaptogen stack for maximum testosterone, strength and stress relief.",
+   facts:[["Shilajit","Yes"],["Ashwagandha","Yes"],["Weight","20g"],["Formula","WSG-77 Gold"]],
+   tags:["Shilajit + Ashwagandha","WSG-77","Dual Adaptogen","Gold Formula"]},
+  {id:46,cat:"vitamins",brand:"MuscleBlaze",name:"Koshaveda Prash Pro 500g",shortName:"Koshaveda Prash Pro 500g",icon:"🌿",
+   img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",
+   price:569,mrp:799,badge:"28% OFF",
+   desc:"Modern Chyawanprash with 40+ Ayurvedic herbs. Boosts immunity, energy and stamina. Supports respiratory health and overall well-being.",
+   facts:[["Herbs","40+"],["Weight","500g"],["Type","Prash/Chyawanprash"],["Benefit","Immunity"]],
+   tags:["40+ Herbs","Immunity","Chyawanprash","Energy & Stamina"]},
+  {id:47,cat:"vitamins",brand:"MuscleBlaze",name:"Omega 3 Fish Oil 1000mg 60 caps",shortName:"MB Omega 3 Fish Oil 60 caps",icon:"🐟",
+   img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",
+   price:475,mrp:679,badge:"30% OFF",
+   desc:"Omega-3 fish oil with 180mg EPA and 120mg DHA. Supports heart health, reduces inflammation, promotes joint flexibility and muscle recovery.",
+   facts:[["Fish Oil","1000mg"],["EPA","180mg"],["DHA","120mg"],["Capsules","60"]],
+   tags:["Omega-3","180mg EPA","Heart Health","Joint Support"]},
+  {id:48,cat:"vitamins",brand:"MuscleBlaze",name:"Milk Thistle 60 caps",shortName:"MB Milk Thistle 60 caps",icon:"🌿",
+   img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",
+   price:649,mrp:789,badge:"17% OFF",
+   desc:"Milk Thistle extract with silymarin for liver protection and detoxification. Supports liver health especially for those using supplements regularly.",
+   facts:[["Milk Thistle","Per capsule"],["Silymarin","Standardised"],["Capsules","60"],["Benefit","Liver Health"]],
+   tags:["Liver Support","Silymarin","Detox","Supplement Users"]},
+  // ─── MUSCLEBLAZE COMBO STACKS ───
+  {id:50,cat:"vitamins",brand:"MuscleBlaze",name:"Beginner Gym Stack",shortName:"MB Beginner Gym Stack",icon:"🏋️",
+   img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80",
+   price:4299,mrp:5895,badge:"27% OFF · Stack",
+   desc:"Complete starter stack for beginners. Includes whey protein, multivitamin and basic supplements to kickstart your fitness journey.",
+   facts:[["Contents","Whey + Multivit"],["Saving","₹1596"],["Best For","Beginners"],["Type","Stack Deal"]],
+   tags:["Beginner Friendly","Complete Stack","27% Savings","Value Deal"]},
+  {id:51,cat:"vitamins",brand:"MuscleBlaze",name:"Ultimate Fit Stack",shortName:"MB Ultimate Fit Stack",icon:"🏆",
+   img:"https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=500&q=80",
+   price:6599,mrp:9605,badge:"31% OFF · Stack",
+   desc:"The ultimate supplement stack for serious athletes. Complete coverage — protein, creatine, pre-workout, vitamins and more in one bundle.",
+   facts:[["Contents","Full Stack"],["Saving","₹3006"],["Best For","Advanced"],["Type","Ultimate Bundle"]],
+   tags:["Ultimate Stack","31% Savings","Full Coverage","Advanced Athletes"]},
   {id:15,cat:"accessories",brand:"NutriPune",name:"Protein Shaker 700ml",shortName:"Protein Shaker 700ml",icon:"🥤",
    img:"https://images.unsplash.com/photo-1622980087741-f80f26090309?auto=format&fit=crop&w=500&q=80",
    price:349,mrp:599,
