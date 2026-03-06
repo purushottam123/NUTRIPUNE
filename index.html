@@ -329,49 +329,72 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 .gp-tag:hover{border-color:var(--or);color:var(--or)}
 
 /* SHOP BY BRAND */
-.brand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
-.brand-card{border-radius:var(--r);overflow:hidden;cursor:pointer;position:relative;height:100px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);transition:transform var(--t),border-color var(--t)}
-.brand-card:hover{transform:translateY(-3px);border-color:var(--or)}
-.brand-logo{font-family:var(--fd);font-size:16px;letter-spacing:1px;font-weight:700;z-index:1;position:relative;text-align:center;line-height:1.2}
-.brand-sub{font-size:9px;font-family:var(--fm);letter-spacing:2px;opacity:.6;margin-top:4px;text-align:center}
-.bc-mb{background:linear-gradient(145deg,#0d0d0d,#1a1a1a)}
-.bc-scitron{background:linear-gradient(145deg,#050510,#0a0a20)}
-.bc-asitis{background:linear-gradient(145deg,#051005,#0a1a0a)}
-.bc-on{background:linear-gradient(145deg,#120800,#1e1000)}
-.bc-hkvitals{background:linear-gradient(145deg,#001515,#001a1a)}
-.bc-avvatar{background:linear-gradient(145deg,#0d0520,#160a30)}
-.bc-bigmuscles{background:linear-gradient(145deg,#130a00,#201200)}
-.bc-nutrabay{background:linear-gradient(145deg,#001510,#002018)}
-.bc-healthfarm{background:linear-gradient(145deg,#150700,#200d00)}
-.bc-zedon{background:linear-gradient(145deg,#150015,#200020)}
-.bc-beastlife{background:linear-gradient(145deg,#150000,#220000)}
-.bc-muscletech{background:linear-gradient(145deg,#00051a,#000a2a)}
-.bc-myprotein{background:linear-gradient(145deg,#001a1a,#002222)}
-.bc-dymatize{background:linear-gradient(145deg,#080010,#100020)}
-.bc-isopure{background:linear-gradient(145deg,#001510,#002018)}
-.bc-gnc{background:linear-gradient(145deg,#151000,#221800)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .bc-domin8r{background:linear-gradient(145deg,#150005,#220008)}
-.bc-ssn{background:linear-gradient(145deg,#081500,#102200)}
-.bc-bsn{background:linear-gradient(145deg,#150010,#200018)}
-.bc-bullpharm{background:linear-gradient(145deg,#151000,#221800)}
-.bc-fastup{background:linear-gradient(145deg,#001520,#002030)}
-.bc-oziva{background:linear-gradient(145deg,#041508,#081f0d)}
-.bc-himalaya{background:linear-gradient(145deg,#001a12,#002218)}
-.bc-ult{background:linear-gradient(145deg,#100020,#180030)}
-.bc-denzour{background:linear-gradient(145deg,#120f00,#1e1800)}
-.bc-nutripune{background:linear-gradient(145deg,#1a0800,#251000)}
+
+
+
+
+
+
+
+
+
 
 @media(max-width:768px){
   .level-grid{grid-template-columns:1fr}
   .level-card{height:140px}
   .trust-bar{gap:24px}
-  .brand-grid{grid-template-columns:repeat(2,1fr)}
+  
 }
 @media(max-width:480px){
-  .brand-grid{grid-template-columns:1fr 1fr}
+  
   .goal-tabs{gap:6px}
   .gtab{padding:7px 14px;font-size:12px}
 }
+
+/* ── BRAND LOGO CARDS ── */
+.brand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.brand-card{
+  border-radius:var(--r);cursor:pointer;position:relative;
+  height:105px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;padding:10px 8px;
+  border:1px solid var(--border);background:var(--ink2);
+  transition:transform .2s,border-color .2s,background .2s
+}
+.brand-card:hover{transform:translateY(-3px);border-color:var(--or);background:var(--ink3)}
+.brand-card:hover .bli{filter:brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(340deg)}
+.blw{width:80px;height:44px;display:flex;align-items:center;justify-content:center}
+.bli{max-width:78px;max-height:40px;object-fit:contain;filter:brightness(0) invert(.85);transition:filter .2s}
+.blf{display:none;font-family:var(--fd);font-size:13px;font-weight:700;color:var(--or);text-align:center;line-height:1.2}
+.bcn{font-size:8.5px;font-family:var(--fd);font-weight:700;color:var(--wh);letter-spacing:.8px;text-align:center;margin-top:2px}
+.bcs{font-size:7.5px;font-family:var(--fm);color:rgba(255,255,255,.4);letter-spacing:.5px;text-align:center}
+.bc-np{background:linear-gradient(135deg,#1a0800,#260e00)}
+.np-logo{color:#f97316;font-size:15px}
+.np-logo span{color:#fff}
+@media(max-width:768px){.brand-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.brand-grid{grid-template-columns:repeat(2,1fr)}}
+
 </style>
 </head>
 <body>
@@ -562,86 +585,242 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
     <p class="ssub">We stock only from authorised brand distributors. Every product is genuine with original certification.</p>
   </div>
   <div class="brand-grid reveal">
-    <!-- ROW 1: Indian Brands -->
-    <div class="brand-card bc-mb" onclick="filterBrand('MuscleBlaze')">
-      <div><div class="brand-logo" style="color:#f97316">MUSCLEBLAZE</div><div class="brand-sub">India's #1 Supplement</div></div>
+    <div class="brand-card" onclick="filterBrand('MuscleBlaze')" title="MuscleBlaze">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/muscleblaze.com" alt="MuscleBlaze" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">MuscleBlaze</span>
+      </div>
+      <div class="bcn">MuscleBlaze</div>
+      <div class="bcs">India's #1</div>
     </div>
-    <div class="brand-card bc-scitron" onclick="filterBrand('Scitron')">
-      <div><div class="brand-logo" style="color:#4c9ff5">SCITRON</div><div class="brand-sub">Pune's Own Brand</div></div>
+    <div class="brand-card" onclick="filterBrand('Scitron')" title="Scitron">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/scitron.in" alt="Scitron" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Scitron</span>
+      </div>
+      <div class="bcn">Scitron</div>
+      <div class="bcs">Pune's Own Brand</div>
     </div>
-    <div class="brand-card bc-asitis" onclick="filterBrand('AS-IT-IS')">
-      <div><div class="brand-logo" style="color:#22c55e">AS-IT-IS</div><div class="brand-sub">Pure. Raw. Certified.</div></div>
+    <div class="brand-card" onclick="filterBrand('AS-IT-IS')" title="AS-IT-IS">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/asitisnutrition.com" alt="AS-IT-IS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">AS-IT-IS</span>
+      </div>
+      <div class="bcn">AS-IT-IS</div>
+      <div class="bcs">Pure. Raw. Certified</div>
     </div>
-    <div class="brand-card bc-avvatar" onclick="filterBrand('Avvatar')">
-      <div><div class="brand-logo" style="color:#a78bfa">AVVATAR</div><div class="brand-sub">Fresh Cow's Milk Whey</div></div>
+    <div class="brand-card" onclick="filterBrand('Avvatar')" title="Avvatar">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/avvatarnutrition.com" alt="Avvatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Avvatar</span>
+      </div>
+      <div class="bcn">Avvatar</div>
+      <div class="bcs">Fresh Cow's Milk</div>
     </div>
-    <div class="brand-card bc-hkvitals" onclick="filterBrand('HK Vitals')">
-      <div><div class="brand-logo" style="color:#06b6d4">HK VITALS</div><div class="brand-sub">by HealthKart</div></div>
+    <div class="brand-card" onclick="filterBrand('HK Vitals')" title="HK Vitals">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/hkvitals.com" alt="HK Vitals" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">HK Vitals</span>
+      </div>
+      <div class="bcn">HK Vitals</div>
+      <div class="bcs">by HealthKart</div>
     </div>
-    <div class="brand-card bc-bigmuscles" onclick="filterBrand('BigMuscles')">
-      <div><div class="brand-logo" style="color:#f59e0b">BIGMUSCLES</div><div class="brand-sub">Budget King</div></div>
+    <div class="brand-card" onclick="filterBrand('BigMuscles')" title="BigMuscles">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/bigmusclesnutrition.com" alt="BigMuscles" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">BigMuscles</span>
+      </div>
+      <div class="bcn">BigMuscles</div>
+      <div class="bcs">Budget King</div>
     </div>
-    <div class="brand-card bc-nutrabay" onclick="filterBrand('Nutrabay')">
-      <div><div class="brand-logo" style="color:#10b981">NUTRABAY</div><div class="brand-sub">Gold Series</div></div>
+    <div class="brand-card" onclick="filterBrand('Nutrabay')" title="Nutrabay">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/nutrabay.com" alt="Nutrabay" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Nutrabay</span>
+      </div>
+      <div class="bcn">Nutrabay</div>
+      <div class="bcs">Gold Series</div>
     </div>
-    <div class="brand-card bc-healthfarm" onclick="filterBrand('HealthFarm')">
-      <div><div class="brand-logo" style="color:#fb923c">HEALTHFARM</div><div class="brand-sub">Signature Nutrition</div></div>
+    <div class="brand-card" onclick="filterBrand('HealthFarm')" title="HealthFarm">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/healthfarm.in" alt="HealthFarm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">HealthFarm</span>
+      </div>
+      <div class="bcn">HealthFarm</div>
+      <div class="bcs">Signature Nutrition</div>
     </div>
-    <div class="brand-card bc-zedon" onclick="filterBrand('Zedon')">
-      <div><div class="brand-logo" style="color:#e879f9">ZEDON</div><div class="brand-sub">ISO-ZED Ripped Series</div></div>
+    <div class="brand-card" onclick="filterBrand('Zedon')" title="Zedon">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/zedonnutrition.com" alt="Zedon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Zedon</span>
+      </div>
+      <div class="bcn">Zedon</div>
+      <div class="bcs">ISO-ZED Ripped</div>
     </div>
-    <div class="brand-card bc-beastlife" onclick="filterBrand('BeastLife')">
-      <div><div class="brand-logo" style="color:#ef4444">BEASTLIFE</div><div class="brand-sub">Ultrasorb Technology</div></div>
+    <div class="brand-card" onclick="filterBrand('BeastLife')" title="BeastLife">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/beastlife.in" alt="BeastLife" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">BeastLife</span>
+      </div>
+      <div class="bcn">BeastLife</div>
+      <div class="bcs">Ultrasorb Technology</div>
     </div>
-    <!-- ROW 2: International Brands -->
-    <div class="brand-card bc-on" onclick="filterBrand('ON')">
-      <div><div class="brand-logo" style="color:#f97316">OPTIMUM<br>NUTRITION</div><div class="brand-sub">World No. 1</div></div>
+    <div class="brand-card" onclick="filterBrand('Denzour')" title="Denzour">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/denzour.com" alt="Denzour" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Denzour</span>
+      </div>
+      <div class="bcn">Denzour</div>
+      <div class="bcs">Desi Flavours</div>
     </div>
-    <div class="brand-card bc-muscletech" onclick="filterBrand('MuscleTech')">
-      <div><div class="brand-logo" style="color:#3b82f6">MUSCLETECH</div><div class="brand-sub">Scientifically Advanced</div></div>
+    <div class="brand-card" onclick="filterBrand('ON')" title="ON">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/optimumnutrition.com" alt="ON" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">ON</span>
+      </div>
+      <div class="bcn">ON</div>
+      <div class="bcs">World No. 1</div>
     </div>
-    <div class="brand-card bc-myprotein" onclick="filterBrand('Myprotein')">
-      <div><div class="brand-logo" style="color:#22d3ee">MYPROTEIN</div><div class="brand-sub">World Best Seller</div></div>
+    <div class="brand-card" onclick="filterBrand('MuscleTech')" title="MuscleTech">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/muscletech.com" alt="MuscleTech" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">MuscleTech</span>
+      </div>
+      <div class="bcn">MuscleTech</div>
+      <div class="bcs">Scientifically Advanced</div>
     </div>
-    <div class="brand-card bc-dymatize" onclick="filterBrand('Dymatize')">
-      <div><div class="brand-logo" style="color:#818cf8">DYMATIZE</div><div class="brand-sub">Elite Hydrolyzed Isolate</div></div>
+    <div class="brand-card" onclick="filterBrand('Myprotein')" title="Myprotein">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/myprotein.co.in" alt="Myprotein" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Myprotein</span>
+      </div>
+      <div class="bcn">Myprotein</div>
+      <div class="bcs">80+ Flavours</div>
     </div>
-    <div class="brand-card bc-isopure" onclick="filterBrand('Isopure')">
-      <div><div class="brand-logo" style="color:#34d399">ISOPURE</div><div class="brand-sub">Zero Carb Specialists</div></div>
+    <div class="brand-card" onclick="filterBrand('Dymatize')" title="Dymatize">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/dymatize.com" alt="Dymatize" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Dymatize</span>
+      </div>
+      <div class="bcn">Dymatize</div>
+      <div class="bcs">Elite Hydrolyzed</div>
     </div>
-    <div class="brand-card bc-gnc" onclick="filterBrand('GNC')">
-      <div><div class="brand-logo" style="color:#fbbf24">GNC</div><div class="brand-sub">Global Nutrition Leader</div></div>
+    <div class="brand-card" onclick="filterBrand('Isopure')" title="Isopure">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/theisopurecompany.com" alt="Isopure" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Isopure</span>
+      </div>
+      <div class="bcn">Isopure</div>
+      <div class="bcs">Zero Carb Specialists</div>
     </div>
-    <div class="brand-card bc-domin8r" onclick="filterBrand('Domin8r')">
-      <div><div class="brand-logo" style="color:#f43f5e">DOMIN8R</div><div class="brand-sub">Heavyweight Performance</div></div>
+    <div class="brand-card" onclick="filterBrand('GNC')" title="GNC">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/gnc.com" alt="GNC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">GNC</span>
+      </div>
+      <div class="bcn">GNC</div>
+      <div class="bcs">Global Nutrition</div>
     </div>
-    <div class="brand-card bc-ssn" onclick="filterBrand('SSN')">
-      <div><div class="brand-logo" style="color:#a3e635">SSN</div><div class="brand-sub">Advanced Nutrition</div></div>
+    <div class="brand-card" onclick="filterBrand('Domin8r')" title="Domin8r">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/domin8rnutrition.com" alt="Domin8r" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Domin8r</span>
+      </div>
+      <div class="bcn">Domin8r</div>
+      <div class="bcs">Heavyweight Performance</div>
     </div>
-    <div class="brand-card bc-bsn" onclick="filterBrand('BSN')">
-      <div><div class="brand-logo" style="color:#fb7185">BSN</div><div class="brand-sub">Syntha-6 & NO-Xplode</div></div>
+    <div class="brand-card" onclick="filterBrand('SSN')" title="SSN">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/ssnbodybuilding.com" alt="SSN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">SSN</span>
+      </div>
+      <div class="bcn">SSN</div>
+      <div class="bcs">Advanced Nutrition</div>
     </div>
-    <div class="brand-card bc-bullpharm" onclick="filterBrand('Bull Pharm')">
-      <div><div class="brand-logo" style="color:#fcd34d">BULL PHARM</div><div class="brand-sub">Premium Hardcore</div></div>
+    <div class="brand-card" onclick="filterBrand('BSN')" title="BSN">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/bsnusa.com" alt="BSN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">BSN</span>
+      </div>
+      <div class="bcn">BSN</div>
+      <div class="bcs">Syntha-6 & NO-Xplode</div>
     </div>
-    <!-- ROW 3: Wellness Brands -->
-    <div class="brand-card bc-fastup" onclick="filterBrand('FastUp')">
-      <div><div class="brand-logo" style="color:#38bdf8">FAST&UP</div><div class="brand-sub">Effervescent Experts</div></div>
+    <div class="brand-card" onclick="filterBrand('Bull Pharm')" title="Bull Pharm">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/bullpharm.com" alt="Bull Pharm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Bull Pharm</span>
+      </div>
+      <div class="bcn">Bull Pharm</div>
+      <div class="bcs">Premium Hardcore</div>
     </div>
-    <div class="brand-card bc-oziva" onclick="filterBrand('Oziva')">
-      <div><div class="brand-logo" style="color:#86efac">OZIVA</div><div class="brand-sub">Plant-Based & Clean</div></div>
+    <div class="brand-card" onclick="filterBrand('Mydrol')" title="Mydrol">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/mydrol.in" alt="Mydrol" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Mydrol</span>
+      </div>
+      <div class="bcn">Mydrol</div>
+      <div class="bcs">Hardcore Strength</div>
     </div>
-    <div class="brand-card bc-himalaya" onclick="filterBrand('Himalaya')">
-      <div><div class="brand-logo" style="color:#6ee7b7">HIMALAYA</div><div class="brand-sub">Ayurvedic Wellness</div></div>
+    <div class="brand-card" onclick="filterBrand('Ultimate Nutrition')" title="Ultimate Nutrition">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/ultimatenutrition.com" alt="Ultimate Nutrition" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Ultimate Nutrition</span>
+      </div>
+      <div class="bcn">Ultimate Nutrition</div>
+      <div class="bcs">Prostar Legacy</div>
     </div>
-    <div class="brand-card bc-ult" onclick="filterBrand('Ultimate Nutrition')">
-      <div><div class="brand-logo" style="color:#c084fc">ULTIMATE<br>NUTRITION</div><div class="brand-sub">Prostar Legacy</div></div>
+    <div class="brand-card" onclick="filterBrand('FastUp')" title="FastUp">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/fastandup.in" alt="FastUp" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">FastUp</span>
+      </div>
+      <div class="bcn">FastUp</div>
+      <div class="bcs">Effervescent Experts</div>
     </div>
-    <div class="brand-card bc-denzour" onclick="filterBrand('Denzour')">
-      <div><div class="brand-logo" style="color:#fde68a">DENZOUR</div><div class="brand-sub">Unique Desi Flavours</div></div>
+    <div class="brand-card" onclick="filterBrand('Oziva')" title="Oziva">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/oziva.in" alt="Oziva" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Oziva</span>
+      </div>
+      <div class="bcn">Oziva</div>
+      <div class="bcs">Plant-Based Clean</div>
     </div>
-    <div class="brand-card bc-nutripune" onclick="filterBrand('NutriPune')">
-      <div><div class="brand-logo" style="color:#f97316">NUTRI<span style="color:#fff">PUNE</span></div><div class="brand-sub">Our Own Brand</div></div>
+    <div class="brand-card" onclick="filterBrand('Himalaya')" title="Himalaya">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/himalayawellness.com" alt="Himalaya" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Himalaya</span>
+      </div>
+      <div class="bcn">Himalaya</div>
+      <div class="bcs">Ayurvedic Wellness</div>
+    </div>
+    <div class="brand-card" onclick="filterBrand('Thorne')" title="Thorne">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/thorne.com" alt="Thorne" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Thorne</span>
+      </div>
+      <div class="bcn">Thorne</div>
+      <div class="bcs">Research Grade Purity</div>
+    </div>
+    <div class="brand-card" onclick="filterBrand('Centrum')" title="Centrum">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/centrum.com" alt="Centrum" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Centrum</span>
+      </div>
+      <div class="bcn">Centrum</div>
+      <div class="bcs">World Most Trusted Multivit</div>
+    </div>
+    <div class="brand-card" onclick="filterBrand('Amway')" title="Amway">
+      <div class="blw">
+        <img class="bli" src="https://logo.clearbit.com/nutrilite.com" alt="Amway" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="blf">Amway</span>
+      </div>
+      <div class="bcn">Amway</div>
+      <div class="bcs">Certified Organic</div>
+    </div>
+    <div class="brand-card bc-np" onclick="filterBrand('NutriPune')" title="NutriPune">
+      <div class="blw"><span class="blf np-logo">NUTRI<span>PUNE</span></span></div>
+      <div class="bcn">NutriPune</div>
+      <div class="bcs">Our Own Brand</div>
     </div>
   </div>
 </section>
@@ -1365,6 +1544,252 @@ const PRODUCTS = [
   {id:1179,cat:"vitamins",brand:"GNC",name:"Melatonin 3mg 120 tabs",shortName:"GNC Melatonin 3mg 120 tabs",icon:"🌙",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:529,mrp:529,badge:"Sleep",desc:"GNC Melatonin for deep sleep, faster sleep onset and jet lag recovery. Non-habit forming.",facts:[["Melatonin","3mg"],["Tablets","120"],["Benefit","Deep Sleep"],["Habit Forming","No"]],tags:["Melatonin","Deep Sleep","Non-Habit Forming","120 Tabs"]},
   {id:1180,cat:"vitamins",brand:"GNC",name:"Pro Performance L-Carnitine 60 tabs",shortName:"GNC L-Carnitine 60 tabs",icon:"🔥",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:549,mrp:1049,badge:"48% OFF",desc:"L-Carnitine tablets from GNC for fat burning, energy metabolism and endurance support.",facts:[["L-Carnitine","Per tab"],["Tablets","60"],["Discount","48% OFF"],["Benefit","Fat Burning"]],tags:["48% OFF","L-Carnitine","Fat Burning","Energy Metabolism"]},
 
+
+  // ── THORNE ──
+  {id:2400,cat:"vitamins",brand:"Thorne",name:"Thorne Basic Nutrients 60 caps",shortName:"Thorne Basic Nutrients 60 caps",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:2800,mrp:3500,badge:"Gold Standard",desc:"Thorne Basic Nutrients — the gold standard in multivitamin purity. No unnecessary additives, only what your body needs.",facts:[["Purity","Gold Standard"],["Capsules","60"],["Fillers","Zero"],["Quality","Research Grade"]],tags:["Gold Standard Purity","Research Grade","Zero Fillers","Premium Multivitamin"]},
+  {id:2401,cat:"vitamins",brand:"Thorne",name:"Thorne Omega-3 with CoQ10 90 gelcaps",shortName:"Thorne Omega-3 + CoQ10 90 caps",icon:"🐟",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",price:3200,mrp:4000,badge:"Premium",desc:"Ultra-pure omega-3 combined with CoQ10 for heart, energy and cellular health. NSF Certified for Sport.",facts:[["Omega-3","High Dose"],["CoQ10","Added"],["Certified","NSF Sport"],["Gelcaps","90"]],tags:["NSF Certified","CoQ10 Added","Heart Health","Premium Omega-3"]},
+
+  // ── CENTRUM ──
+  {id:2500,cat:"vitamins",brand:"Centrum",name:"Centrum Adult Multivitamin 30 tabs",shortName:"Centrum Adult Multivitamin 30 tabs",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:450,mrp:600,badge:"25% OFF",desc:"The world's most trusted multivitamin. Complete daily nutrition for adults. Used by millions worldwide.",facts:[["Nutrients","Complete"],["Tablets","30"],["Brand","World No.1 Multivit"],["Best For","Daily Use"]],tags:["World Most Trusted","25% OFF","Daily Nutrition","Adults"]},
+  {id:2501,cat:"vitamins",brand:"Centrum",name:"Centrum Women & Men Specialized 50 tabs",shortName:"Centrum Specialized 50 tabs",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:750,mrp:950,badge:"21% OFF",desc:"Centrum specialized formula for men and women with tailored nutrients for gender-specific health needs.",facts:[["For","Men and Women"],["Tablets","50"],["Specialized","Gender Formula"],["Brand","Centrum"]],tags:["Specialized Formula","21% OFF","Men and Women","Gender Specific"]},
+
+  // ── AMWAY NUTRILITE ──
+  {id:2600,cat:"whey",brand:"Amway",name:"Nutrilite All Plant Protein 1kg",shortName:"Amway Nutrilite Plant Protein 1kg",icon:"🌱",img:"https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=500&q=80",price:3800,mrp:4200,badge:"Plant Premium",desc:"Amway Nutrilite All Plant Protein — soy, wheat and pea blend. Certified organic farms. 100% plant-based.",facts:[["Type","Plant Blend"],["Certified","Organic Farm"],["Weight","1kg"],["Brand","Nutrilite"]],tags:["Organic Certified","Plant Protein","Soy+Wheat+Pea","Nutrilite"]},
+  {id:2601,cat:"vitamins",brand:"Amway",name:"Nutrilite Daily Multivitamin 120 tabs",shortName:"Amway Nutrilite Daily 120 tabs",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:2400,mrp:2800,badge:"14% OFF",desc:"Nutrilite Daily multivitamin from certified organic farms. 24 essential nutrients. Trusted globally.",facts:[["Nutrients","24 Essential"],["Tablets","120"],["Source","Certified Organic Farms"],["Brand","Nutrilite"]],tags:["Certified Organic","24 Nutrients","120 Tabs","Trusted Globally"]},
+
+  // ── MYDROL ──
+  {id:2700,cat:"whey",brand:"Mydrol",name:"Mydrol Hardcore Whey Protein 2kg",shortName:"Mydrol Hardcore Whey 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80",price:3999,mrp:5199,badge:"Hardcore",desc:"Mydrol hardcore strength-focused whey protein. Formulated for serious strength athletes and powerlifters.",facts:[["Protein","25g"],["Weight","2kg"],["Focus","Strength"],["Type","Hardcore Formula"]],tags:["Hardcore Formula","Strength Athletes","25g Protein","2kg Pack"]},
+  {id:2701,cat:"mass",brand:"Mydrol",name:"Mydrol Pro-Mass Gainer 5kg",shortName:"Mydrol Pro-Mass Gainer 5kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=500&q=80",price:3999,mrp:5199,badge:"23% OFF",desc:"Mydrol Pro-Mass for extreme size and strength gains. High calorie formula designed for hard gainers.",facts:[["Protein","30g"],["Weight","5kg"],["Calories","700+"],["Type","Pro-Mass Formula"]],tags:["Pro-Mass","5kg Economy","700+ Calories","23% OFF"]},
+  {id:2702,cat:"preworkout",brand:"Mydrol",name:"Mydrol Hardcore Strength Pre-Workout 300g",shortName:"Mydrol Hardcore Pre-Workout 300g",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=500&q=80",price:2299,mrp:3199,badge:"Hardcore",desc:"Mydrol hardcore pre-workout built for strength and power athletes. High-intensity formula for heavy lifting.",facts:[["Type","Hardcore Strength"],["Weight","300g"],["Servings","30"],["Focus","Heavy Lifting"]],tags:["Hardcore Strength","30 Servings","Power Athletes","Heavy Lifting"]},
+  {id:2703,cat:"creatine",brand:"Mydrol",name:"Mydrol Creatine Monohydrate 250g",shortName:"Mydrol Creatine 250g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",price:999,mrp:1499,badge:"33% OFF",desc:"Pharmaceutical grade micronised creatine from Mydrol. Pure strength and power support.",facts:[["Creatine","5g/serving"],["Weight","250g"],["Grade","Pharmaceutical"],["Servings","50"]],tags:["33% OFF","Pharmaceutical Grade","50 Servings","Mydrol Quality"]},
+
+  // ── MORE MISSING MB ──
+  {id:77,cat:"accessories",brand:"MuscleBlaze",name:"High Protein Muesli 1kg",shortName:"MB High Protein Muesli 1kg",icon:"🥣",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:649,mrp:825,badge:"21% OFF",desc:"MuscleBlaze High Protein Muesli with 20g protein per serving. Nutritious breakfast for active people.",facts:[["Protein","20g/serving"],["Weight","1kg"],["Type","High Protein Breakfast"],["Benefit","Daily Nutrition"]],tags:["High Protein Breakfast","21% OFF","Muesli","Daily Nutrition"]},
+  {id:78,cat:"accessories",brand:"MuscleBlaze",name:"High Protein Oats 1kg",shortName:"MB High Protein Oats 1kg",icon:"🥣",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:275,mrp:299,badge:"8% OFF",desc:"Protein-enriched oats for a nutritious daily breakfast. 8g protein per serving with complex carbs.",facts:[["Protein","8g/serving"],["Weight","1kg"],["Type","High Protein Oats"],["Carbs","Complex"]],tags:["High Protein Oats","Daily Breakfast","8% OFF","Complex Carbs"]},
+  {id:79,cat:"accessories",brand:"MuscleBlaze",name:"Natural Peanut Butter 1kg",shortName:"MB Natural Peanut Butter 1kg",icon:"🥜",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:399,mrp:599,badge:"33% OFF",desc:"100% natural peanut butter with no added sugar or palm oil. 28g protein per 100g serving.",facts:[["Protein","28g per 100g"],["Type","Natural"],["Sugar","None Added"],["Weight","1kg"]],tags:["Natural","No Added Sugar","28g Protein","33% OFF"]},
+  {id:80,cat:"accessories",brand:"MuscleBlaze",name:"Steel Shaker Pro 700ml",shortName:"MB Steel Shaker Pro 700ml",icon:"🥤",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:949,mrp:1409,badge:"33% OFF",desc:"MuscleBlaze Steel Shaker Pro in stainless steel. Leak proof, BPA free, premium build quality.",facts:[["Material","Stainless Steel"],["Capacity","700ml"],["Leak Proof","Yes"],["BPA Free","Yes"]],tags:["Stainless Steel","700ml","Leak Proof","BPA Free"]},
+
+
+  // ── BULL PHARM (FULL LIST) ──
+  {id:2303,cat:"whey",brand:"Bull Pharm",name:"Bull Pharm 100% Whey Protein Powder 5lb",shortName:"Bull Pharm Whey 5lb",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80",price:5499,mrp:8999,badge:"39% OFF",desc:"Premium whey protein from Bull Pharm in 5lb economy pack. High protein per serving for serious muscle building.",facts:[["Protein","25g"],["Weight","5lb"],["Grade","Pharmaceutical"],["Type","Whey Protein"]],tags:["5lb Pack","39% OFF","Pharmaceutical Grade","Whey Protein"]},
+  {id:2304,cat:"whey",brand:"Bull Pharm",name:"Bull Pharm Whey Protein Concentrate",shortName:"Bull Pharm Whey Concentrate",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80",price:3200,mrp:3200,badge:"Budget Whey",desc:"Clean whey protein concentrate from Bull Pharm. Good protein per serving at a budget-friendly price.",facts:[["Protein","24g"],["Type","Concentrate"],["Grade","Pharmaceutical"],["Value","Budget Friendly"]],tags:["Whey Concentrate","Budget Whey","Pharmaceutical Grade","Clean Label"]},
+  {id:2305,cat:"whey",brand:"Bull Pharm",name:"Bull Pharm Whey Pro",shortName:"Bull Pharm Whey Pro",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?auto=format&fit=crop&w=500&q=80",price:6400,mrp:6400,badge:"Pro Series",desc:"Bull Pharm Whey Pro series — advanced formula with enhanced protein matrix for elite results.",facts:[["Protein","26g"],["Type","Pro Formula"],["Grade","Pharmaceutical"],["Series","Pro"]],tags:["Pro Series","Pharmaceutical Grade","Elite Formula","Advanced Whey"]},
+  {id:2306,cat:"vitamins",brand:"Bull Pharm",name:"Bull Muscle Testosterone Amplifier 30 caps",shortName:"Bull Pharm Testosterone Amplifier",icon:"💊",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",price:2599,mrp:5499,badge:"53% OFF",desc:"Pharmaceutical-grade natural testosterone amplifier. Key herbs and compounds for maximum natural testosterone support.",facts:[["Type","Natural T-Amplifier"],["Capsules","30"],["Discount","53% OFF"],["Grade","Pharmaceutical"]],tags:["Natural Testosterone","53% OFF","Pharmaceutical Grade","Muscle Builder"]},
+  {id:2307,cat:"vitamins",brand:"Bull Pharm",name:"Natural Test Bull Testosterone Booster",shortName:"Bull Pharm Natural Test Booster",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?auto=format&fit=crop&w=500&q=80",price:2250,mrp:3000,badge:"25% OFF",desc:"Natural testosterone booster from Bull Pharm. Ashwagandha, fenugreek and tribulus for hormonal support.",facts:[["Type","Natural T-Booster"],["Key Herbs","Ashwagandha+Fenugreek"],["Discount","25% OFF"],["Form","Capsule"]],tags:["Natural T-Booster","25% OFF","Ashwagandha","Fenugreek"]},
+  {id:2308,cat:"vitamins",brand:"Bull Pharm",name:"Bull Groww HGH Support 60 caps",shortName:"Bull Pharm Bull Groww 60 caps",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:2099,mrp:3499,badge:"40% OFF",desc:"HGH (Human Growth Hormone) support formula. Natural peptides and amino acids to stimulate growth hormone release.",facts:[["Type","HGH Support"],["Capsules","60"],["Key Ingredients","Amino Acids"],["Discount","40% OFF"]],tags:["HGH Support","40% OFF","Growth Hormone","Recovery"]},
+  {id:2309,cat:"preworkout",brand:"Bull Pharm",name:"Bull Inferno Pre-Workout 30 servings",shortName:"Bull Pharm Bull Inferno Pre-Workout",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=500&q=80",price:2262,mrp:2262,badge:"High Stim",desc:"Inferno pre-workout — explosive energy, maximum pumps and laser focus. High-stim formula for serious lifters.",facts:[["Servings","30"],["Type","High Stimulant"],["Caffeine","High"],["Benefit","Energy+Pump+Focus"]],tags:["Bull Inferno","High Stim","30 Servings","Explosive Energy"]},
+  {id:2310,cat:"preworkout",brand:"Bull Pharm",name:"N.O.Bull Nitric Oxide Booster 200 tabs",shortName:"Bull Pharm N.O.Bull NO Booster",icon:"💊",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=500&q=80",price:2091,mrp:2091,badge:"Pump Formula",desc:"Nitric Oxide booster in tablet form. L-Arginine and L-Citrulline blend for massive pumps and vascular health.",facts:[["Type","Nitric Oxide Booster"],["Form","Tablets"],["Count","200"],["Benefit","Massive Pumps"]],tags:["Nitric Oxide","200 Tablets","Pump Formula","Vascular Health"]},
+  {id:2311,cat:"bcaa",brand:"Bull Pharm",name:"Bull Pharm L-Citrulline 250g",shortName:"Bull Pharm L-Citrulline 250g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",price:1899,mrp:2999,badge:"37% OFF",desc:"Pure L-Citrulline malate from Bull Pharm. Boosts nitric oxide, enhances pumps and reduces muscle fatigue.",facts:[["L-Citrulline","Per serving"],["Weight","250g"],["Benefit","Nitric Oxide + Pumps"],["Discount","37% OFF"]],tags:["L-Citrulline","37% OFF","Pumps","Nitric Oxide"]},
+  {id:2312,cat:"bcaa",brand:"Bull Pharm",name:"Bull Pharm Essential Aminos EAA + Hydration 300g",shortName:"Bull Pharm EAA + Hydration 300g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",price:2199,mrp:2199,badge:"Complete EAAs",desc:"All 9 essential amino acids plus electrolytes for hydration. Complete recovery and intra-workout formula.",facts:[["EAAs","All 9"],["Electrolytes","Yes"],["Weight","300g"],["Type","Intra-Workout"]],tags:["All 9 EAAs","Electrolytes","Hydration","Complete Recovery"]},
+  {id:2313,cat:"bcaa",brand:"Bull Pharm",name:"Bull Pharm Pure L-Glutamine 300g",shortName:"Bull Pharm L-Glutamine 300g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",price:1999,mrp:2999,badge:"33% OFF",desc:"Pharmaceutical grade pure L-Glutamine for muscle recovery, gut integrity and immune support.",facts:[["L-Glutamine","5g/serving"],["Weight","300g"],["Grade","Pharmaceutical"],["Benefit","Recovery+Gut"]],tags:["Pure L-Glutamine","33% OFF","Pharmaceutical Grade","Recovery+Gut"]},
+  {id:2314,cat:"bcaa",brand:"Bull Pharm",name:"Bull Pharm BCAA 2:1:1 300g",shortName:"Bull Pharm BCAA 2:1:1 300g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",price:2049,mrp:3499,badge:"41% OFF",desc:"Pharmaceutical grade BCAA in 2:1:1 ratio. Maximum anti-catabolic protection and muscle protein synthesis.",facts:[["BCAAs","7g"],["Ratio","2:1:1"],["Weight","300g"],["Grade","Pharmaceutical"]],tags:["41% OFF","2:1:1 Ratio","Pharmaceutical Grade","Anti-Catabolic"]},
+  {id:2315,cat:"vitamins",brand:"Bull Pharm",name:"Bull Pharm Marine Collagen Peptides 300g",shortName:"Bull Pharm Marine Collagen 300g",icon:"✨",img:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=500&q=80",price:2499,mrp:2999,badge:"17% OFF",desc:"Pharmaceutical quality marine collagen peptides for joint health, skin elasticity and recovery.",facts:[["Type","Marine Collagen"],["Weight","300g"],["Grade","Pharmaceutical"],["Benefit","Joints+Skin"]],tags:["Marine Collagen","17% OFF","Joint Health","Skin Elasticity"]},
+  {id:2316,cat:"fatburner",brand:"Bull Pharm",name:"Bull Shred Fat Burner",shortName:"Bull Pharm Bull Shred Fat Burner",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=500&q=80",price:1844,mrp:1844,badge:"Hardcore",desc:"Bull Shred thermogenic fat burner. Advanced formula for maximum fat oxidation and metabolic acceleration.",facts:[["Type","Thermogenic"],["Benefit","Fat Oxidation"],["Formula","Advanced"],["Series","Bull Shred"]],tags:["Thermogenic","Fat Burning","Hardcore Formula","Metabolic Booster"]},
+  {id:2317,cat:"vitamins",brand:"Bull Pharm",name:"Bull Pharm Omega-3 Triple Strength 100 caps",shortName:"Bull Pharm Triple Omega-3 100 caps",icon:"🐟",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",price:1299,mrp:2999,badge:"57% OFF",desc:"Triple strength omega-3 in 100 softgel economy pack. High EPA+DHA for heart, joint and brain health.",facts:[["Strength","Triple"],["Softgels","100"],["EPA+DHA","High"],["Discount","57% OFF"]],tags:["Triple Strength","100 Softgels","57% OFF","High EPA+DHA"]},
+  {id:2318,cat:"vitamins",brand:"Bull Pharm",name:"Bull Pharm Vita Men Multivitamin 100 tabs",shortName:"Bull Pharm Vita Men 100 tabs",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:1049,mrp:1999,badge:"47% OFF",desc:"Comprehensive men's multivitamin from Bull Pharm. 100 tablets for extended daily coverage.",facts:[["For","Men"],["Tablets","100"],["Coverage","Comprehensive"],["Discount","47% OFF"]],tags:["Men Multivitamin","100 Tabs","47% OFF","Comprehensive Formula"]},
+  {id:2319,cat:"vitamins",brand:"Bull Pharm",name:"Bull Support Post-Workout Hormonal",shortName:"Bull Pharm Bull Support",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=500&q=80",price:2049,mrp:2049,badge:"Recovery",desc:"Post-workout and hormonal support formula from Bull Pharm. Helps restore natural hormone levels after intense training.",facts:[["Type","Post-Workout+Hormonal"],["Benefit","Hormone Restore"],["Grade","Pharmaceutical"],["Best For","Heavy Trainers"]],tags:["Post-Workout","Hormonal Support","Recovery","Pharmaceutical Grade"]},
+
+
+  // ════════ COMPREHENSIVE ADDITIONS ════════
+  // ── Avvatar additions ──
+  {id:3000,cat:"whey",brand:"Avvatar",name:"Avvatar Whey Protein Isolate & Concentrate 1kg",shortName:"Avvatar Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:3349,mrp:4229,badge:"21% OFF",desc:"Farm-to-scoop Indian whey from fresh cow milk in 1kg trial size",facts:[["Protein", "26g"], ["Weight", "1kg"], ["Source", "Fresh Cow Milk"], ["Best For", "Beginners"]],tags:["21% OFF", "Trial 1kg", "Beginner Friendly", "Fresh Milk"]},
+  {id:3001,cat:"whey",brand:"Avvatar",name:"Avvatar 100% Performance Whey 1kg",shortName:"Avvatar Perf Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2749,mrp:3559,badge:"23% OFF",desc:"Performance whey from Avvatar in 1kg size. Entry size for new users",facts:[["Protein", "25g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Source", "Fresh Milk"]],tags:["23% OFF", "Trial 1kg", "Performance Whey", "Beginner"]},
+  {id:3002,cat:"whey",brand:"Avvatar",name:"Avvatar Fuel Whey Protein 1kg",shortName:"Avvatar Fuel Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:1999,mrp:2849,badge:"30% OFF",desc:"Entry level Avvatar whey. Most affordable fresh milk whey for beginners",facts:[["Protein", "24g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Price", "Most Affordable"]],tags:["30% OFF", "Beginner Friendly", "Entry Level", "Fresh Milk Whey"]},
+  {id:3003,cat:"whey",brand:"Avvatar",name:"Avvatar Raw Whey Protein Unflavoured 1kg",shortName:"Avvatar Raw Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2599,mrp:3899,badge:"33% OFF",desc:"Unflavoured raw whey from Avvatar. No additives no flavours pure protein",facts:[["Protein", "25g"], ["Weight", "1kg"], ["Flavour", "Unflavoured"], ["Type", "Raw"]],tags:["33% OFF", "Unflavoured", "Raw Protein", "No Additives"]},
+  {id:3004,cat:"whey",brand:"Avvatar",name:"Avvatar Nitro ISO Whey with Creatine 2kg",shortName:"Avvatar Nitro ISO Whey 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:5549,mrp:7119,badge:"22% OFF",desc:"Isolate whey with added creatine for dual muscle building effect",facts:[["Protein", "27g Isolate"], ["Creatine", "Added"], ["Weight", "2kg"], ["Type", "ISO+Creatine"]],tags:["22% OFF", "ISO+Creatine", "Dual Formula", "2kg Pack"]},
+  {id:3005,cat:"mass",brand:"Avvatar",name:"Avvatar Muscle Gainer 2kg",shortName:"Avvatar Muscle Gainer 2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:3349,mrp:3559,badge:"6% OFF",desc:"Avvatar muscle gainer in 2kg size. Fresh milk whey with mass carb matrix",facts:[["Protein", "30g"], ["Weight", "2kg"], ["Calories", "600+"], ["Source", "Fresh Milk"]],tags:["Fresh Milk", "2kg Pack", "Muscle Gainer", "600+ Calories"]},
+  {id:3006,cat:"mass",brand:"Avvatar",name:"Avvatar Mass Gainer 2kg",shortName:"Avvatar Mass Gainer 2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2099,mrp:2309,badge:"9% OFF",desc:"Entry level mass gainer from Avvatar. Fresh milk source at affordable price",facts:[["Protein", "28g"], ["Weight", "2kg"], ["Calories", "500+"], ["Best For", "Beginners"]],tags:["Affordable", "2kg Pack", "Fresh Milk", "Beginner Gainer"]},
+  {id:3007,cat:"creatine",brand:"Avvatar",name:"Avvatar Micronized Creatine Monohydrate 100g",shortName:"Avvatar Creatine 100g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:549,mrp:799,badge:"31% OFF",desc:"100g trial creatine from Avvatar. Affordable entry for beginner lifters",facts:[["Creatine", "5g/serving"], ["Weight", "100g"], ["Servings", "20"], ["Best For", "Beginners"]],tags:["31% OFF", "Trial 100g", "Beginner Creatine", "20 Servings"]},
+  {id:3008,cat:"accessories",brand:"Avvatar",name:"Avvatar Protein Wafer Bar Pack of 8",shortName:"Avvatar Protein Wafer Bar x8",icon:"🍫",img:"https://images.unsplash.com/photo-1622980087741-f80f26090309?w=400&q=80",price:560,mrp:640,badge:"13% OFF",desc:"Delicious protein wafer bar from Avvatar. Great for on-the-go snacking",facts:[["Protein", "Per bar"], ["Count", "Pack of 8"], ["Type", "Wafer Bar"], ["Snack", "On-the-Go"]],tags:["Protein Snack", "Pack of 8", "On-the-Go", "Wafer Bar"]},
+  {id:3009,cat:"accessories",brand:"Avvatar",name:"Avvatar Steel Shaker 750ml",shortName:"Avvatar Steel Shaker 750ml",icon:"🥤",img:"https://images.unsplash.com/photo-1622980087741-f80f26090309?w=400&q=80",price:699,mrp:899,badge:"22% OFF",desc:"Stainless steel shaker from Avvatar. Leak-proof 750ml capacity",facts:[["Capacity", "750ml"], ["Material", "Steel"], ["Leak Proof", "Yes"], ["Discount", "22% OFF"]],tags:["Steel Shaker", "750ml", "22% OFF", "Leak Proof"]},
+  // ── Zedon additions ──
+  {id:3100,cat:"whey",brand:"Zedon",name:"Zedon ISO-ZED Ripped Whey Isolate 4kg",shortName:"Zedon ISO-ZED 4kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:11743,mrp:14679,badge:"20% OFF",desc:"Economy 4kg ISO-ZED. Best value for Zedon ripped isolate formula",facts:[["Protein", "27g Isolate"], ["Weight", "4kg"], ["Servings", "120"], ["Value", "Economy Pack"]],tags:["20% OFF", "Economy 4kg", "ISO-ZED Ripped", "Best Value"]},
+  {id:3101,cat:"whey",brand:"Zedon",name:"Zedon Super Whey Gold 1kg",shortName:"Zedon Super Whey Gold 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2133,mrp:2667,badge:"20% OFF",desc:"Zedon Super Whey Gold series. Premium quality at competitive price",facts:[["Protein", "24g"], ["Weight", "1kg"], ["Series", "Super Whey Gold"], ["Discount", "20% OFF"]],tags:["20% OFF", "Super Whey Gold", "1kg", "Premium Series"]},
+  {id:3102,cat:"whey",brand:"Zedon",name:"Zedon Super Whey Gold 2kg",shortName:"Zedon Super Whey Gold 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:4127,mrp:4127,badge:"Gold Series",desc:"Zedon Super Whey Gold in 2kg economy size",facts:[["Protein", "24g"], ["Weight", "2kg"], ["Series", "Super Whey Gold"], ["Servings", "60"]],tags:["Gold Series", "Economy 2kg", "60 Servings", "Zedon Quality"]},
+  {id:3103,cat:"whey",brand:"Zedon",name:"Zedon Premium Whey Protein 2kg",shortName:"Zedon Premium Whey 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:4980,mrp:6225,badge:"20% OFF",desc:"Zedon premium whey in 2kg economy. Clean label good amino profile",facts:[["Protein", "24g"], ["Weight", "2kg"], ["Servings", "60"], ["Value", "Economy"]],tags:["20% OFF", "Economy 2kg", "Premium Whey", "60 Servings"]},
+  {id:3104,cat:"whey",brand:"Zedon",name:"Zedon Nitro-Zed Whey Protein 1kg",shortName:"Zedon Nitro-Zed Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2489,mrp:3112,badge:"20% OFF",desc:"Nitro-Zed series whey. Enhanced formula for better performance",facts:[["Protein", "25g"], ["Weight", "1kg"], ["Series", "Nitro-Zed"], ["Discount", "20% OFF"]],tags:["20% OFF", "Nitro-Zed", "Performance Whey", "1kg"]},
+  {id:3105,cat:"whey",brand:"Zedon",name:"Zedon Classic Whey Protein 1kg",shortName:"Zedon Classic Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:1920,mrp:2400,badge:"20% OFF",desc:"Entry level classic whey from Zedon. Perfect for beginners on a budget",facts:[["Protein", "22g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Value", "Budget"]],tags:["Beginner Friendly", "20% OFF", "Budget Whey", "Entry Level"]},
+  {id:3106,cat:"mass",brand:"Zedon",name:"Zedon Solid Mass Gainer 1kg",shortName:"Zedon Solid Mass Gainer 1kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:1065,mrp:1332,badge:"20% OFF",desc:"1kg trial size Zedon mass gainer. Affordable entry for beginners",facts:[["Protein", "28g"], ["Weight", "1kg"], ["Calories", "500+"], ["Best For", "Beginners"]],tags:["20% OFF", "Trial 1kg", "Beginner Gainer", "Affordable"]},
+  {id:3107,cat:"mass",brand:"Zedon",name:"Zedon Lean Muscle Gainer 1kg",shortName:"Zedon Lean Muscle Gainer 1kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:1348,mrp:1685,badge:"20% OFF",desc:"Lean muscle gainer from Zedon. Clean mass without excess fat",facts:[["Protein", "30g"], ["Weight", "1kg"], ["Type", "Lean Mass"], ["Calories", "400"]],tags:["20% OFF", "Lean Mass", "Clean Gainer", "1kg"]},
+  {id:3108,cat:"mass",brand:"Zedon",name:"Zedon Ultra Weight Gainer 2.2kg",shortName:"Zedon Ultra Weight Gainer 2.2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:1956,mrp:2445,badge:"20% OFF",desc:"High calorie ultra weight gainer. Ideal for hard gainers",facts:[["Protein", "28g"], ["Weight", "2.2kg"], ["Calories", "700+"], ["Type", "Ultra Gainer"]],tags:["20% OFF", "Ultra Weight Gainer", "Hard Gainer", "700+ Calories"]},
+  {id:3109,cat:"bcaa",brand:"Zedon",name:"Zedon Xclent BCAA Powder 390g",shortName:"Zedon Xclent BCAA 390g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1704,mrp:2130,badge:"20% OFF",desc:"Zedon Xclent BCAA for muscle recovery and anti-catabolism",facts:[["BCAAs", "7g"], ["Weight", "390g"], ["Series", "Xclent"], ["Discount", "20% OFF"]],tags:["20% OFF", "Xclent BCAA", "390g", "Anti-Catabolic"]},
+  {id:3110,cat:"creatine",brand:"Zedon",name:"Zedon Micronized Creatine Monohydrate 200g",shortName:"Zedon Creatine Mono 200g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:924,mrp:1155,badge:"20% OFF",desc:"Pure micronised creatine from Zedon. 40 servings of strength support",facts:[["Creatine", "5g/serving"], ["Weight", "200g"], ["Servings", "40"], ["Form", "Micronised"]],tags:["20% OFF", "Micronised", "40 Servings", "Zedon Quality"]},
+  {id:3111,cat:"creatine",brand:"Zedon",name:"Zedon Micronized Creatine Flavoured 125g",shortName:"Zedon Creatine Flavoured 125g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:639,mrp:799,badge:"20% OFF",desc:"Flavoured creatine from Zedon. Makes daily creatine routine enjoyable",facts:[["Creatine", "5g/serving"], ["Weight", "125g"], ["Flavour", "Flavoured"], ["Servings", "25"]],tags:["Flavoured", "20% OFF", "25 Servings", "Tasty Creatine"]},
+  {id:3112,cat:"vitamins",brand:"Zedon",name:"Zedon Multivitamin Tablets",shortName:"Zedon Multivitamin",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:799,mrp:799,badge:"Daily Health",desc:"Daily multivitamin from Zedon for overall health and immunity support",facts:[["Vitamins", "Complete"], ["Type", "Daily Multivitamin"], ["Benefit", "Immunity+Energy"], ["Best For", "Everyone"]],tags:["Daily Multivitamin", "Immunity", "Energy", "Beginner Friendly"]},
+  {id:3113,cat:"vitamins",brand:"Zedon",name:"Zedon Testo Boost Tablets 60t",shortName:"Zedon Testo Boost 60t",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:710,mrp:888,badge:"20% OFF",desc:"Natural testosterone booster from Zedon with tribulus and herbs",facts:[["Type", "Natural T-Booster"], ["Tablets", "60"], ["Benefit", "Testosterone"], ["Discount", "20% OFF"]],tags:["20% OFF", "Testo Boost", "Natural Testosterone", "60 Tabs"]},
+  {id:3114,cat:"vitamins",brand:"Zedon",name:"Zedon ZMA Zinc Tablets 60t",shortName:"Zedon ZMA 60t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:710,mrp:888,badge:"20% OFF",desc:"Zedon ZMA for overnight recovery sleep quality and natural testosterone",facts:[["Zinc", "Yes"], ["Magnesium", "Yes"], ["B6", "Yes"], ["Discount", "20% OFF"]],tags:["ZMA", "20% OFF", "Recovery", "Sleep Quality"]},
+  {id:3115,cat:"vitamins",brand:"Zedon",name:"Zedon Milk Thistle Tablets 60t",shortName:"Zedon Milk Thistle 60t",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:710,mrp:888,badge:"20% OFF",desc:"Milk thistle liver protection from Zedon. Essential for supplement users",facts:[["Milk Thistle", "High Dose"], ["Benefit", "Liver Protection"], ["Tablets", "60"], ["Best For", "Supplement Users"]],tags:["Milk Thistle", "Liver Health", "20% OFF", "Supplement Users"]},
+  {id:3116,cat:"vitamins",brand:"Zedon",name:"Zedon Omega 3 Capsules",shortName:"Zedon Omega-3",icon:"🐟",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:1065,mrp:1065,badge:"Heart Health",desc:"Omega-3 fish oil from Zedon for heart joint and brain health",facts:[["Omega-3", "EPA+DHA"], ["Type", "Fish Oil"], ["Benefit", "Heart+Joints+Brain"], ["Brand", "Zedon"]],tags:["Omega-3", "Heart Health", "Joint Support", "Beginner Friendly"]},
+  {id:3117,cat:"fatburner",brand:"Zedon",name:"Zedon Fat Burner Capsules",shortName:"Zedon Fat Burner",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:1065,mrp:1065,badge:"Fat Burning",desc:"Thermogenic fat burner from Zedon for metabolism and weight management",facts:[["Type", "Thermogenic"], ["Benefit", "Fat Burning"], ["Form", "Capsule"], ["Brand", "Zedon"]],tags:["Fat Burner", "Thermogenic", "Weight Management", "Zedon"]},
+  {id:3118,cat:"fatburner",brand:"Zedon",name:"Zedon L-Carnitine 3000 Liquid EAA",shortName:"Zedon L-Carnitine Liquid",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:1066,mrp:1333,badge:"20% OFF",desc:"Liquid L-Carnitine 3000mg with EAAs for fat burning and recovery",facts:[["L-Carnitine", "3000mg"], ["Form", "Liquid"], ["EAA", "Added"], ["Discount", "20% OFF"]],tags:["20% OFF", "3000mg Liquid", "L-Carnitine+EAA", "Fat Burning"]},
+  {id:3119,cat:"bcaa",brand:"Zedon",name:"Zedon Micronized Glutamine Powder",shortName:"Zedon L-Glutamine",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1064,mrp:1330,badge:"20% OFF",desc:"Pure micronised glutamine for muscle recovery and gut health from Zedon",facts:[["L-Glutamine", "5g/serving"], ["Form", "Micronised"], ["Benefit", "Recovery+Gut"], ["Discount", "20% OFF"]],tags:["20% OFF", "L-Glutamine", "Micronised", "Recovery+Gut"]},
+  // ── SSN additions ──
+  {id:3200,cat:"whey",brand:"SSN",name:"SSN 100% Whey Protein 908g",shortName:"SSN Whey 908g",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2449,mrp:3299,badge:"26% OFF",desc:"Trial size 908g SSN Whey. Consistent quality from Scientifically Advanced Nutrition",facts:[["Protein", "24g"], ["Weight", "908g"], ["Servings", "28"], ["Best For", "Trial"]],tags:["26% OFF", "Trial 908g", "28 Servings", "SSN Quality"]},
+  {id:3201,cat:"whey",brand:"SSN",name:"SSN Whey Isolate 908g",shortName:"SSN Whey Isolate 908g",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:3699,mrp:4499,badge:"18% OFF",desc:"908g SSN isolate. Low fat low carb with excellent protein quality",facts:[["Protein", "26g Isolate"], ["Weight", "908g"], ["Carbs", "Low"], ["Discount", "18% OFF"]],tags:["18% OFF", "Whey Isolate", "908g Trial", "Low Carb"]},
+  {id:3202,cat:"whey",brand:"SSN",name:"SSN Casein Protein 908g",shortName:"SSN Casein 908g",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2899,mrp:3699,badge:"22% OFF",desc:"Slow-release casein for overnight muscle recovery and anti-catabolism",facts:[["Type", "Casein"], ["Weight", "908g"], ["Release", "Slow 7-8hrs"], ["Best For", "Night Use"]],tags:["22% OFF", "Casein", "Slow Release", "Night Protein"]},
+  {id:3203,cat:"mass",brand:"SSN",name:"SSN Anabolic Muscle Builder 2kg",shortName:"SSN Anabolic Builder 2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2149,mrp:2899,badge:"26% OFF",desc:"SSN Anabolic Muscle Builder in 2kg. Maximum anabolic effect formula",facts:[["Protein", "55g"], ["Weight", "2kg"], ["Calories", "1000+"], ["Type", "Anabolic Formula"]],tags:["26% OFF", "Anabolic Formula", "2kg Pack", "1000+ Calories"]},
+  {id:3204,cat:"mass",brand:"SSN",name:"SSN Mass Adder 5kg",shortName:"SSN Mass Adder 5kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:3999,mrp:5299,badge:"25% OFF",desc:"SSN Mass Adder for hard gainers needing serious calories and protein",facts:[["Protein", "50g"], ["Weight", "5kg"], ["Calories", "1100+"], ["Type", "Mass Adder"]],tags:["25% OFF", "Mass Adder", "5kg Economy", "Hard Gainer"]},
+  {id:3205,cat:"mass",brand:"SSN",name:"SSN Liquid Muscle 2kg",shortName:"SSN Liquid Muscle 2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2499,mrp:3199,badge:"22% OFF",desc:"SSN Liquid Muscle - rapid absorption mass gainer for max nutrient uptake",facts:[["Type", "Liquid Formula"], ["Weight", "2kg"], ["Absorption", "Rapid"], ["Calories", "700+"]],tags:["22% OFF", "Liquid Formula", "Rapid Absorption", "2kg Pack"]},
+  {id:3206,cat:"bcaa",brand:"SSN",name:"SSN BCAA 300g",shortName:"SSN BCAA 300g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1599,mrp:2299,badge:"30% OFF",desc:"SSN BCAA 2:1:1 for muscle recovery and reduced soreness",facts:[["BCAAs", "7g"], ["Weight", "300g"], ["Ratio", "2:1:1"], ["Discount", "30% OFF"]],tags:["30% OFF", "BCAA 2:1:1", "300g", "Recovery"]},
+  {id:3207,cat:"bcaa",brand:"SSN",name:"SSN Glutamine 300g",shortName:"SSN Glutamine 300g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1199,mrp:1799,badge:"33% OFF",desc:"Pure L-Glutamine from SSN for recovery gut health and immune support",facts:[["L-Glutamine", "5g/serving"], ["Weight", "300g"], ["Benefit", "Recovery+Gut"], ["Discount", "33% OFF"]],tags:["33% OFF", "L-Glutamine", "300g", "Recovery+Gut"]},
+  {id:3208,cat:"bcaa",brand:"SSN",name:"SSN Citrulline Malate 200g",shortName:"SSN Citrulline Malate 200g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:899,mrp:1299,badge:"31% OFF",desc:"L-Citrulline Malate for nitric oxide production pumps and endurance",facts:[["L-Citrulline", "Per serving"], ["Weight", "200g"], ["Benefit", "Pumps+Endurance"], ["Discount", "31% OFF"]],tags:["31% OFF", "L-Citrulline", "Pumps", "Endurance"]},
+  {id:3209,cat:"vitamins",brand:"SSN",name:"SSN Multi-Vitamin 60 tabs",shortName:"SSN Multi-Vitamin 60t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:749,mrp:999,badge:"25% OFF",desc:"SSN daily multivitamin with complete micronutrient coverage for athletes",facts:[["Vitamins", "Complete"], ["Tablets", "60"], ["Best For", "Athletes"], ["Discount", "25% OFF"]],tags:["25% OFF", "SSN Quality", "Athlete Formula", "Beginner Friendly"]},
+  {id:3210,cat:"vitamins",brand:"SSN",name:"SSN Omega-3 Fish Oil 60 softgels",shortName:"SSN Omega-3 60c",icon:"🐟",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:849,mrp:1199,badge:"29% OFF",desc:"SSN omega-3 fish oil for heart joint and brain health",facts:[["Omega-3", "EPA+DHA"], ["Softgels", "60"], ["Benefit", "Heart+Joints"], ["Discount", "29% OFF"]],tags:["29% OFF", "Omega-3", "60 Softgels", "SSN Quality"]},
+  {id:3211,cat:"vitamins",brand:"SSN",name:"SSN ZMA 90 caps",shortName:"SSN ZMA 90c",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:999,mrp:1499,badge:"33% OFF",desc:"SSN ZMA for overnight recovery natural testosterone and deep sleep",facts:[["Zinc+Mg+B6", "Yes"], ["Capsules", "90"], ["Benefit", "Recovery+Testosterone"], ["Discount", "33% OFF"]],tags:["33% OFF", "ZMA", "90 Caps", "Sleep+Recovery"]},
+  {id:3212,cat:"fatburner",brand:"SSN",name:"SSN L-Carnitine 60 caps",shortName:"SSN L-Carnitine 60c",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:899,mrp:1299,badge:"31% OFF",desc:"SSN L-Carnitine capsules for fat burning and energy metabolism support",facts:[["L-Carnitine", "Per cap"], ["Capsules", "60"], ["Benefit", "Fat Burning"], ["Discount", "31% OFF"]],tags:["31% OFF", "L-Carnitine", "60 Caps", "Fat Burning"]},
+  {id:3213,cat:"creatine",brand:"SSN",name:"SSN Creatine Monohydrate 100g",shortName:"SSN Creatine 100g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:499,mrp:699,badge:"29% OFF",desc:"Entry size 100g SSN creatine for beginners starting strength training",facts:[["Creatine", "5g/serving"], ["Weight", "100g"], ["Servings", "20"], ["Best For", "Beginners"]],tags:["29% OFF", "Beginner Creatine", "Trial 100g", "SSN"]},
+  // ── Domin8r additions ──
+  {id:3300,cat:"whey",brand:"Domin8r",name:"Domin8r Whey Domination 1kg",shortName:"Domin8r Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2749,mrp:3399,badge:"19% OFF",desc:"1kg trial of Domin8r Whey Domination. Premium performance whey",facts:[["Protein", "25g"], ["Weight", "1kg"], ["Series", "Whey Domination"], ["Best For", "Trial"]],tags:["19% OFF", "Trial 1kg", "Whey Domination", "Performance Whey"]},
+  {id:3301,cat:"whey",brand:"Domin8r",name:"Domin8r Iso-Dominant Isolate 1kg",shortName:"Domin8r Iso-Dominant 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:3649,mrp:4399,badge:"17% OFF",desc:"1kg trial of Domin8r isolate. Zero fat zero carbs maximum protein",facts:[["Protein", "26g Isolate"], ["Weight", "1kg"], ["Carbs", "0g"], ["Best For", "Trial"]],tags:["17% OFF", "Trial 1kg", "Iso-Dominant", "Zero Carb"]},
+  {id:3302,cat:"whey",brand:"Domin8r",name:"Domin8r Diet Whey 2kg",shortName:"Domin8r Diet Whey 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:5499,mrp:6799,badge:"19% OFF",desc:"Diet whey with CLA and L-Carnitine. High protein low calorie for cutting",facts:[["Protein", "26g"], ["Weight", "2kg"], ["CLA", "Added"], ["L-Carnitine", "Added"]],tags:["19% OFF", "Diet Whey", "CLA+L-Carnitine", "Cutting Phase"]},
+  {id:3303,cat:"whey",brand:"Domin8r",name:"Domin8r Nitro-Dominant Performance Whey 2kg",shortName:"Domin8r Nitro Perf Whey 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:5949,mrp:7299,badge:"18% OFF",desc:"Nitro-Dominant performance whey with enhanced nitrogen retention",facts:[["Protein", "26g"], ["Weight", "2kg"], ["Series", "Nitro-Dominant"], ["Discount", "18% OFF"]],tags:["18% OFF", "Nitro-Dominant", "Performance Whey", "2kg"]},
+  {id:3304,cat:"mass",brand:"Domin8r",name:"Domin8r Muscle Blaster Gainer 3kg",shortName:"Domin8r Muscle Blaster 3kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2899,mrp:3699,badge:"22% OFF",desc:"3kg Muscle Blaster gainer. High calorie and protein for serious bulking",facts:[["Protein", "30g"], ["Weight", "3kg"], ["Calories", "700+"], ["Discount", "22% OFF"]],tags:["22% OFF", "3kg Pack", "Muscle Blaster", "700+ Calories"]},
+  {id:3305,cat:"mass",brand:"Domin8r",name:"Domin8r Anabolic Muscle Builder 4.5kg",shortName:"Domin8r Anabolic Builder 4.5kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:4199,mrp:5299,badge:"21% OFF",desc:"Anabolic Muscle Builder for maximum size and strength in 4.5kg",facts:[["Protein", "55g"], ["Weight", "4.5kg"], ["Calories", "1000+"], ["Type", "Anabolic Formula"]],tags:["21% OFF", "Anabolic Formula", "4.5kg", "1000+ Calories"]},
+  {id:3306,cat:"mass",brand:"Domin8r",name:"Domin8r Mass Domination 5kg",shortName:"Domin8r Mass Domination 5kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:3999,mrp:5199,badge:"23% OFF",desc:"Mass Domination - the ultimate high calorie gainer for extreme bulk",facts:[["Protein", "50g"], ["Weight", "5kg"], ["Calories", "1200+"], ["Series", "Mass Domination"]],tags:["23% OFF", "Mass Domination", "5kg", "1200+ Calories"]},
+  {id:3307,cat:"mass",brand:"Domin8r",name:"Domin8r Hyper-Lean Muscle Builder 2kg",shortName:"Domin8r Hyper-Lean 2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2449,mrp:3199,badge:"23% OFF",desc:"Lean muscle builder protein-rich carb-controlled for lean bulk phase",facts:[["Protein", "35g"], ["Weight", "2kg"], ["Type", "Lean Bulk"], ["Calories", "400"]],tags:["23% OFF", "Lean Bulk", "Hyper-Lean", "2kg Pack"]},
+  {id:3308,cat:"bcaa",brand:"Domin8r",name:"Domin8r BCAA 2:1:1 Evolution 300g",shortName:"Domin8r BCAA 300g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1549,mrp:2199,badge:"30% OFF",desc:"BCAA 2:1:1 for muscle recovery and anti-catabolism from Domin8r",facts:[["BCAAs", "7g"], ["Ratio", "2:1:1"], ["Weight", "300g"], ["Discount", "30% OFF"]],tags:["30% OFF", "BCAA 2:1:1", "300g", "Anti-Catabolic"]},
+  {id:3309,cat:"bcaa",brand:"Domin8r",name:"Domin8r Glutamine Recovery 300g",shortName:"Domin8r Glutamine 300g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1149,mrp:1699,badge:"32% OFF",desc:"Pure L-Glutamine for muscle recovery and gut health from Domin8r",facts:[["L-Glutamine", "5g/serving"], ["Weight", "300g"], ["Benefit", "Recovery+Gut"], ["Discount", "32% OFF"]],tags:["32% OFF", "L-Glutamine", "300g", "Recovery"]},
+  {id:3310,cat:"bcaa",brand:"Domin8r",name:"Domin8r Citrulline Malate 200g",shortName:"Domin8r Citrulline 200g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:849,mrp:1199,badge:"29% OFF",desc:"L-Citrulline Malate for pumps NO production and endurance",facts:[["L-Citrulline", "Per serving"], ["Weight", "200g"], ["Benefit", "Pumps"], ["Discount", "29% OFF"]],tags:["29% OFF", "L-Citrulline", "200g", "Pumps+Endurance"]},
+  {id:3311,cat:"vitamins",brand:"Domin8r",name:"Domin8r Multi-Vit Daily 60 tabs",shortName:"Domin8r Multi-Vit 60t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:699,mrp:949,badge:"26% OFF",desc:"Daily multivitamin from Domin8r for complete micronutrient support",facts:[["Vitamins", "Complete"], ["Tablets", "60"], ["Benefit", "Daily Health"], ["Discount", "26% OFF"]],tags:["26% OFF", "Daily Multivit", "60 Tabs", "Beginner Friendly"]},
+  {id:3312,cat:"vitamins",brand:"Domin8r",name:"Domin8r Omega-3 Fish Oil 60 softgels",shortName:"Domin8r Omega-3 60c",icon:"🐟",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:799,mrp:1099,badge:"27% OFF",desc:"Domin8r omega-3 for heart joint and cognitive health",facts:[["Omega-3", "EPA+DHA"], ["Softgels", "60"], ["Benefit", "Heart+Joints"], ["Discount", "27% OFF"]],tags:["27% OFF", "Omega-3", "60 Softgels", "Heart Health"]},
+  {id:3313,cat:"fatburner",brand:"Domin8r",name:"Domin8r L-Carnitine Liquid 500ml",shortName:"Domin8r L-Carnitine 500ml",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:1349,mrp:1799,badge:"25% OFF",desc:"Liquid L-Carnitine from Domin8r for fat oxidation and energy",facts:[["L-Carnitine", "Per serving"], ["Form", "Liquid"], ["Volume", "500ml"], ["Discount", "25% OFF"]],tags:["25% OFF", "Liquid L-Carnitine", "500ml", "Fat Oxidation"]},
+  {id:3314,cat:"vitamins",brand:"Domin8r",name:"Domin8r ZMA Recovery 90 caps",shortName:"Domin8r ZMA 90c",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:899,mrp:1199,badge:"25% OFF",desc:"Domin8r ZMA for deep sleep recovery and natural testosterone support",facts:[["Zinc+Mg+B6", "Yes"], ["Capsules", "90"], ["Benefit", "Sleep+Recovery"], ["Discount", "25% OFF"]],tags:["25% OFF", "ZMA", "90 Caps", "Sleep+Recovery"]},
+  {id:3315,cat:"vitamins",brand:"Domin8r",name:"Domin8r Test-Dominant Booster 60 tabs",shortName:"Domin8r Test-Dominant 60t",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:1049,mrp:1499,badge:"30% OFF",desc:"Natural testosterone booster with Ashwagandha and Tribulus",facts:[["Type", "Natural T-Booster"], ["Tablets", "60"], ["Key Herbs", "Ashwagandha+Tribulus"], ["Discount", "30% OFF"]],tags:["30% OFF", "Natural T-Booster", "Ashwagandha+Tribulus", "60 Tabs"]},
+  // ── GNC additions ──
+  {id:3400,cat:"whey",brand:"GNC",name:"GNC AMP Gold Series Whey Advanced 4lb",shortName:"GNC AMP Gold Whey 4lb",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:6399,mrp:6399,badge:"Economy 4lb",desc:"GNC AMP Gold Series in 4lb economy. More servings better value",facts:[["Protein", "24g"], ["Weight", "4lb"], ["Servings", "55"], ["Series", "AMP Gold"]],tags:["Economy 4lb", "55 Servings", "AMP Gold", "GNC Quality"]},
+  {id:3401,cat:"whey",brand:"GNC",name:"GNC AMP Pure Isolate Low Carb 4lb",shortName:"GNC AMP Pure Isolate 4lb",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:8499,mrp:8499,badge:"Economy 4lb",desc:"GNC Pure Isolate in 4lb economy pack. Zero carb zero sugar",facts:[["Protein", "25g Isolate"], ["Weight", "4lb"], ["Carbs", "0g"], ["Sugar", "0g"]],tags:["Economy 4lb", "Zero Carb", "AMP Pure Isolate", "GNC Quality"]},
+  {id:3402,cat:"whey",brand:"GNC",name:"GNC Pro Performance 100% Whey 2lb",shortName:"GNC Pro Perf Whey 2lb",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2749,mrp:2749,badge:"Pro Perf",desc:"GNC Pro Performance whey in 2lb standard size. Classic GNC quality",facts:[["Protein", "24g"], ["Weight", "2lb"], ["Series", "Pro Performance"], ["Brand", "GNC"]],tags:["Pro Performance", "2lb", "GNC Quality", "Classic Formula"]},
+  {id:3403,cat:"whey",brand:"GNC",name:"GNC Pro Performance Power Protein 4lb",shortName:"GNC Pro Power Protein 4lb",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:3499,mrp:5869,badge:"40% OFF",desc:"GNC Power Protein in 4lb. High calorie formula for muscle building",facts:[["Protein", "24g"], ["Weight", "4lb"], ["Type", "Power Formula"], ["Discount", "40% OFF"]],tags:["40% OFF", "Power Protein", "4lb", "GNC Power"]},
+  {id:3404,cat:"whey",brand:"GNC",name:"GNC Pro Performance Power Protein 2lb",shortName:"GNC Pro Power Protein 2lb",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:1899,mrp:3199,badge:"41% OFF",desc:"GNC Power Protein in 2lb budget size. Affordable entry into GNC quality",facts:[["Protein", "24g"], ["Weight", "2lb"], ["Best For", "Beginners"], ["Discount", "41% OFF"]],tags:["41% OFF", "Budget 2lb", "Beginner Friendly", "GNC Power"]},
+  {id:3405,cat:"whey",brand:"GNC",name:"GNC Pro Performance Beginner Protein 1kg",shortName:"GNC Beginner Protein 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:899,mrp:899,badge:"Beginner",desc:"GNC Pro Performance entry-level whey. Perfect starter for fitness beginners",facts:[["Protein", "22g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Series", "Pro Performance"]],tags:["Beginner Protein", "1kg", "GNC Quality", "Starter"]},
+  {id:3406,cat:"mass",brand:"GNC",name:"GNC Pro Performance Weight Gainer 2kg",shortName:"GNC Weight Gainer 2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:1699,mrp:1699,badge:"Weight Gainer",desc:"2kg GNC weight gainer. Clean formula for gradual quality weight gain",facts:[["Protein", "50g"], ["Weight", "2kg"], ["Calories", "1000+"], ["Series", "Pro Performance"]],tags:["2kg Pack", "Weight Gainer", "GNC Quality", "1000+ Calories"]},
+  {id:3407,cat:"mass",brand:"GNC",name:"GNC Pro Performance Weight Gainer 1kg",shortName:"GNC Weight Gainer 1kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:849,mrp:1399,badge:"39% OFF",desc:"1kg trial GNC weight gainer. Affordable entry for beginners",facts:[["Protein", "50g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Discount", "39% OFF"]],tags:["39% OFF", "Trial 1kg", "Beginner Gainer", "GNC Quality"]},
+  {id:3408,cat:"mass",brand:"GNC",name:"GNC Pro Performance Bulk 1340 4kg",shortName:"GNC Bulk 1340 4kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:3899,mrp:3899,badge:"1340 Calories",desc:"1340 calories per serving in 4kg economy pack. For serious mass gains",facts:[["Calories", "1340"], ["Protein", "50g"], ["Weight", "4kg"], ["Series", "Bulk 1340"]],tags:["1340 Calories", "Bulk Formula", "4kg Economy", "Hard Gainer"]},
+  {id:3409,cat:"mass",brand:"GNC",name:"GNC AMP Amplified Mass XXX 2kg",shortName:"GNC AMP Amplified Mass 2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2949,mrp:4449,badge:"34% OFF",desc:"GNC AMP Mass XXX - elite mass formula for serious athletes",facts:[["Protein", "55g"], ["Weight", "2kg"], ["Series", "AMP Elite"], ["Discount", "34% OFF"]],tags:["34% OFF", "AMP Elite", "2kg Pack", "Serious Athletes"]},
+  {id:3410,cat:"preworkout",brand:"GNC",name:"GNC Pro Performance Pre-Workout 360g",shortName:"GNC Pro Perf Pre-Workout 360g",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:1280,mrp:2099,badge:"39% OFF",desc:"GNC Pro Performance pre-workout in 360g. Energy focus and pump",facts:[["Servings", "45"], ["Weight", "360g"], ["Type", "Energy+Focus+Pump"], ["Discount", "39% OFF"]],tags:["39% OFF", "45 Servings", "Energy+Focus+Pump", "GNC Pre-Workout"]},
+  {id:3411,cat:"bcaa",brand:"GNC",name:"GNC AMP Gold Series BCAA Advanced 400g",shortName:"GNC AMP BCAA Advanced 400g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1799,mrp:1799,badge:"AMP Gold",desc:"Premium BCAA from GNC AMP Gold Series with electrolytes",facts:[["BCAAs", "7g"], ["Weight", "400g"], ["Series", "AMP Gold"], ["Electrolytes", "Yes"]],tags:["AMP Gold Series", "400g", "Advanced BCAA", "Electrolytes"]},
+  {id:3412,cat:"bcaa",brand:"GNC",name:"GNC Pro Performance L-Glutamine 400g",shortName:"GNC L-Glutamine 400g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1049,mrp:1049,badge:"Recovery",desc:"Pure L-Glutamine from GNC for muscle recovery and gut health",facts:[["L-Glutamine", "5g/serving"], ["Weight", "400g"], ["Benefit", "Recovery+Gut"], ["Brand", "GNC"]],tags:["L-Glutamine", "400g", "Recovery", "GNC Quality"]},
+  {id:3413,cat:"vitamins",brand:"GNC",name:"GNC Women One Daily Multivitamin 30t",shortName:"GNC Women Multivit 30t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:419,mrp:619,badge:"32% OFF",desc:"Women multivitamin from GNC in 30-tab trial size with iron and biotin",facts:[["For", "Women"], ["Tablets", "30"], ["Iron+Biotin", "Yes"], ["Best For", "Trial"]],tags:["32% OFF", "For Women", "Trial 30t", "Iron+Biotin"]},
+  {id:3414,cat:"vitamins",brand:"GNC",name:"GNC Standard Fish Oil 60 softgels",shortName:"GNC Fish Oil 60c",icon:"🐟",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:349,mrp:619,badge:"44% OFF",desc:"Standard fish oil from GNC at 44% OFF. Essential omega-3 daily",facts:[["Omega-3", "EPA+DHA"], ["Softgels", "60"], ["Discount", "44% OFF"], ["Type", "Standard"]],tags:["44% OFF", "Standard Fish Oil", "60 Softgels", "Beginner Friendly"]},
+  {id:3415,cat:"vitamins",brand:"GNC",name:"GNC Men Staminol 60 caps",shortName:"GNC Men Staminol 60c",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:1249,mrp:1799,badge:"31% OFF",desc:"GNC Staminol natural vitality and testosterone support for men",facts:[["Type", "Vitality Formula"], ["Capsules", "60"], ["Benefit", "Energy+Vitality"], ["Discount", "31% OFF"]],tags:["31% OFF", "Staminol", "Men Vitality", "Energy+Vitality"]},
+  {id:3416,cat:"creatine",brand:"GNC",name:"GNC Pro Performance Creatine 100g",shortName:"GNC Creatine 100g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:449,mrp:799,badge:"44% OFF",desc:"Entry-size 100g creatine from GNC. Beginner-friendly at 44% off",facts:[["Creatine", "5g/serving"], ["Weight", "100g"], ["Servings", "20"], ["Discount", "44% OFF"]],tags:["44% OFF", "Beginner Creatine", "Trial 100g", "GNC Quality"]},
+  {id:3417,cat:"mass",brand:"GNC",name:"GNC Pro Performance Bulk 1340 2kg",shortName:"GNC Bulk 1340 2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2399,mrp:3199,badge:"25% OFF",desc:"GNC Bulk 1340 in 2kg. 1340 calories per serving for mass gains",facts:[["Calories", "1340"], ["Protein", "50g"], ["Weight", "2kg"], ["Series", "Bulk 1340"]],tags:["25% OFF", "1340 Calories", "2kg Pack", "Bulk Formula"]},
+  // ── HealthFarm additions ──
+  {id:3500,cat:"whey",brand:"HealthFarm",name:"HealthFarm Muscle Whey Isolate & Concentrate 1.81kg",shortName:"HealthFarm Muscle Whey 1.81kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:4299,mrp:5899,badge:"27% OFF",desc:"HealthFarm Muscle Whey in 1.81kg. Isolate+concentrate blend",facts:[["Protein", "25g"], ["Weight", "1.81kg"], ["Type", "Iso+Concentrate"], ["Discount", "27% OFF"]],tags:["27% OFF", "1.81kg", "Iso+Concentrate", "HealthFarm"]},
+  {id:3501,cat:"whey",brand:"HealthFarm",name:"HealthFarm Muscle Whey Isolate & Concentrate 1kg",shortName:"HealthFarm Muscle Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2299,mrp:3469,badge:"34% OFF",desc:"HealthFarm Muscle Whey in 1kg trial. Best entry into HealthFarm quality",facts:[["Protein", "25g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Discount", "34% OFF"]],tags:["34% OFF", "Trial 1kg", "Iso+Concentrate", "Beginner Friendly"]},
+  {id:3502,cat:"whey",brand:"HealthFarm",name:"HealthFarm Nitra Whey Muscle Building 1kg",shortName:"HealthFarm Nitra Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2399,mrp:3559,badge:"33% OFF",desc:"Nitra Whey advanced muscle building formula from HealthFarm",facts:[["Protein", "25g"], ["Weight", "1kg"], ["Formula", "Muscle Building"], ["Discount", "33% OFF"]],tags:["33% OFF", "Nitra Whey", "Muscle Building", "1kg"]},
+  {id:3503,cat:"whey",brand:"HealthFarm",name:"HealthFarm MeFirst Premium Whey Protein 2kg",shortName:"HealthFarm MeFirst 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:3469,mrp:5999,badge:"42% OFF",desc:"Premium MeFirst whey. Great protein content at heavily discounted price",facts:[["Protein", "25g"], ["Weight", "2kg"], ["Discount", "42% OFF"], ["Series", "MeFirst"]],tags:["42% OFF", "MeFirst Premium", "2kg", "42% Savings"]},
+  {id:3504,cat:"whey",brand:"HealthFarm",name:"HealthFarm Muscle Bio Whey Grass Fed 2kg",shortName:"HealthFarm Grass Fed Whey 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2199,mrp:2979,badge:"26% OFF",desc:"Grass-fed whey protein from HealthFarm. Superior amino acid profile",facts:[["Protein", "25g"], ["Source", "Grass-Fed"], ["Weight", "2kg"], ["Discount", "26% OFF"]],tags:["26% OFF", "Grass-Fed", "2kg", "Superior Amino Profile"]},
+  {id:3505,cat:"whey",brand:"HealthFarm",name:"HealthFarm Hydro Pure Hydrolyzed Whey 2kg",shortName:"HealthFarm Hydro Pure 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:7999,mrp:11499,badge:"30% OFF",desc:"Hydrolyzed whey for ultra-fast absorption. Premium for serious athletes",facts:[["Type", "Hydrolyzed"], ["Protein", "26g"], ["Weight", "2kg"], ["Absorption", "Ultra-Fast"]],tags:["30% OFF", "Hydrolyzed", "Ultra-Fast Absorption", "Premium Recovery"]},
+  {id:3506,cat:"whey",brand:"HealthFarm",name:"HealthFarm HF Series Signature Whey 2kg",shortName:"HealthFarm Signature Whey 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:4999,mrp:8649,badge:"42% OFF",desc:"HealthFarm Signature Whey premium 2kg formula at 42% OFF",facts:[["Protein", "25g"], ["Weight", "2kg"], ["Series", "Signature HF"], ["Discount", "42% OFF"]],tags:["42% OFF", "Signature Series", "2kg", "HF Premium"]},
+  {id:3507,cat:"whey",brand:"HealthFarm",name:"HealthFarm MaxWhey 24g Protein 1kg",shortName:"HealthFarm MaxWhey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:4499,mrp:6499,badge:"31% OFF",desc:"MaxWhey guaranteed 24g protein per scoop. No underdosing ever",facts:[["Protein", "24g Guaranteed"], ["Weight", "1kg"], ["Certified", "Lab Verified"], ["Discount", "31% OFF"]],tags:["31% OFF", "24g Guaranteed", "Lab Verified", "MaxWhey"]},
+  {id:3508,cat:"mass",brand:"HealthFarm",name:"HealthFarm Hydro Gain Mass Gainer 3kg",shortName:"HealthFarm Hydro Gain 3kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2499,mrp:3649,badge:"32% OFF",desc:"HealthFarm Hydro Gain in 3kg. Hydrolyzed mass for superior absorption",facts:[["Protein", "30g"], ["Weight", "3kg"], ["Type", "Hydrolyzed"], ["Discount", "32% OFF"]],tags:["32% OFF", "Hydrolyzed Mass", "3kg", "Superior Absorption"]},
+  {id:3509,cat:"mass",brand:"HealthFarm",name:"HealthFarm Pure Gain High-Calorie 5kg",shortName:"HealthFarm Pure Gain 5kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:3499,mrp:5199,badge:"33% OFF",desc:"HealthFarm Pure Gain in 5kg economy. Clean calorie formula for bulking",facts:[["Protein", "30g"], ["Weight", "5kg"], ["Calories", "600+"], ["Discount", "33% OFF"]],tags:["33% OFF", "5kg Economy", "Pure Gain", "600+ Calories"]},
+  {id:3510,cat:"mass",brand:"HealthFarm",name:"HealthFarm HF Series Pure Gain Mass Gainer 2kg",shortName:"HealthFarm HF Pure Gain 2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2081,mrp:3199,badge:"35% OFF",desc:"HF Series Pure Gain in 2kg. Economy size for sustained bulking",facts:[["Protein", "30g"], ["Weight", "2kg"], ["Calories", "600+"], ["Discount", "35% OFF"]],tags:["35% OFF", "HF Series", "2kg", "Pure Gain"]},
+  {id:3511,cat:"mass",brand:"HealthFarm",name:"HealthFarm Muscle Gainer Hard Gainer 3kg",shortName:"HealthFarm Hard Gainer 3kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:1999,mrp:3599,badge:"44% OFF",desc:"Hard gainer formula from HealthFarm. Maximum calories for hard gainers",facts:[["Protein", "28g"], ["Weight", "3kg"], ["Calories", "700+"], ["Discount", "44% OFF"]],tags:["44% OFF", "Hard Gainer", "3kg", "700+ Calories"]},
+  {id:3512,cat:"mass",brand:"HealthFarm",name:"HealthFarm TrueGain Protein Powder 1kg",shortName:"HealthFarm TrueGain 1kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:711,mrp:1249,badge:"43% OFF",desc:"Most affordable HealthFarm mass gainer. Great for beginners on budget",facts:[["Protein", "25g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Discount", "43% OFF"]],tags:["43% OFF", "Beginner Gainer", "1kg", "Most Affordable"]},
+  {id:3513,cat:"preworkout",brand:"HealthFarm",name:"HealthFarm ThPreX Pre-Workout 500g",shortName:"HealthFarm ThPreX 500g",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:1299,mrp:1869,badge:"30% OFF",desc:"HealthFarm ThPreX in 500g economy. Energy focus and pump formula",facts:[["Servings", "50"], ["Weight", "500g"], ["Type", "Energy+Focus+Pump"], ["Discount", "30% OFF"]],tags:["30% OFF", "500g Economy", "50 Servings", "ThPreX"]},
+  {id:3514,cat:"preworkout",brand:"HealthFarm",name:"HealthFarm ThPreX Pre-Workout 250g",shortName:"HealthFarm ThPreX 250g",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:649,mrp:1099,badge:"41% OFF",desc:"HealthFarm ThPreX in 250g trial size to try before committing",facts:[["Servings", "25"], ["Weight", "250g"], ["Best For", "Trial"], ["Discount", "41% OFF"]],tags:["41% OFF", "Trial 250g", "25 Servings", "ThPreX"]},
+  {id:3515,cat:"preworkout",brand:"HealthFarm",name:"HealthFarm Limitless ThPreX Fully Loaded 600g",shortName:"HealthFarm Limitless ThPreX 600g",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:1329,mrp:2229,badge:"40% OFF",desc:"Limitless ThPreX fully loaded formula. Maximum energy and focus",facts:[["Type", "Fully Loaded"], ["Weight", "600g"], ["Servings", "60"], ["Discount", "40% OFF"]],tags:["40% OFF", "Fully Loaded", "60 Servings", "Maximum Energy"]},
+  {id:3516,cat:"preworkout",brand:"HealthFarm",name:"HealthFarm ThPreX Fizz Pre-Workout 400g",shortName:"HealthFarm ThPreX Fizz 400g",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:1129,mrp:1869,badge:"40% OFF",desc:"Fizzy effervescent pre-workout from HealthFarm for fast absorption",facts:[["Type", "Effervescent"], ["Weight", "400g"], ["Absorption", "Fast"], ["Discount", "40% OFF"]],tags:["40% OFF", "Effervescent", "Fast Absorption", "ThPreX Fizz"]},
+  {id:3517,cat:"creatine",brand:"HealthFarm",name:"HealthFarm Muscle Creatine Monohydrate 100g",shortName:"HealthFarm Creatine 100g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:449,mrp:539,badge:"17% OFF",desc:"Entry 100g creatine from HealthFarm. Best beginner creatine at budget price",facts:[["Creatine", "5g/serving"], ["Weight", "100g"], ["Servings", "20"], ["Best For", "Beginners"]],tags:["Beginner Creatine", "17% OFF", "Trial 100g", "20 Servings"]},
+  {id:3518,cat:"bcaa",brand:"HealthFarm",name:"HealthFarm Muscle Intra BCAA 180g",shortName:"HealthFarm Intra BCAA 180g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:539,mrp:799,badge:"33% OFF",desc:"Intra-workout BCAA from HealthFarm to fuel muscles during training",facts:[["BCAAs", "7g"], ["Weight", "180g"], ["Type", "Intra-Workout"], ["Discount", "33% OFF"]],tags:["33% OFF", "Intra-Workout BCAA", "180g", "Anti-Catabolic"]},
+  {id:3519,cat:"fatburner",brand:"HealthFarm",name:"HealthFarm HF Series L-Carnitine 1500mg 450ml",shortName:"HealthFarm L-Carnitine 1500mg",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:488,mrp:979,badge:"50% OFF",desc:"Liquid L-Carnitine at 1500mg. Half price fat burning support",facts:[["L-Carnitine", "1500mg"], ["Form", "Liquid"], ["Volume", "450ml"], ["Discount", "50% OFF"]],tags:["50% OFF", "1500mg Liquid", "L-Carnitine", "Fat Burning"]},
+  {id:3520,cat:"vitamins",brand:"HealthFarm",name:"HealthFarm HF Series AM PM Multivitamin 60t",shortName:"HealthFarm AM PM Multivit 60t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:849,mrp:889,badge:"4% OFF",desc:"AM/PM dual-formula multivitamin. Day and night nutrient support",facts:[["AM/PM", "Dual Formula"], ["Tablets", "60"], ["Type", "Day+Night"], ["Series", "HF Series"]],tags:["AM PM Formula", "Day+Night", "60 Tabs", "Dual Nutrient"]},
+  {id:3521,cat:"vitamins",brand:"HealthFarm",name:"HealthFarm ViMin Multivitamin 30 tabs",shortName:"HealthFarm ViMin 30t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:299,mrp:379,badge:"21% OFF",desc:"Entry level 30-tab multivitamin from HealthFarm. Budget daily health",facts:[["Vitamins", "Complete"], ["Tablets", "30"], ["Price", "Budget"], ["Discount", "21% OFF"]],tags:["21% OFF", "Budget Multivit", "30 Tabs", "Beginner Friendly"]},
+  {id:3522,cat:"vitamins",brand:"HealthFarm",name:"HealthFarm Omega 3 Fish Oil EPA & DHA 60 softgels",shortName:"HealthFarm Omega-3 60c",icon:"🐟",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:444,mrp:669,badge:"34% OFF",desc:"HealthFarm omega-3 with EPA and DHA for heart joint and brain health",facts:[["Omega-3", "EPA+DHA"], ["Softgels", "60"], ["Benefit", "Heart+Joints+Brain"], ["Discount", "34% OFF"]],tags:["34% OFF", "EPA+DHA", "60 Softgels", "Omega-3"]},
+  {id:3523,cat:"vitamins",brand:"HealthFarm",name:"HealthFarm Liver Health Milk Thistle 60 caps",shortName:"HealthFarm Milk Thistle 60c",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:599,mrp:799,badge:"25% OFF",desc:"Milk thistle liver protection from HealthFarm. Essential for supplement users",facts:[["Milk Thistle", "High Dose"], ["Capsules", "60"], ["Benefit", "Liver Protection"], ["Discount", "25% OFF"]],tags:["25% OFF", "Milk Thistle", "Liver Protection", "60 Caps"]},
+  {id:3524,cat:"vitamins",brand:"HealthFarm",name:"HealthFarm Bone Health 60 tabs",shortName:"HealthFarm Bone Health 60t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:299,mrp:449,badge:"33% OFF",desc:"Calcium D3 and minerals for bone density and joint health",facts:[["Calcium", "Yes"], ["Vitamin D3", "Yes"], ["Tablets", "60"], ["Discount", "33% OFF"]],tags:["33% OFF", "Bone Health", "Calcium+D3", "Joint Support"]},
+  // ── Nutrabay additions ──
+  {id:3600,cat:"whey",brand:"Nutrabay",name:"Nutrabay Pure Whey Protein Concentrate Raw 1kg",shortName:"Nutrabay Pure Whey Concentrate 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2299,mrp:3699,badge:"38% OFF",desc:"Raw unflavoured whey concentrate from Nutrabay. No additives whatsoever",facts:[["Protein", "24g"], ["Flavour", "Unflavoured"], ["Weight", "1kg"], ["Type", "Raw"]],tags:["38% OFF", "Unflavoured Raw", "No Additives", "Beginner Friendly"]},
+  {id:3601,cat:"whey",brand:"Nutrabay",name:"Nutrabay Pure Whey Protein Isolate Raw 1kg",shortName:"Nutrabay Pure Whey Isolate 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:3649,mrp:5279,badge:"31% OFF",desc:"Raw isolate from Nutrabay. Purest form without flavouring or additives",facts:[["Protein", "27g Isolate"], ["Flavour", "Raw Unflavoured"], ["Weight", "1kg"], ["Discount", "31% OFF"]],tags:["31% OFF", "Raw Isolate", "Unflavoured", "27g Protein"]},
+  {id:3602,cat:"whey",brand:"Nutrabay",name:"Nutrabay BioAbsorb Whey Protein 1kg",shortName:"Nutrabay BioAbsorb Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2799,mrp:4099,badge:"32% OFF",desc:"BioAbsorb technology for superior protein absorption. Enzyme enhanced",facts:[["Protein", "25g"], ["Technology", "BioAbsorb"], ["Weight", "1kg"], ["Discount", "32% OFF"]],tags:["32% OFF", "BioAbsorb Technology", "Enhanced Absorption", "1kg"]},
+  {id:3603,cat:"whey",brand:"Nutrabay",name:"Nutrabay Vital Whey Protein 1kg",shortName:"Nutrabay Vital Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:999,mrp:1709,badge:"42% OFF",desc:"Budget whey from Nutrabay at great value. Good protein for beginners",facts:[["Protein", "22g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Discount", "42% OFF"]],tags:["42% OFF", "Budget Whey", "Beginner Friendly", "22g Protein"]},
+  {id:3604,cat:"whey",brand:"Nutrabay",name:"Nutrabay Gold Tri-Blend Whey Protein 1kg",shortName:"Nutrabay Gold Tri-Blend 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2499,mrp:3999,badge:"38% OFF",desc:"Gold series tri-blend whey in 1kg. Three protein sources for sustained release",facts:[["Type", "Tri-Blend"], ["Protein", "24g"], ["Weight", "1kg"], ["Discount", "38% OFF"]],tags:["38% OFF", "Tri-Blend", "1kg", "3 Protein Sources"]},
+  {id:3605,cat:"whey",brand:"Nutrabay",name:"Nutrabay Pure Pea Protein Isolate 1kg",shortName:"Nutrabay Pea Protein 1kg",icon:"🌱",img:"https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=400&q=80",price:849,mrp:1249,badge:"32% OFF",desc:"Vegan pea protein isolate. Clean plant based protein for vegans",facts:[["Type", "Pea Protein"], ["Protein", "22g"], ["Weight", "1kg"], ["Vegan", "Yes"]],tags:["32% OFF", "Vegan", "Pea Protein", "Plant Based"]},
+  {id:3606,cat:"whey",brand:"Nutrabay",name:"Nutrabay Pure Soy Protein Isolate 1kg",shortName:"Nutrabay Soy Protein 1kg",icon:"🌱",img:"https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=400&q=80",price:999,mrp:1699,badge:"41% OFF",desc:"Pure soy protein isolate - vegan high in EAAs affordable plant protein",facts:[["Type", "Soy Protein"], ["Protein", "22g"], ["Weight", "1kg"], ["Vegan", "Yes"]],tags:["41% OFF", "Vegan Soy Protein", "Plant Based", "1kg"]},
+  {id:3607,cat:"mass",brand:"Nutrabay",name:"Nutrabay Gold Bulk Up Mass Gainer 3kg",shortName:"Nutrabay Gold Bulk Up 3kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2199,mrp:3399,badge:"35% OFF",desc:"Gold series bulk-up mass gainer. Clean calories with good protein",facts:[["Protein", "30g"], ["Weight", "3kg"], ["Series", "Gold"], ["Discount", "35% OFF"]],tags:["35% OFF", "Gold Series", "3kg", "Bulk Up"]},
+  {id:3608,cat:"mass",brand:"Nutrabay",name:"Nutrabay Gold Mega Mass Weight Gainer 3kg",shortName:"Nutrabay Gold Mega Mass 3kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:1999,mrp:1999,badge:"Mega Mass",desc:"Nutrabay Gold Mega Mass - high calorie for maximum size gains",facts:[["Protein", "30g"], ["Weight", "3kg"], ["Calories", "600+"], ["Series", "Gold Mega Mass"]],tags:["Mega Mass", "Gold Series", "3kg", "600+ Calories"]},
+  {id:3609,cat:"mass",brand:"Nutrabay",name:"Nutrabay Mega Mass High Protein 1kg",shortName:"Nutrabay Mega Mass 1kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:999,mrp:1199,badge:"17% OFF",desc:"1kg trial Nutrabay mass gainer. Affordable entry for beginners",facts:[["Protein", "28g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Discount", "17% OFF"]],tags:["17% OFF", "Trial 1kg", "Beginner Gainer", "Affordable"]},
+  {id:3610,cat:"creatine",brand:"Nutrabay",name:"Nutrabay Gold Micronized Creatine 250g",shortName:"Nutrabay Gold Creatine 250g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:629,mrp:1149,badge:"45% OFF",desc:"Nutrabay Gold certified creatine. Lab verified purity at 45% off",facts:[["Creatine", "5g/serving"], ["Weight", "250g"], ["Certified", "Gold Lab Verified"], ["Discount", "45% OFF"]],tags:["45% OFF", "Gold Certified", "Lab Verified", "250g"]},
+  {id:3611,cat:"creatine",brand:"Nutrabay",name:"Nutrabay Pure Creatine Monohydrate 100g",shortName:"Nutrabay Pure Creatine 100g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:269,mrp:499,badge:"46% OFF",desc:"Budget 100g creatine from Nutrabay. Most affordable lab verified creatine",facts:[["Creatine", "5g/serving"], ["Weight", "100g"], ["Servings", "20"], ["Discount", "46% OFF"]],tags:["46% OFF", "Budget Creatine", "20 Servings", "Lab Verified"]},
+  {id:3612,cat:"preworkout",brand:"Nutrabay",name:"Nutrabay RageX Pre-Workout Energy Focus Pump",shortName:"Nutrabay RageX Pre-Workout",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:666,mrp:999,badge:"33% OFF",desc:"RageX pre-workout from Nutrabay. Energy focus and pump at budget pricing",facts:[["Type", "Energy+Focus+Pump"], ["Series", "RageX"], ["Discount", "33% OFF"], ["Value", "Best Budget"]],tags:["33% OFF", "RageX Formula", "Energy+Focus+Pump", "Budget Pre-Workout"]},
+  {id:3613,cat:"preworkout",brand:"Nutrabay",name:"Nutrabay Spark Pre-Workout Mild Stim",shortName:"Nutrabay Spark Pre-Workout",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:599,mrp:699,badge:"14% OFF",desc:"Nutrabay Spark mild stimulant pre-workout. Good for beginners",facts:[["Type", "Mild Stim"], ["Series", "Spark"], ["Best For", "Beginners"], ["Discount", "14% OFF"]],tags:["14% OFF", "Mild Stimulant", "Beginner Pre-Workout", "Spark"]},
+  {id:3614,cat:"vitamins",brand:"Nutrabay",name:"Nutrabay Pro Active Multivitamin for Women 60t",shortName:"Nutrabay Women Multivitamin 60t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:379,mrp:449,badge:"16% OFF",desc:"Women specific daily multivitamin with iron folate and biotin",facts:[["For", "Women"], ["Tablets", "60"], ["Iron+Folate", "Yes"], ["Biotin", "Yes"]],tags:["For Women", "Iron+Folate+Biotin", "16% OFF", "Daily Multivit"]},
+  {id:3615,cat:"vitamins",brand:"Nutrabay",name:"Nutrabay Wellness Fish Oil Omega 3 1000mg 60c",shortName:"Nutrabay Fish Oil 60c",icon:"🐟",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:279,mrp:419,badge:"33% OFF",desc:"Nutrabay omega-3 at the most affordable price in the category",facts:[["Omega-3", "1000mg"], ["Softgels", "60"], ["Discount", "33% OFF"], ["Value", "Most Affordable"]],tags:["33% OFF", "Most Affordable Omega-3", "60 Caps", "1000mg"]},
+  {id:3616,cat:"vitamins",brand:"Nutrabay",name:"Nutrabay Magnesium Glycinate 2000mg 120t",shortName:"Nutrabay Magnesium Glycinate 120t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:349,mrp:549,badge:"36% OFF",desc:"High bioavailability magnesium glycinate from Nutrabay at 36% OFF",facts:[["Magnesium", "2000mg"], ["Form", "Glycinate"], ["Tablets", "120"], ["Discount", "36% OFF"]],tags:["36% OFF", "Magnesium Glycinate", "High Bioavailability", "120 Tabs"]},
+  {id:3617,cat:"vitamins",brand:"Nutrabay",name:"Nutrabay Korean Marine Glow Collagen Peptides",shortName:"Nutrabay Marine Collagen",icon:"✨",img:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80",price:649,mrp:2099,badge:"69% OFF",desc:"Korean marine collagen peptides from Nutrabay at 69% off. Skin glow",facts:[["Type", "Marine Collagen"], ["Origin", "Korean"], ["Discount", "69% OFF"], ["Benefit", "Skin Glow"]],tags:["69% OFF", "Korean Marine Collagen", "Skin Glow", "Anti-Ageing"]},
+  {id:3618,cat:"vitamins",brand:"Nutrabay",name:"Nutrabay Wellness Ashwagandha 1000mg 30t",shortName:"Nutrabay Ashwagandha 30t",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:149,mrp:349,badge:"57% OFF",desc:"30-tab trial ashwagandha from Nutrabay. Stress relief and vitality",facts:[["Ashwagandha", "1000mg"], ["Tablets", "30"], ["Best For", "Trial"], ["Discount", "57% OFF"]],tags:["57% OFF", "Trial Pack", "Ashwagandha", "Stress Relief"]},
+  // ── BeastLife additions ──
+  {id:3700,cat:"whey",brand:"BeastLife",name:"BeastLife Performance Fermented Yeast Protein 2kg",shortName:"BeastLife Fermented Yeast Protein 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:3999,mrp:3999,badge:"Unique Formula",desc:"Fermented yeast protein unique source with high digestibility",facts:[["Protein", "24g"], ["Source", "Fermented Yeast"], ["Weight", "2kg"], ["Absorption", "High"]],tags:["Fermented Yeast", "Unique Source", "High Digestibility", "2kg"]},
+  {id:3701,cat:"whey",brand:"BeastLife",name:"BeastLife Pro Concentrate Whey Protein 1848g",shortName:"BeastLife Pro Concentrate 1848g",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:5473,mrp:5473,badge:"Economy 1.8kg",desc:"Economy size BeastLife Pro Concentrate. More servings better value",facts:[["Protein", "24g"], ["Weight", "1848g"], ["Technology", "Ultrasorb"], ["Servings", "60"]],tags:["Ultrasorb", "Economy 1.8kg", "60 Servings", "Better Value"]},
+  {id:3702,cat:"mass",brand:"BeastLife",name:"BeastLife Anabolic Mass Gainer 2.5kg",shortName:"BeastLife Anabolic Mass 2.5kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:1894,mrp:1894,badge:"Mid Size",desc:"BeastLife Anabolic Mass in 2.5kg. Good mid size pack for steady bulking",facts:[["Protein", "28g"], ["Weight", "2.5kg"], ["Calories", "500+"], ["Technology", "Ultrasorb"]],tags:["Ultrasorb", "2.5kg Mid Size", "Steady Bulk", "500+ Calories"]},
+  {id:3703,cat:"creatine",brand:"BeastLife",name:"BeastLife Creatine Monohydrate Flavoured 125g",shortName:"BeastLife Creatine Flavoured 125g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:367,mrp:367,badge:"Flavoured",desc:"Flavoured creatine monohydrate from BeastLife. Makes daily creatine enjoyable",facts:[["Creatine", "5g/serving"], ["Flavour", "Flavoured"], ["Weight", "125g"], ["Servings", "25"]],tags:["Flavoured Creatine", "25 Servings", "Tasty", "Beginner Friendly"]},
+  {id:3704,cat:"preworkout",brand:"BeastLife",name:"BeastLife Beastmode Pre-Workout Fruit Punch",shortName:"BeastLife Beastmode Pre-Workout",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:525,mrp:525,badge:"Fruit Punch",desc:"BeastLife Beastmode pre-workout in Fruit Punch. Aggressive energy formula",facts:[["Flavour", "Fruit Punch"], ["Type", "High Energy"], ["Technology", "Ultrasorb"], ["Series", "Beastmode"]],tags:["Beastmode", "Fruit Punch", "High Energy", "Ultrasorb"]},
+  {id:3705,cat:"vitamins",brand:"BeastLife",name:"BeastLife Multivitamins 30 tabs",shortName:"BeastLife Multivitamins 30t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:525,mrp:666,badge:"21% OFF",desc:"Daily multivitamin from BeastLife. Complete micronutrient support",facts:[["Vitamins", "Complete"], ["Tablets", "30"], ["Best For", "Active Users"], ["Discount", "21% OFF"]],tags:["21% OFF", "Daily Multivit", "30 Tabs", "Beginner Friendly"]},
+  {id:3706,cat:"vitamins",brand:"BeastLife",name:"BeastLife Liver Detox 60 tabs",shortName:"BeastLife Liver Detox 60t",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:841,mrp:1690,badge:"50% OFF",desc:"Liver detox formula from BeastLife. Essential for heavy supplement users",facts:[["Type", "Liver Detox"], ["Tablets", "60"], ["Discount", "50% OFF"], ["Best For", "Supplement Users"]],tags:["50% OFF", "Liver Detox", "60 Tabs", "Supplement Protection"]},
+  // ── Denzour additions ──
+  {id:3800,cat:"whey",brand:"Denzour",name:"Denzour Denz-Whey Protein 1.08kg",shortName:"Denzour Denz-Whey 1.08kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:1899,mrp:3149,badge:"40% OFF",desc:"Denzour Denz-Whey in 1.08kg. Unique desi flavours with good protein",facts:[["Protein", "24g"], ["Weight", "1.08kg"], ["Flavours", "Unique Desi"], ["Discount", "40% OFF"]],tags:["40% OFF", "Unique Desi Flavours", "1.08kg", "Denzour"]},
+  {id:3801,cat:"mass",brand:"Denzour",name:"Denzour Denz-Pro Mass Gainer 5kg",shortName:"Denzour Denz-Pro Mass 5kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:5204,mrp:5783,badge:"10% OFF",desc:"5kg economy mass gainer from Denzour. Unique flavours high calorie",facts:[["Protein", "30g"], ["Weight", "5kg"], ["Calories", "600+"], ["Flavours", "Unique Desi"]],tags:["10% OFF", "5kg Economy", "Unique Flavours", "600+ Calories"]},
+  {id:3802,cat:"bcaa",brand:"Denzour",name:"Denzour Denz-Intra BCAA + EAA 10 servings",shortName:"Denzour BCAA+EAA Trial",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:399,mrp:622,badge:"36% OFF",desc:"Trial pack BCAA+EAA from Denzour. 10 servings to try the flavour range",facts:[["BCAAs+EAAs", "Yes"], ["Servings", "10"], ["Format", "Trial Pack"], ["Discount", "36% OFF"]],tags:["36% OFF", "BCAA+EAA Trial", "10 Servings", "Denzour Flavours"]},
+  // ── FastUp additions ──
+  {id:3900,cat:"creatine",brand:"FastUp",name:"Fast&Up Creatine Monohydrate Essentials Powder",shortName:"Fast&Up Creatine Powder",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:668,mrp:1335,badge:"50% OFF",desc:"Creatine powder from Fast&Up. Non-effervescent form at 50% OFF",facts:[["Creatine", "5g/serving"], ["Form", "Powder"], ["Discount", "50% OFF"], ["Best For", "Beginners"]],tags:["50% OFF", "Creatine Powder", "Fast&Up Quality", "Beginner Friendly"]},
+  {id:3901,cat:"preworkout",brand:"FastUp",name:"Fast&Up Pre-Workout 30 servings",shortName:"Fast&Up Pre-Workout 30 serv",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:935,mrp:1870,badge:"50% OFF",desc:"Fast&Up Pre-Workout with effervescent technology. 30 servings at 50% off",facts:[["Type", "Effervescent Pre-WO"], ["Servings", "30"], ["Absorption", "Fast"], ["Discount", "50% OFF"]],tags:["50% OFF", "Effervescent", "30 Servings", "Fast Absorption"]},
+  {id:3902,cat:"vitamins",brand:"FastUp",name:"Fast&Up Vitalize Multivitamins 20 tabs",shortName:"Fast&Up Vitalize 20t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:233,mrp:290,badge:"20% OFF",desc:"Fast&Up Vitalize effervescent multivitamins. Daily immunity and energy",facts:[["Form", "Effervescent"], ["Tabs", "20"], ["Benefit", "Immunity+Energy"], ["Discount", "20% OFF"]],tags:["20% OFF", "Effervescent Multivit", "Immunity+Energy", "Beginner Friendly"]},
+  {id:3903,cat:"vitamins",brand:"FastUp",name:"Fast&Up Magnesio Magnesium & Zinc 20 tabs",shortName:"Fast&Up Magnesio 20t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:288,mrp:375,badge:"23% OFF",desc:"Effervescent magnesium and zinc for muscle function sleep and recovery",facts:[["Magnesium", "Yes"], ["Zinc", "Yes"], ["Form", "Effervescent"], ["Discount", "23% OFF"]],tags:["23% OFF", "Mg+Zinc", "Effervescent", "Sleep+Recovery"]},
+  // ── Oziva additions ──
+  {id:4000,cat:"whey",brand:"Oziva",name:"Oziva Clean Whey Concentrate Unflavoured",shortName:"Oziva Clean Whey Concentrate",icon:"🌿",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2279,mrp:2279,badge:"Clean Label",desc:"Clean whey concentrate from Oziva. Unflavoured no artificial additives",facts:[["Type", "Clean Whey"], ["Flavour", "Unflavoured"], ["Additives", "None"], ["Certified", "Clean Label"]],tags:["Clean Label", "Unflavoured", "No Additives", "Beginner Friendly"]},
+  {id:4001,cat:"vitamins",brand:"Oziva",name:"Oziva Biotin for Hair Growth 125g",shortName:"Oziva Biotin 125g",icon:"💇",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:1669,mrp:1669,badge:"Hair Growth",desc:"Plant based biotin powder from Oziva for hair growth and thickness",facts:[["Biotin", "High Dose"], ["Form", "Powder"], ["Weight", "125g"], ["Benefit", "Hair Growth+Thickness"]],tags:["Hair Growth", "Biotin Powder", "Plant Based", "Oziva"]},
+  {id:4002,cat:"vitamins",brand:"Oziva",name:"Oziva Glutathione Builder 60 caps",shortName:"Oziva Glutathione Builder 60c",icon:"✨",img:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80",price:759,mrp:759,badge:"Skin Brightening",desc:"Plant based glutathione builder from Oziva for skin brightening",facts:[["Glutathione", "Plant Based"], ["Capsules", "60"], ["Benefit", "Skin Brightening"], ["Type", "Builder Formula"]],tags:["Plant Based Glutathione", "60 Caps", "Skin Brightening", "Detox"]},
+  // ── Dymatize additions ──
+  {id:4100,cat:"whey",brand:"Dymatize",name:"Dymatize Elite Casein 907g",shortName:"Dymatize Elite Casein 907g",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:3800,mrp:4500,badge:"16% OFF",desc:"Dymatize Elite Casein for slow overnight release. 8 hour amino acid supply",facts:[["Type", "Casein"], ["Weight", "907g"], ["Release", "Slow 8hrs"], ["Best For", "Night Use"]],tags:["16% OFF", "Elite Casein", "8hr Release", "Night Protein"]},
+  // ── Isopure additions ──
+  {id:4200,cat:"whey",brand:"Isopure",name:"Isopure 100% Whey Protein Isolate 1kg",shortName:"Isopure Whey Isolate 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:4973,mrp:6199,badge:"20% OFF",desc:"Isopure 1kg isolate - trial size of the ultra-pure zero-compromise isolate",facts:[["Protein", "25g Isolate"], ["Weight", "1kg"], ["Purity", "Ultra Pure"], ["Discount", "20% OFF"]],tags:["20% OFF", "Ultra Pure", "Trial 1kg", "100% Isolate"]},
+  {id:4201,cat:"whey",brand:"Isopure",name:"Isopure Low Carb Dutch Chocolate 500g",shortName:"Isopure Low Carb 500g",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:2919,mrp:3279,badge:"11% OFF",desc:"Low carb Isopure in 500g. Dutch Chocolate flavour with near-zero carbs",facts:[["Protein", "25g"], ["Weight", "500g"], ["Carbs", "Minimal"], ["Flavour", "Dutch Chocolate"]],tags:["11% OFF", "Low Carb", "Dutch Chocolate", "500g Trial"]},
+  // ── Ultimate Nutrition additions ──
+  {id:4300,cat:"whey",brand:"Ultimate Nutrition",name:"Ultimate Nutrition Prostar 100% Whey 907g",shortName:"Ultimate Nutrition Prostar 907g",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:2800,mrp:3500,badge:"20% OFF",desc:"Prostar whey in 907g trial size. Legacy formula trusted for decades",facts:[["Protein", "25g"], ["Weight", "907g"], ["Series", "Prostar"], ["Discount", "20% OFF"]],tags:["20% OFF", "Prostar Legacy", "Trial 907g", "Trusted Formula"]},
+  {id:4301,cat:"whey",brand:"Ultimate Nutrition",name:"Ultimate Nutrition ISO Sensation 93 2.27kg",shortName:"Ultimate Nutrition ISO Sensation 93",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:9699,mrp:12999,badge:"25% OFF",desc:"93 percent protein content per serving. One of the highest purity isolates",facts:[["Protein", "93% per serving"], ["Weight", "2.27kg"], ["Purity", "Highest"], ["Discount", "25% OFF"]],tags:["25% OFF", "93% Protein", "Ultra Pure Isolate", "ISO Sensation"]},
+  {id:4302,cat:"vitamins",brand:"Ultimate Nutrition",name:"Ultimate Nutrition Ultra Adrenal Support 60c",shortName:"Ultimate Nutrition Adrenal Support",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:1200,mrp:1800,badge:"33% OFF",desc:"Adrenal support with adaptogens. Manages cortisol and stress for athletes",facts:[["Type", "Adrenal Support"], ["Capsules", "60"], ["Benefit", "Cortisol+Stress"], ["Discount", "33% OFF"]],tags:["33% OFF", "Adrenal Support", "Cortisol Management", "Adaptogen"]},
+  // ── BSN additions ──
+  {id:4400,cat:"whey",brand:"BSN",name:"BSN Syntha-6 Isolate 907g",shortName:"BSN Syntha-6 Isolate 907g",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:3500,mrp:4200,badge:"17% OFF",desc:"Syntha-6 Isolate - BSN isolate version with iconic taste but leaner",facts:[["Protein", "25g Isolate"], ["Weight", "907g"], ["Type", "Isolate"], ["Flavour", "Rich Taste"]],tags:["17% OFF", "Syntha-6 Isolate", "907g", "Rich Taste"]},
+  {id:4401,cat:"bcaa",brand:"BSN",name:"BSN Amino X Intra-Workout 435g",shortName:"BSN Amino X 435g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1800,mrp:2500,badge:"28% OFF",desc:"BSN Amino X intra-workout BCAA+EAA formula in effervescent fizzy form",facts:[["Type", "Intra-Workout"], ["Weight", "435g"], ["Form", "Effervescent"], ["Discount", "28% OFF"]],tags:["28% OFF", "Intra-Workout", "Effervescent", "BCAA+EAA"]},
+  // ── Myprotein additions ──
+  {id:4500,cat:"whey",brand:"Myprotein",name:"Myprotein Impact Whey Isolate 2.5kg",shortName:"Myprotein Impact Isolate 2.5kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:10899,mrp:13237,badge:"18% OFF",desc:"Economy 2.5kg Impact Isolate. Best value for UK quality lean protein",facts:[["Protein", "23g Isolate"], ["Weight", "2.5kg"], ["Servings", "100"], ["Discount", "18% OFF"]],tags:["18% OFF", "Economy 2.5kg", "100 Servings", "UK Quality Isolate"]},
+  {id:4501,cat:"whey",brand:"Myprotein",name:"Myprotein THE Whey Premium Blend 2kg",shortName:"Myprotein THE Whey 2kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:7099,mrp:7099,badge:"Premium",desc:"THE Whey from Myprotein - premium multi-source blend with hydrolyzed",facts:[["Protein", "25g"], ["Type", "Multi-Source+Hydrolyzed"], ["Weight", "2kg"], ["Series", "THE Whey"]],tags:["THE Whey", "Premium Blend", "Multi-Source", "Hydrolyzed Added"]},
+  {id:4502,cat:"whey",brand:"Myprotein",name:"Myprotein Clear Whey Isolate 500g",shortName:"Myprotein Clear Whey 500g",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:2299,mrp:2499,badge:"8% OFF",desc:"Crystal clear whey isolate in juice form. Refreshing and light formula",facts:[["Type", "Clear Isolate"], ["Weight", "500g"], ["Texture", "Juice-Like"], ["Protein", "20g"]],tags:["8% OFF", "Clear Whey", "Juice-Like", "Refreshing Isolate"]},
+  {id:4503,cat:"whey",brand:"Myprotein",name:"Myprotein Micellar Casein 2.5kg",shortName:"Myprotein Casein 2.5kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:7099,mrp:7099,badge:"Slow Release",desc:"Micellar casein for overnight protein supply. 8hr slow release",facts:[["Type", "Micellar Casein"], ["Weight", "2.5kg"], ["Release", "8hrs Slow"], ["Best For", "Night Use"]],tags:["Micellar Casein", "8hr Release", "Night Protein", "2.5kg Economy"]},
+  {id:4504,cat:"creatine",brand:"Myprotein",name:"Myprotein Creatine Monohydrate 250g",shortName:"Myprotein Creatine 250g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:599,mrp:1699,badge:"65% OFF",desc:"Best value creatine. Myprotein creatine at 65% off - unbeatable",facts:[["Creatine", "5g/serving"], ["Weight", "250g"], ["Discount", "65% OFF"], ["Value", "Best Value"]],tags:["65% OFF", "Best Value Creatine", "250g", "Myprotein Quality"]},
+  {id:4505,cat:"creatine",brand:"Myprotein",name:"Myprotein Creapure Creatine Monohydrate 250g",shortName:"Myprotein Creapure 250g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1299,mrp:1999,badge:"35% OFF",desc:"German Creapure creatine from Myprotein. Purest and most trusted creatine",facts:[["Source", "Creapure Germany"], ["Weight", "250g"], ["Purity", "Highest"], ["Discount", "35% OFF"]],tags:["35% OFF", "Creapure Germany", "Purest Creatine", "250g"]},
+  {id:4506,cat:"bcaa",brand:"Myprotein",name:"Myprotein BCAA 2:1:1 Powder 250g",shortName:"Myprotein BCAA 250g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:699,mrp:1299,badge:"46% OFF",desc:"Myprotein BCAA in 2:1:1 ratio. Classic recovery formula at 46% off",facts:[["BCAAs", "5g"], ["Ratio", "2:1:1"], ["Weight", "250g"], ["Discount", "46% OFF"]],tags:["46% OFF", "BCAA 2:1:1", "250g", "Recovery"]},
+  {id:4507,cat:"bcaa",brand:"Myprotein",name:"Myprotein L-Glutamine Powder 250g",shortName:"Myprotein L-Glutamine 250g",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:1049,mrp:1049,badge:"Recovery",desc:"Pure L-Glutamine from Myprotein for muscle recovery and gut health",facts:[["L-Glutamine", "5g/serving"], ["Weight", "250g"], ["Benefit", "Recovery+Gut"], ["Brand", "Myprotein"]],tags:["L-Glutamine", "Recovery+Gut", "250g", "Myprotein"]},
+  {id:4508,cat:"mass",brand:"Myprotein",name:"Myprotein Weight Gainer Blend 2.5kg",shortName:"Myprotein Weight Gainer 2.5kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2699,mrp:2699,badge:"Mid Size",desc:"Myprotein weight gainer in 2.5kg. Balanced protein and carbs",facts:[["Protein", "30g"], ["Weight", "2.5kg"], ["Calories", "600+"], ["Servings", "18"]],tags:["2.5kg Mid Size", "600+ Calories", "Weight Gainer", "Myprotein"]},
+  {id:4509,cat:"mass",brand:"Myprotein",name:"Myprotein Extreme Gainer Blend 2.5kg",shortName:"Myprotein Extreme Gainer 2.5kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:4299,mrp:4299,badge:"Extreme",desc:"Extreme Gainer Blend for maximum calorie surplus. Hard gainers only",facts:[["Protein", "30g"], ["Weight", "2.5kg"], ["Calories", "1000+"], ["Type", "Extreme"]],tags:["Extreme Gainer", "1000+ Calories", "Hard Gainer", "2.5kg"]},
+  {id:4510,cat:"vitamins",brand:"Myprotein",name:"Myprotein Daily Multivitamin 60 tabs",shortName:"Myprotein Daily Multivit 60t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:599,mrp:799,badge:"25% OFF",desc:"Daily multivitamin from Myprotein. Complete nutrition for active people",facts:[["Vitamins", "Complete"], ["Tablets", "60"], ["Discount", "25% OFF"], ["Best For", "Active People"]],tags:["25% OFF", "Daily Multivit", "60 Tabs", "Beginner Friendly"]},
+  {id:4511,cat:"vitamins",brand:"Myprotein",name:"Myprotein Essential Omega-3 90 softgels",shortName:"Myprotein Omega-3 90c",icon:"🐟",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:999,mrp:999,badge:"90 Softgels",desc:"Myprotein omega-3 in 90 softgels - best value fish oil in category",facts:[["Omega-3", "EPA+DHA"], ["Softgels", "90"], ["Value", "Best Value"], ["Brand", "Myprotein"]],tags:["90 Softgels", "Omega-3", "Best Value", "Myprotein Quality"]},
+  {id:4512,cat:"vitamins",brand:"Myprotein",name:"Myprotein Ashwagandha Capsules 60 caps",shortName:"Myprotein Ashwagandha 60c",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:499,mrp:599,badge:"17% OFF",desc:"Myprotein ashwagandha for stress relief strength and testosterone",facts:[["Ashwagandha", "500mg"], ["Capsules", "60"], ["Benefit", "Stress+Testosterone"], ["Discount", "17% OFF"]],tags:["17% OFF", "Ashwagandha", "Stress Relief", "Testosterone Support"]},
+  {id:4513,cat:"accessories",brand:"Myprotein",name:"Myprotein Impact Protein Bar Single",shortName:"Myprotein Impact Protein Bar",icon:"🍫",img:"https://images.unsplash.com/photo-1622980087741-f80f26090309?w=400&q=80",price:275,mrp:275,badge:"On-the-Go",desc:"Myprotein Impact Protein Bar delicious high-protein snack on-the-go",facts:[["Protein", "20g"], ["Type", "Protein Bar"], ["Format", "Single Bar"], ["Snack", "On-the-Go"]],tags:["Protein Bar", "On-the-Go", "20g Protein", "Myprotein"]},
+  {id:4514,cat:"accessories",brand:"Myprotein",name:"Myprotein Metal Shaker 700ml",shortName:"Myprotein Metal Shaker 700ml",icon:"🥤",img:"https://images.unsplash.com/photo-1622980087741-f80f26090309?w=400&q=80",price:799,mrp:799,badge:"Metal",desc:"Premium metal shaker from Myprotein. Durable leak-proof 700ml",facts:[["Capacity", "700ml"], ["Material", "Metal"], ["Leak Proof", "Yes"], ["Brand", "Myprotein"]],tags:["Metal Shaker", "700ml", "Leak Proof", "Premium Quality"]},
+  // ── BigMuscles additions ──
+  {id:4600,cat:"whey",brand:"BigMuscles",name:"BigMuscles Premium Gold Whey Protein 1kg",shortName:"BigMuscles Premium Gold 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:1263,mrp:2999,badge:"58% OFF",desc:"Budget 1kg Premium Gold Whey. Best price to quality ratio in market",facts:[["Protein", "24g"], ["Weight", "1kg"], ["Discount", "58% OFF"], ["Best For", "Beginners"]],tags:["58% OFF", "Budget King", "1kg", "Beginner Friendly"]},
+  {id:4601,cat:"whey",brand:"BigMuscles",name:"BigMuscles Nitra Isolate Whey Protein 1kg",shortName:"BigMuscles Nitra Isolate 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:1699,mrp:2999,badge:"43% OFF",desc:"Affordable whey isolate from BigMuscles. Quality protein at budget price",facts:[["Protein", "27g Isolate"], ["Weight", "1kg"], ["Discount", "43% OFF"], ["Value", "Budget Isolate"]],tags:["43% OFF", "Budget Isolate", "1kg", "27g Protein"]},
+  {id:4602,cat:"whey",brand:"BigMuscles",name:"BigMuscles Essential Whey Protein 1kg",shortName:"BigMuscles Essential Whey 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:799,mrp:1449,badge:"45% OFF",desc:"Entry level essential whey from BigMuscles. Most affordable gateway",facts:[["Protein", "22g"], ["Weight", "1kg"], ["Discount", "45% OFF"], ["Best For", "Beginners"]],tags:["45% OFF", "Beginner Whey", "Most Affordable", "Beginner Friendly"]},
+  {id:4603,cat:"whey",brand:"BigMuscles",name:"BigMuscles Zero 100% Whey Isolate 1kg",shortName:"BigMuscles Zero Whey Isolate 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:2999,mrp:6299,badge:"52% OFF",desc:"Zero-carb zero-fat pure isolate from BigMuscles at massive 52% discount",facts:[["Protein", "27g Isolate"], ["Carbs", "0g"], ["Fat", "0g"], ["Discount", "52% OFF"]],tags:["52% OFF", "Zero Carb", "Zero Fat", "100% Isolate"]},
+  {id:4604,cat:"whey",brand:"BigMuscles",name:"BigMuscles Fizzy Whey with Shaker",shortName:"BigMuscles Fizzy Whey+Shaker",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80",price:1599,mrp:2349,badge:"32% OFF",desc:"Fizzy whey protein with free shaker. Unique sparkling protein experience",facts:[["Protein", "24g"], ["Included", "Free Shaker"], ["Type", "Fizzy Formula"], ["Discount", "32% OFF"]],tags:["32% OFF", "Fizzy Whey", "Free Shaker", "Unique Formula"]},
+  {id:4605,cat:"whey",brand:"BigMuscles",name:"BigMuscles Crude Isolate Whey Protein 1kg",shortName:"BigMuscles Crude Isolate 1kg",icon:"🥛",img:"https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=400&q=80",price:1099,mrp:1999,badge:"45% OFF",desc:"Crude whey isolate from BigMuscles - raw unflavoured pure protein",facts:[["Protein", "27g"], ["Flavour", "Unflavoured"], ["Weight", "1kg"], ["Discount", "45% OFF"]],tags:["45% OFF", "Crude Isolate", "Unflavoured", "Raw Protein"]},
+  {id:4606,cat:"mass",brand:"BigMuscles",name:"BigMuscles Real Mass Gainer 3kg",shortName:"BigMuscles Real Mass 3kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:1488,mrp:3199,badge:"53% OFF",desc:"3kg BigMuscles Real Mass at 53% off. Most affordable 3kg mass gainer",facts:[["Protein", "30g"], ["Weight", "3kg"], ["Discount", "53% OFF"], ["Value", "Most Affordable 3kg"]],tags:["53% OFF", "3kg Economy", "Most Affordable", "Real Mass"]},
+  {id:4607,cat:"mass",brand:"BigMuscles",name:"BigMuscles Real Mass Gainer 1kg",shortName:"BigMuscles Real Mass 1kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:649,mrp:1275,badge:"49% OFF",desc:"1kg trial Real Mass Gainer. Perfect for beginners testing mass gainers",facts:[["Protein", "30g"], ["Weight", "1kg"], ["Best For", "Beginners"], ["Discount", "49% OFF"]],tags:["49% OFF", "Trial 1kg", "Beginner Gainer", "Real Mass"]},
+  {id:4608,cat:"mass",brand:"BigMuscles",name:"BigMuscles Mamoth Gainer 2.2kg",shortName:"BigMuscles Mamoth Gainer 2.2kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:899,mrp:1549,badge:"42% OFF",desc:"BigMuscles Mamoth Gainer in 2.2kg. Good mid-size bulking formula",facts:[["Protein", "28g"], ["Weight", "2.2kg"], ["Calories", "600+"], ["Discount", "42% OFF"]],tags:["42% OFF", "Mamoth Gainer", "2.2kg", "600+ Calories"]},
+  {id:4609,cat:"mass",brand:"BigMuscles",name:"BigMuscles Body Fuel Hardcore 3kg",shortName:"BigMuscles Body Fuel Hardcore 3kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:2799,mrp:3999,badge:"30% OFF",desc:"Hardcore body fuel gainer. High protein high calorie for serious bulking",facts:[["Protein", "35g"], ["Weight", "3kg"], ["Calories", "700+"], ["Discount", "30% OFF"]],tags:["30% OFF", "Hardcore", "3kg", "700+ Calories"]},
+  {id:4610,cat:"mass",brand:"BigMuscles",name:"BigMuscles Lean Gain Zero Sugar 1kg",shortName:"BigMuscles Lean Gain 1kg",icon:"💪",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80",price:1159,mrp:1449,badge:"20% OFF",desc:"Zero-sugar lean gain formula. Clean mass without unnecessary carbs",facts:[["Sugar", "Zero"], ["Protein", "30g"], ["Weight", "1kg"], ["Type", "Lean Mass"]],tags:["20% OFF", "Zero Sugar", "Lean Gain", "Clean Mass"]},
+  {id:4611,cat:"preworkout",brand:"BigMuscles",name:"BigMuscles Karnage Black Pre-Workout 30 servings",shortName:"BigMuscles Karnage Black 30 serv",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:1429,mrp:2299,badge:"38% OFF",desc:"Karnage Black upgraded formula for maximum energy and focus",facts:[["Type", "High Stim"], ["Servings", "30"], ["Series", "Karnage Black"], ["Discount", "38% OFF"]],tags:["38% OFF", "Karnage Black", "High Stim", "30 Servings"]},
+  {id:4612,cat:"preworkout",brand:"BigMuscles",name:"BigMuscles Freak Pre-Workout 60 servings",shortName:"BigMuscles Freak Pre-Workout 60s",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:799,mrp:2499,badge:"68% OFF",desc:"Freak Pre-Workout from BigMuscles at 68% off. Budget energy formula",facts:[["Servings", "60"], ["Discount", "68% OFF"], ["Type", "Energy Formula"], ["Value", "Budget Pre-Workout"]],tags:["68% OFF", "Budget Pre-Workout", "60 Servings", "Freak Formula"]},
+  {id:4613,cat:"preworkout",brand:"BigMuscles",name:"BigMuscles Freak Pre-Workout 15 servings",shortName:"BigMuscles Freak Pre-Workout 15s",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:376,mrp:699,badge:"46% OFF",desc:"Freak Pre-Workout in 15-serving trial size. Try before you buy",facts:[["Servings", "15"], ["Type", "Trial Pack"], ["Discount", "46% OFF"], ["Value", "Budget Trial"]],tags:["46% OFF", "Trial Pack", "15 Servings", "Budget Pre-Workout"]},
+  {id:4614,cat:"bcaa",brand:"BigMuscles",name:"BigMuscles Real BCAA with Electrolytes 50 servings",shortName:"BigMuscles Real BCAA 50 serv",icon:"💊",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80",price:575,mrp:1299,badge:"56% OFF",desc:"BCAA with electrolytes from BigMuscles at 56% off",facts:[["BCAAs", "5g"], ["Electrolytes", "Yes"], ["Servings", "50"], ["Discount", "56% OFF"]],tags:["56% OFF", "BCAA+Electrolytes", "50 Servings", "Anti-Catabolic"]},
+  {id:4615,cat:"fatburner",brand:"BigMuscles",name:"BigMuscles L-Carnicut Liquid 1100mg",shortName:"BigMuscles L-Carnicut Liquid",icon:"🔥",img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&q=80",price:1049,mrp:1259,badge:"17% OFF",desc:"Liquid L-Carnitine for fat burning. 1100mg per serving for fat oxidation",facts:[["L-Carnitine", "1100mg"], ["Form", "Liquid"], ["Benefit", "Fat Burning"], ["Discount", "17% OFF"]],tags:["17% OFF", "Liquid L-Carnitine", "1100mg", "Fat Burning"]},
+  {id:4616,cat:"vitamins",brand:"BigMuscles",name:"BigMuscles Daily Multivitamin 60 tabs",shortName:"BigMuscles Daily Multivit 60t",icon:"💊",img:"https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80",price:499,mrp:799,badge:"38% OFF",desc:"BigMuscles daily multivitamin. Budget complete nutrition for gym-goers",facts:[["Vitamins", "Complete"], ["Tablets", "60"], ["Discount", "38% OFF"], ["Best For", "Beginners"]],tags:["38% OFF", "Budget Multivit", "60 Tabs", "Beginner Friendly"]},
+  {id:4617,cat:"vitamins",brand:"BigMuscles",name:"BigMuscles Liver Detox 60 tabs",shortName:"BigMuscles Liver Detox 60t",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:599,mrp:899,badge:"33% OFF",desc:"Liver detox formula from BigMuscles. Protects liver from supplement load",facts:[["Type", "Liver Detox"], ["Tablets", "60"], ["Benefit", "Liver Protection"], ["Discount", "33% OFF"]],tags:["33% OFF", "Liver Detox", "60 Tabs", "Supplement Protection"]},
+  {id:4618,cat:"vitamins",brand:"BigMuscles",name:"BigMuscles Ashwagandha 60 caps",shortName:"BigMuscles Ashwagandha 60c",icon:"🌿",img:"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400&q=80",price:399,mrp:599,badge:"33% OFF",desc:"Ashwagandha root extract from BigMuscles for stress strength and testosterone",facts:[["Ashwagandha", "500mg"], ["Capsules", "60"], ["Benefit", "Stress+Strength"], ["Discount", "33% OFF"]],tags:["33% OFF", "Ashwagandha", "Stress+Strength", "Testosterone"]},
+
   {id:15,cat:"accessories",brand:"NutriPune",name:"Protein Shaker 700ml",shortName:"Protein Shaker 700ml",icon:"🥤",
    img:"https://images.unsplash.com/photo-1622980087741-f80f26090309?auto=format&fit=crop&w=500&q=80",
    price:349,mrp:599,
@@ -1397,6 +1822,7 @@ function renderProducts(){
     const save=Math.round((p.mrp-p.price)/p.mrp*100);
     const el=document.createElement('div');
     el.className='pcard show';
+    el.dataset.id=p.id;
     el.dataset.cat=p.cat;
     el.dataset.brand=p.brand;
     el.innerHTML=`
@@ -1672,20 +2098,112 @@ function filterByKeyword(kw){
   showToast(visible + ' products found for "' + kw + '"');
 }
 
-const LEVELS = {
-  beginner:{cats:['vitamins','whey'],label:'Beginner'},
-  intermediate:{cats:['whey','creatine','bcaa','vitamins'],label:'Intermediate'},
-  advanced:{cats:['whey','creatine','preworkout','bcaa','fatburner'],label:'Advanced'},
-};
+// Smart level-based product matching
+function productMatchesLevel(p, level) {
+  const cat = p.cat;
+  const name = (p.name + ' ' + (p.shortName||'') + ' ' + (p.tags||[]).join(' ')).toLowerCase();
+  const price = p.price;
+
+  if (cat === 'cafe') return true;
+
+  if (level === 'beginner') {
+    // BEGINNER = affordable basics only. No pre-workouts, no fat burners, no casein, no advanced formulas.
+    // Show: basic multivitamins, basic omega-3/fish oil, affordable creatine, basic whey concentrate only,
+    //        accessories/shakers, basic mass gainer (small sizes), beginner-tagged products.
+
+    if (cat === 'preworkout') return false;        // No pre-workouts for beginners
+    if (cat === 'fatburner') return false;         // No fat burners for beginners
+    if (cat === 'bcaa') return false;              // No complex amino supplements for beginners
+
+    if (cat === 'vitamins') {
+      // Allow basic vitamins: multivitamins, omega-3, fish oil, basic ashwagandha only
+      // Exclude: testosterone boosters, HGH support, liver detox, collagen, specialized formulas
+      const blocked = ['testosterone','testo','hgh','groww','androbol','amplifier',
+                       'collagen','glutathione','shilajit','staminol','test one',
+                       'liver detox','milk thistle','l-carnitine','carnitine',
+                       'dhт','dht','melatonin','biotin','adrenal'];
+      if (blocked.some(b => name.includes(b))) return false;
+      if (price <= 800) return true;  // affordable vitamins ok
+      return false;
+    }
+
+    if (cat === 'accessories') return true;  // Shakers, bars always ok for beginners
+
+    if (cat === 'whey') {
+      // Basic whey concentrate only - no isolate, no hydrolyzed, no casein, no clear whey, no ripped
+      const blocked = ['isolate','hydrolyz','ripped','casein','clear whey','diet whey',
+                       'nitro iso','isorich','iso pro','iso sensation','zero carb'];
+      if (blocked.some(b => name.includes(b))) return false;
+      if (price <= 3500) return true;
+      return false;
+    }
+
+    if (cat === 'mass') {
+      // Small/affordable mass gainers only
+      if (price <= 2000) return true;
+      return false;
+    }
+
+    if (cat === 'creatine') {
+      // Basic creatine monohydrate - affordable only
+      const blocked = ['creapure','hydrolyz'];
+      if (blocked.some(b => name.includes(b))) return false;
+      if (price <= 700) return true;
+      return false;
+    }
+
+    // Always include if tagged beginner
+    if (name.includes('beginner') || name.includes('starter') || name.includes('entry')) return true;
+
+    return false;
+  }
+
+  if (level === 'intermediate') {
+    // Intermediate: most supplements ok EXCEPT very advanced/hardcore
+    if (cat === 'cafe') return true;
+    if (cat === 'accessories') return true;
+    if (cat === 'vitamins') return true;
+    if (cat === 'creatine') return true;
+    if (cat === 'whey') {
+      const blocked = ['hydrolyz'];
+      return !blocked.some(b => name.includes(b));
+    }
+    if (cat === 'mass') return price <= 6000;
+    if (cat === 'bcaa') return true;
+    if (cat === 'preworkout') return price <= 2000;
+    if (cat === 'fatburner') return true;
+    return true;
+  }
+
+  if (level === 'advanced') {
+    // Advanced: everything shown
+    return true;
+  }
+
+  return true;
+}
+
 function filterAndScroll(key){
-  scrollShop();
-  const lvl=LEVELS[key];
-  if(!lvl)return;
+  const labels = {beginner:'Beginner 🌱',intermediate:'Intermediate 💪',advanced:'Advanced ⚡'};
+  const tips = {
+    beginner:'Showing beginner-friendly supplements only',
+    intermediate:'Showing intermediate level supplements',
+    advanced:'Showing all supplements for advanced athletes'
+  };
   document.querySelectorAll('.pcard').forEach(c=>{
-    c.classList.toggle('show',lvl.cats.includes(c.dataset.cat));
+    const id = parseInt(c.dataset.id||'0');
+    const p = PRODUCTS.find(x=>x.id===id);
+    if(!p){c.classList.remove('show');return;}
+    c.classList.toggle('show', productMatchesLevel(p, key));
   });
+  // Reset and set category tabs to 'All'
   document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('on'));
-  document.querySelector('.ctab').classList.add('on');
+  document.querySelector('.ctab')&&document.querySelector('.ctab').classList.add('on');
+  const cnt = document.querySelectorAll('.pcard.show').length;
+  showToast(tips[key]||key + ' - ' + cnt + ' products');
+  setTimeout(()=>{
+    document.getElementById('shop').scrollIntoView({behavior:'smooth'});
+  }, 80);
 }
 function filterBrand(brand){
   scrollShop();
