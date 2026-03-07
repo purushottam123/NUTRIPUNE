@@ -406,6 +406,90 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 @media(max-width:768px){.brand-grid{grid-template-columns:repeat(3,1fr);gap:10px}}
 @media(max-width:480px){.brand-grid{grid-template-columns:repeat(2,1fr)}}
 
+
+/* ─── SHOP CAROUSEL ─── */
+.shop-carousel{position:relative;overflow:hidden;border-radius:16px;margin-bottom:10px;background:var(--ink2);height:420px}
+@media(max-width:768px){.shop-carousel{height:340px}}
+.carousel-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);height:100%}
+.carousel-slide{min-width:100%;height:100%;position:relative;display:flex;align-items:flex-end;overflow:hidden;cursor:pointer}
+.cs-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform 6s ease}
+.carousel-slide:hover .cs-img{transform:scale(1.04)}
+.cs-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 45%,rgba(0,0,0,.1) 100%)}
+.cs-content{position:relative;z-index:2;padding:28px 32px;width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+@media(max-width:600px){.cs-content{padding:20px 18px;flex-direction:column;align-items:flex-start;gap:10px}}
+.cs-left{flex:1;min-width:0}
+.cs-brand{font-family:var(--fm);font-size:10px;color:var(--or);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.cs-name{font-family:var(--fd);font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px}
+@media(max-width:600px){.cs-name{font-size:20px}}
+.cs-desc{font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;max-width:440px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cs-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
+@media(max-width:600px){.cs-right{flex-direction:row;align-items:center;width:100%;justify-content:space-between}}
+.cs-price-wrap{text-align:right}
+.cs-price{font-family:var(--fd);font-size:30px;font-weight:800;color:var(--or);line-height:1}
+.cs-mrp{font-size:12px;color:rgba(255,255,255,.45);text-decoration:line-through}
+.cs-save{background:var(--or);color:#000;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;font-family:var(--fm)}
+.cs-cta{background:var(--or);color:#000;border:none;border-radius:8px;padding:11px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:var(--fm);letter-spacing:.5px;white-space:nowrap}
+.cs-cta:hover{background:#fb923c}
+.cs-badge{position:absolute;top:18px;left:18px;background:var(--or);color:#000;font-size:10px;font-weight:800;padding:4px 12px;border-radius:20px;font-family:var(--fm);letter-spacing:.5px;z-index:3}
+.carousel-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:4}
+.cdot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .3s;border:none}
+.cdot.on{background:var(--or);width:22px;border-radius:4px}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.15);color:#fff;width:40px;height:40px;border-radius:50%;font-size:24px;cursor:pointer;z-index:4;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
+.carousel-arrow:hover{background:var(--or);color:#000;border-color:var(--or)}
+.carousel-prev{left:14px}
+.carousel-next{right:14px}
+.carousel-hint{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.7);color:rgba(255,255,255,.7);font-size:11px;padding:5px 12px;border-radius:20px;z-index:4;font-family:var(--fm);letter-spacing:.3px}
+@media(max-width:600px){.carousel-hint{display:none}}
+
+/* ─── GRID TOP BAR ─── */
+.grid-topbar{display:flex;flex-direction:column;gap:12px;margin-bottom:24px;padding:18px 20px;background:var(--ink2);border-radius:12px;border:1px solid var(--border)}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--border);color:var(--mu);padding:7px 16px;border-radius:40px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;width:fit-content;font-family:var(--fm);letter-spacing:.3px}
+.back-btn:hover{border-color:var(--or);color:var(--or)}
+.grid-title{font-family:var(--fd);font-size:22px;font-weight:800;color:var(--wh)}
+.ctabs-inline{display:flex;gap:6px;flex-wrap:wrap}
+.ctabs-inline .ctab{font-size:11px;padding:6px 14px}
+
+
+/* ─── BRAND TICKER / MARQUEE ─── */
+.brand-ticker-wrap{display:flex;flex-direction:column;gap:14px;margin:0 -20px}
+@media(max-width:768px){.brand-ticker-wrap{margin:0 -16px}}
+
+.brand-ticker-row{overflow:hidden;width:100%;padding:4px 0}
+.brand-ticker-inner{display:flex;gap:12px;width:max-content;animation:tickerLeft 35s linear infinite}
+.brand-ticker-inner.reverse{animation:tickerRight 38s linear infinite}
+.brand-ticker-row:hover .brand-ticker-inner{animation-play-state:paused}
+
+@keyframes tickerLeft{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+@keyframes tickerRight{
+  0%{transform:translateX(-50%)}
+  100%{transform:translateX(0)}
+}
+
+/* Brand pill card */
+.brand-pill{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 18px;border-radius:50px;
+  background:var(--ink2);border:1px solid var(--border);
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  transition:all .25s;min-width:170px
+}
+.brand-pill:hover{
+  background:var(--ink3);border-color:var(--or);
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(249,115,22,.2)
+}
+.brand-pill:hover .bp-logo{filter:brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(340deg)}
+.bp-logo-wrap{width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bp-logo{max-width:34px;max-height:30px;object-fit:contain;filter:brightness(0) invert(.85);transition:filter .2s}
+.bp-logo-fb{width:34px;height:34px;background:var(--or);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#000;font-family:var(--fd)}
+.bp-info{display:flex;flex-direction:column;gap:1px}
+.bp-name{font-size:13px;font-weight:700;color:var(--wh);font-family:var(--fd);letter-spacing:.3px}
+.bp-sub{font-size:10px;color:var(--mu);font-family:var(--fm)}
+.brand-pill:hover .bp-name{color:var(--or)}
+
 </style>
 </head>
 <body>
@@ -589,250 +673,609 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 </section>
 
 <!-- SHOP BY BRAND -->
-<section class="sec" id="bybrand">
-  <div class="reveal">
+<section class="sec" id="bybrand" style="overflow:hidden">
+  <div class="reveal" style="text-align:center;margin-bottom:32px">
     <div class="stag">— Authorised Distributors</div>
     <div class="stitle">SHOP BY BRAND</div>
-    <p class="ssub">We stock only from authorised brand distributors. Every product is genuine with original certification.</p>
+    <p class="ssub">25+ premium brands. Every product genuine, sourced directly from authorised distributors.</p>
   </div>
-  <div class="brand-grid reveal">
-    <div class="brand-card" onclick="filterBrand('MuscleBlaze')" title="MuscleBlaze">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/muscleblaze.com" alt="MuscleBlaze" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">MuscleBlaze</span>
+
+  <!-- SCROLLING BRAND ROWS -->
+  <div class="brand-ticker-wrap">
+    <!-- Row 1 — scrolls left -->
+    <div class="brand-ticker-row">
+      <div class="brand-ticker-inner" id="btRow1">
+        <div class="brand-pill" onclick="filterBrand('MuscleBlaze')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/muscleblaze.com" alt="MuscleBlaze" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">M</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">MuscleBlaze</div>
+            <div class="bp-sub">65 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Scitron')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/scitron.in" alt="Scitron" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">S</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Scitron</div>
+            <div class="bp-sub">32 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('AS-IT-IS')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/asitisnutrition.com" alt="AS-IT-IS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">A</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">AS-IT-IS</div>
+            <div class="bp-sub">23 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Avvatar')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/avvatarnutrition.com" alt="Avvatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">A</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Avvatar</div>
+            <div class="bp-sub">17 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('HK Vitals')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/hkvitals.com" alt="HK Vitals" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">H</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">HK Vitals</div>
+            <div class="bp-sub">23 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('BigMuscles')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/bigmusclesnutrition.com" alt="BigMuscles" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">B</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">BigMuscles</div>
+            <div class="bp-sub">24 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Nutrabay')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/nutrabay.com" alt="Nutrabay" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">N</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Nutrabay</div>
+            <div class="bp-sub">25 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('HealthFarm')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/healthfarm.in" alt="HealthFarm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">H</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">HealthFarm</div>
+            <div class="bp-sub">31 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Zedon')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/zedonnutrition.com" alt="Zedon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">Z</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Zedon</div>
+            <div class="bp-sub">25 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('BeastLife')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/beastlife.in" alt="BeastLife" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">B</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">BeastLife</div>
+            <div class="bp-sub">10 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Denzour')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/denzour.com" alt="Denzour" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">D</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Denzour</div>
+            <div class="bp-sub">10 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('ON')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/optimumnutrition.com" alt="ON" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">O</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">ON</div>
+            <div class="bp-sub">20 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('MuscleTech')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/muscletech.com" alt="MuscleTech" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">M</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">MuscleTech</div>
+            <div class="bp-sub">8 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Myprotein')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/myprotein.co.in" alt="Myprotein" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">M</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Myprotein</div>
+            <div class="bp-sub">22 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Dymatize')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/dymatize.com" alt="Dymatize" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">D</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Dymatize</div>
+            <div class="bp-sub">5 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('MuscleBlaze')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/muscleblaze.com" alt="MuscleBlaze" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">M</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">MuscleBlaze</div>
+            <div class="bp-sub">65 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Scitron')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/scitron.in" alt="Scitron" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">S</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Scitron</div>
+            <div class="bp-sub">32 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('AS-IT-IS')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/asitisnutrition.com" alt="AS-IT-IS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">A</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">AS-IT-IS</div>
+            <div class="bp-sub">23 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Avvatar')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/avvatarnutrition.com" alt="Avvatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">A</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Avvatar</div>
+            <div class="bp-sub">17 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('HK Vitals')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/hkvitals.com" alt="HK Vitals" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">H</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">HK Vitals</div>
+            <div class="bp-sub">23 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('BigMuscles')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/bigmusclesnutrition.com" alt="BigMuscles" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">B</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">BigMuscles</div>
+            <div class="bp-sub">24 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Nutrabay')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/nutrabay.com" alt="Nutrabay" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">N</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Nutrabay</div>
+            <div class="bp-sub">25 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('HealthFarm')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/healthfarm.in" alt="HealthFarm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">H</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">HealthFarm</div>
+            <div class="bp-sub">31 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Zedon')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/zedonnutrition.com" alt="Zedon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">Z</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Zedon</div>
+            <div class="bp-sub">25 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('BeastLife')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/beastlife.in" alt="BeastLife" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">B</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">BeastLife</div>
+            <div class="bp-sub">10 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Denzour')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/denzour.com" alt="Denzour" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">D</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Denzour</div>
+            <div class="bp-sub">10 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('ON')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/optimumnutrition.com" alt="ON" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">O</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">ON</div>
+            <div class="bp-sub">20 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('MuscleTech')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/muscletech.com" alt="MuscleTech" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">M</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">MuscleTech</div>
+            <div class="bp-sub">8 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Myprotein')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/myprotein.co.in" alt="Myprotein" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">M</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Myprotein</div>
+            <div class="bp-sub">22 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Dymatize')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/dymatize.com" alt="Dymatize" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">D</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Dymatize</div>
+            <div class="bp-sub">5 products</div>
+          </div>
+        </div>
       </div>
-      <div class="bcn">MuscleBlaze</div>
-      <div class="bcs">India's #1</div>
     </div>
-    <div class="brand-card" onclick="filterBrand('Scitron')" title="Scitron">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/scitron.in" alt="Scitron" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Scitron</span>
+    <!-- Row 2 — scrolls right -->
+    <div class="brand-ticker-row">
+      <div class="brand-ticker-inner reverse" id="btRow2">
+        <div class="brand-pill" onclick="filterBrand('Isopure')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/theisopurecompany.com" alt="Isopure" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">I</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Isopure</div>
+            <div class="bp-sub">5 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('GNC')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/gnc.com" alt="GNC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">G</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">GNC</div>
+            <div class="bp-sub">29 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Domin8r')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/domin8rnutrition.com" alt="Domin8r" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">D</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Domin8r</div>
+            <div class="bp-sub">21 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('SSN')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/ssnbodybuilding.com" alt="SSN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">S</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">SSN</div>
+            <div class="bp-sub">19 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('BSN')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/bsnusa.com" alt="BSN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">B</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">BSN</div>
+            <div class="bp-sub">4 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Bull Pharm')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/bullpharm.com" alt="Bull Pharm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">B</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Bull Pharm</div>
+            <div class="bp-sub">20 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Mydrol')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/mydrol.in" alt="Mydrol" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">M</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Mydrol</div>
+            <div class="bp-sub">4 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Ultimate Nutrition')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/ultimatenutrition.com" alt="Ultimate Nutrition" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">U</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Ultimate Nutrition</div>
+            <div class="bp-sub">5 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('FastUp')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/fastandup.in" alt="FastUp" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">F</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">FastUp</div>
+            <div class="bp-sub">10 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Oziva')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/oziva.in" alt="Oziva" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">O</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Oziva</div>
+            <div class="bp-sub">9 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Himalaya')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/himalayawellness.com" alt="Himalaya" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">H</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Himalaya</div>
+            <div class="bp-sub">3 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Thorne')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/thorne.com" alt="Thorne" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">T</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Thorne</div>
+            <div class="bp-sub">2 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Centrum')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/centrum.com" alt="Centrum" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">C</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Centrum</div>
+            <div class="bp-sub">2 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Amway')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/nutrilite.com" alt="Amway" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">A</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Amway</div>
+            <div class="bp-sub">2 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Isopure')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/theisopurecompany.com" alt="Isopure" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">I</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Isopure</div>
+            <div class="bp-sub">5 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('GNC')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/gnc.com" alt="GNC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">G</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">GNC</div>
+            <div class="bp-sub">29 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Domin8r')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/domin8rnutrition.com" alt="Domin8r" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">D</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Domin8r</div>
+            <div class="bp-sub">21 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('SSN')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/ssnbodybuilding.com" alt="SSN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">S</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">SSN</div>
+            <div class="bp-sub">19 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('BSN')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/bsnusa.com" alt="BSN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">B</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">BSN</div>
+            <div class="bp-sub">4 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Bull Pharm')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/bullpharm.com" alt="Bull Pharm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">B</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Bull Pharm</div>
+            <div class="bp-sub">20 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Mydrol')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/mydrol.in" alt="Mydrol" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">M</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Mydrol</div>
+            <div class="bp-sub">4 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Ultimate Nutrition')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/ultimatenutrition.com" alt="Ultimate Nutrition" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">U</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Ultimate Nutrition</div>
+            <div class="bp-sub">5 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('FastUp')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/fastandup.in" alt="FastUp" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">F</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">FastUp</div>
+            <div class="bp-sub">10 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Oziva')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/oziva.in" alt="Oziva" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">O</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Oziva</div>
+            <div class="bp-sub">9 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Himalaya')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/himalayawellness.com" alt="Himalaya" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">H</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Himalaya</div>
+            <div class="bp-sub">3 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Thorne')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/thorne.com" alt="Thorne" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">T</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Thorne</div>
+            <div class="bp-sub">2 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Centrum')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/centrum.com" alt="Centrum" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">C</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Centrum</div>
+            <div class="bp-sub">2 products</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Amway')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/nutrilite.com" alt="Amway" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">A</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Amway</div>
+            <div class="bp-sub">2 products</div>
+          </div>
+        </div>
       </div>
-      <div class="bcn">Scitron</div>
-      <div class="bcs">Pune's Own Brand</div>
     </div>
-    <div class="brand-card" onclick="filterBrand('AS-IT-IS')" title="AS-IT-IS">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/asitisnutrition.com" alt="AS-IT-IS" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">AS-IT-IS</span>
-      </div>
-      <div class="bcn">AS-IT-IS</div>
-      <div class="bcs">Pure. Raw. Certified</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Avvatar')" title="Avvatar">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/avvatarnutrition.com" alt="Avvatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Avvatar</span>
-      </div>
-      <div class="bcn">Avvatar</div>
-      <div class="bcs">Fresh Cow's Milk</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('HK Vitals')" title="HK Vitals">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/hkvitals.com" alt="HK Vitals" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">HK Vitals</span>
-      </div>
-      <div class="bcn">HK Vitals</div>
-      <div class="bcs">by HealthKart</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('BigMuscles')" title="BigMuscles">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/bigmusclesnutrition.com" alt="BigMuscles" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">BigMuscles</span>
-      </div>
-      <div class="bcn">BigMuscles</div>
-      <div class="bcs">Budget King</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Nutrabay')" title="Nutrabay">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/nutrabay.com" alt="Nutrabay" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Nutrabay</span>
-      </div>
-      <div class="bcn">Nutrabay</div>
-      <div class="bcs">Gold Series</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('HealthFarm')" title="HealthFarm">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/healthfarm.in" alt="HealthFarm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">HealthFarm</span>
-      </div>
-      <div class="bcn">HealthFarm</div>
-      <div class="bcs">Signature Nutrition</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Zedon')" title="Zedon">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/zedonnutrition.com" alt="Zedon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Zedon</span>
-      </div>
-      <div class="bcn">Zedon</div>
-      <div class="bcs">ISO-ZED Ripped</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('BeastLife')" title="BeastLife">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/beastlife.in" alt="BeastLife" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">BeastLife</span>
-      </div>
-      <div class="bcn">BeastLife</div>
-      <div class="bcs">Ultrasorb Technology</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Denzour')" title="Denzour">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/denzour.com" alt="Denzour" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Denzour</span>
-      </div>
-      <div class="bcn">Denzour</div>
-      <div class="bcs">Desi Flavours</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('ON')" title="ON">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/optimumnutrition.com" alt="ON" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">ON</span>
-      </div>
-      <div class="bcn">ON</div>
-      <div class="bcs">World No. 1</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('MuscleTech')" title="MuscleTech">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/muscletech.com" alt="MuscleTech" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">MuscleTech</span>
-      </div>
-      <div class="bcn">MuscleTech</div>
-      <div class="bcs">Scientifically Advanced</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Myprotein')" title="Myprotein">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/myprotein.co.in" alt="Myprotein" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Myprotein</span>
-      </div>
-      <div class="bcn">Myprotein</div>
-      <div class="bcs">80+ Flavours</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Dymatize')" title="Dymatize">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/dymatize.com" alt="Dymatize" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Dymatize</span>
-      </div>
-      <div class="bcn">Dymatize</div>
-      <div class="bcs">Elite Hydrolyzed</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Isopure')" title="Isopure">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/theisopurecompany.com" alt="Isopure" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Isopure</span>
-      </div>
-      <div class="bcn">Isopure</div>
-      <div class="bcs">Zero Carb Specialists</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('GNC')" title="GNC">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/gnc.com" alt="GNC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">GNC</span>
-      </div>
-      <div class="bcn">GNC</div>
-      <div class="bcs">Global Nutrition</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Domin8r')" title="Domin8r">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/domin8rnutrition.com" alt="Domin8r" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Domin8r</span>
-      </div>
-      <div class="bcn">Domin8r</div>
-      <div class="bcs">Heavyweight Performance</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('SSN')" title="SSN">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/ssnbodybuilding.com" alt="SSN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">SSN</span>
-      </div>
-      <div class="bcn">SSN</div>
-      <div class="bcs">Advanced Nutrition</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('BSN')" title="BSN">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/bsnusa.com" alt="BSN" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">BSN</span>
-      </div>
-      <div class="bcn">BSN</div>
-      <div class="bcs">Syntha-6 & NO-Xplode</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Bull Pharm')" title="Bull Pharm">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/bullpharm.com" alt="Bull Pharm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Bull Pharm</span>
-      </div>
-      <div class="bcn">Bull Pharm</div>
-      <div class="bcs">Premium Hardcore</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Mydrol')" title="Mydrol">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/mydrol.in" alt="Mydrol" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Mydrol</span>
-      </div>
-      <div class="bcn">Mydrol</div>
-      <div class="bcs">Hardcore Strength</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Ultimate Nutrition')" title="Ultimate Nutrition">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/ultimatenutrition.com" alt="Ultimate Nutrition" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Ultimate Nutrition</span>
-      </div>
-      <div class="bcn">Ultimate Nutrition</div>
-      <div class="bcs">Prostar Legacy</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('FastUp')" title="FastUp">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/fastandup.in" alt="FastUp" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">FastUp</span>
-      </div>
-      <div class="bcn">FastUp</div>
-      <div class="bcs">Effervescent Experts</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Oziva')" title="Oziva">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/oziva.in" alt="Oziva" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Oziva</span>
-      </div>
-      <div class="bcn">Oziva</div>
-      <div class="bcs">Plant-Based Clean</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Himalaya')" title="Himalaya">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/himalayawellness.com" alt="Himalaya" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Himalaya</span>
-      </div>
-      <div class="bcn">Himalaya</div>
-      <div class="bcs">Ayurvedic Wellness</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Thorne')" title="Thorne">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/thorne.com" alt="Thorne" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Thorne</span>
-      </div>
-      <div class="bcn">Thorne</div>
-      <div class="bcs">Research Grade Purity</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Centrum')" title="Centrum">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/centrum.com" alt="Centrum" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Centrum</span>
-      </div>
-      <div class="bcn">Centrum</div>
-      <div class="bcs">World Most Trusted Multivit</div>
-    </div>
-    <div class="brand-card" onclick="filterBrand('Amway')" title="Amway">
-      <div class="blw">
-        <img class="bli" src="https://logo.clearbit.com/nutrilite.com" alt="Amway" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="blf">Amway</span>
-      </div>
-      <div class="bcn">Amway</div>
-      <div class="bcs">Certified Organic</div>
-    </div>
-    <div class="brand-card bc-np" onclick="filterBrand('NutriPune')" title="NutriPune">
-      <div class="blw"><span class="blf np-logo">NUTRI<span>PUNE</span></span></div>
-      <div class="bcn">NutriPune</div>
-      <div class="bcs">Our Own Brand</div>
-    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:28px">
+    <p style="font-size:13px;color:var(--mu)">👆 Click any brand to browse their full product range</p>
   </div>
 </section>
 
@@ -843,18 +1286,35 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
     <div class="stitle">OUR PRODUCTS</div>
     <p class="ssub">Every product sourced directly from authorised brand distributors. Genuine, lab-certified, guaranteed.</p>
   </div>
-  <div class="ctabs reveal">
-    <button class="ctab on" onclick="filterP('all',this)">All Products</button>
-    <button class="ctab" onclick="filterP('whey',this)">Whey Protein</button>
-    <button class="ctab" onclick="filterP('mass',this)">Mass Gainer</button>
-    <button class="ctab" onclick="filterP('creatine',this)">Creatine</button>
-    <button class="ctab" onclick="filterP('bcaa',this)">BCAA</button>
-    <button class="ctab" onclick="filterP('preworkout',this)">Pre-Workout</button>
-    <button class="ctab" onclick="filterP('vitamins',this)">Vitamins</button>
-    <button class="ctab" onclick="filterP('fatburner',this)">Fat Burner</button>
-    <button class="ctab" onclick="filterP('accessories',this)">Accessories</button>
+  <!-- FEATURED CAROUSEL (default view) -->
+  <div id="shopCarousel" class="shop-carousel">
+    <div class="carousel-track" id="carouselTrack"></div>
+    <div class="carousel-dots" id="carouselDots"></div>
+    <button class="carousel-arrow carousel-prev" onclick="carouselMove(-1)">&#8249;</button>
+    <button class="carousel-arrow carousel-next" onclick="carouselMove(1)">&#8250;</button>
+    
   </div>
-  <div class="pgrid" id="pgrid"></div>
+
+  <!-- PRODUCT GRID VIEW (shown when brand/category clicked) -->
+  <div id="shopGrid" style="display:none">
+    <!-- breadcrumb / back bar -->
+    <div class="grid-topbar">
+      <button class="back-btn" onclick="showCarousel()">← Back to Featured</button>
+      <div class="grid-title" id="gridTitle">All Products</div>
+      <div class="ctabs-inline" id="ctabsInline">
+        <button class="ctab on" onclick="filterP('all',this)">All</button>
+        <button class="ctab" onclick="filterP('whey',this)">Whey</button>
+        <button class="ctab" onclick="filterP('mass',this)">Mass</button>
+        <button class="ctab" onclick="filterP('creatine',this)">Creatine</button>
+        <button class="ctab" onclick="filterP('bcaa',this)">BCAA</button>
+        <button class="ctab" onclick="filterP('preworkout',this)">Pre-WO</button>
+        <button class="ctab" onclick="filterP('vitamins',this)">Vitamins</button>
+        <button class="ctab" onclick="filterP('fatburner',this)">Fat Burner</button>
+        <button class="ctab" onclick="filterP('accessories',this)">Accessories</button>
+      </div>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
 </section>
 
 <!-- WHY US -->
@@ -1867,10 +2327,18 @@ function renderProducts(){
 }
 
 function filterP(cat,btn){
-  document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('on'));
-  btn.classList.add('on');
-  document.querySelectorAll('.pcard').forEach(c=>{
-    c.classList.toggle('show',cat==='all'||c.dataset.cat===cat);
+  document.querySelectorAll('.ctabs-inline .ctab').forEach(t=>t.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  const c=$carousel();
+  if(c && c.style.display!=='none'){
+    const label=cat==='all'?'All Products':cat.charAt(0).toUpperCase()+cat.slice(1);
+    switchToGrid(label);
+    scrollShop();
+  }
+  document.querySelectorAll('.pcard').forEach(el=>{
+    const brandMatch=!currentBrandFilter||el.dataset.brand===currentBrandFilter;
+    const catMatch=cat==='all'||el.dataset.cat===cat;
+    el.classList.toggle('show',brandMatch&&catMatch);
   });
 }
 
@@ -2060,6 +2528,10 @@ function setGoal(key, btn){
 }
 
 function filterByCat(cat, label){
+  const c=$carousel();
+  if(c && c.style.display!=='none') switchToGrid(label||cat);
+  else { const t=$title(); if(t) t.textContent=label||cat; }
+  currentBrandFilter = null;
   // Filter cards immediately
   document.querySelectorAll('.pcard').forEach(c=>{
     c.classList.toggle('show', cat==='all' || c.dataset.cat===cat);
@@ -2203,7 +2675,11 @@ function productMatchesLevel(p, level) {
 }
 
 function filterAndScroll(key){
+  const c=$carousel();
   const labels = {beginner:'Beginner 🌱',intermediate:'Intermediate 💪',advanced:'Advanced ⚡'};
+  if(c && c.style.display!=='none') switchToGrid(labels[key]||key);
+  else { const t=$title(); if(t) t.textContent=labels[key]||key; }
+  currentBrandFilter = null;
   const tips = {
     beginner:'Showing beginner-friendly supplements only',
     intermediate:'Showing intermediate level supplements',
@@ -2224,29 +2700,143 @@ function filterAndScroll(key){
     document.getElementById('shop').scrollIntoView({behavior:'smooth'});
   }, 80);
 }
-function filterBrand(brand){
+// ─── CAROUSEL ───
+const CAROUSEL_PRODUCTS = [1,5,6,3,7,11,12,4,8,13,14,2];
+let carouselIdx = 0;
+let carouselTimer = null;
+let currentBrandFilter = null;
+
+// safe DOM helpers
+function $carousel(){ return document.getElementById('shopCarousel'); }
+function $grid()    { return document.getElementById('shopGrid'); }
+function $title()   { return document.getElementById('gridTitle'); }
+
+function switchToGrid(title){
+  const c=$carousel(),g=$grid(),t=$title();
+  if(c) c.style.display='none';
+  if(g) g.style.display='block';
+  if(t) t.textContent=title||'';
+  clearInterval(carouselTimer);
+}
+
+function buildCarousel(){
+  const track=document.getElementById('carouselTrack');
+  const dots=document.getElementById('carouselDots');
+  if(!track) return;
+  const slides=CAROUSEL_PRODUCTS.map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean);
+  track.innerHTML=slides.map((p,i)=>{
+    const save=Math.round((p.mrp-p.price)/p.mrp*100);
+    return `<div class="carousel-slide" onclick="openProduct(${p.id})">
+      <img class="cs-img" src="${p.img}" alt="${p.name}" loading="${i===0?'eager':'lazy'}" referrerpolicy="no-referrer" onerror="this.style.background='#1a1a1a';this.style.display='none'">
+      <div class="cs-overlay"></div>
+      ${p.badge?`<div class="cs-badge">${p.badge}</div>`:''}
+      <div class="cs-content">
+        <div class="cs-left">
+          <div class="cs-brand">${p.brand}</div>
+          <div class="cs-name">${p.name}</div>
+          <div class="cs-desc">${p.desc||''}</div>
+        </div>
+        <div class="cs-right">
+          <div class="cs-price-wrap">
+            <div class="cs-price">&#8377;${p.price.toLocaleString('en-IN')}</div>
+            <div class="cs-mrp">&#8377;${p.mrp.toLocaleString('en-IN')}</div>
+          </div>
+          ${save>0?`<div class="cs-save">${save}% OFF</div>`:''}
+          <button class="cs-cta" onclick="event.stopPropagation();showBrandGrid('${p.brand}')">View ${p.brand} →</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  dots.innerHTML=slides.map((_,i)=>`<button class="cdot${i===0?' on':''}" onclick="carouselGoTo(${i})"></button>`).join('');
+  startCarousel();
+}
+
+function carouselGoTo(n){
+  const slides=document.querySelectorAll('.carousel-slide');
+  if(!slides.length) return;
+  carouselIdx=(n+slides.length)%slides.length;
+  const track=document.getElementById('carouselTrack');
+  if(track) track.style.transform=`translateX(-${carouselIdx*100}%)`;
+  document.querySelectorAll('.cdot').forEach((d,i)=>d.classList.toggle('on',i===carouselIdx));
+  resetCarouselTimer();
+}
+
+function carouselMove(dir){ carouselGoTo(carouselIdx+dir); }
+function startCarousel(){ clearInterval(carouselTimer); carouselTimer=setInterval(()=>carouselMove(1),4500); }
+function resetCarouselTimer(){ clearInterval(carouselTimer); startCarousel(); }
+
+function showCarousel(){
+  const c=$carousel(),g=$grid();
+  if(c) c.style.display='block';
+  if(g) g.style.display='none';
+  currentBrandFilter=null;
+  startCarousel();
   scrollShop();
+}
+
+function showBrandGrid(brand){
+  currentBrandFilter=brand;
+  switchToGrid(brand);
+  document.querySelectorAll('.ctabs-inline .ctab').forEach(t=>t.classList.remove('on'));
+  const first=document.querySelector('.ctabs-inline .ctab');
+  if(first) first.classList.add('on');
   document.querySelectorAll('.pcard').forEach(c=>{
     c.classList.toggle('show', c.dataset.brand===brand);
   });
-  document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('on'));
+  scrollShop();
 }
+
+
+function filterBrand(brand){
+  showBrandGrid(brand);
+}
+
+function filterP(cat,btn){
+  document.querySelectorAll('.ctabs-inline .ctab').forEach(t=>t.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  const c=$carousel();
+  if(c && c.style.display!=='none'){
+    switchToGrid(cat==='all'?'All Products':cat.charAt(0).toUpperCase()+cat.slice(1));
+    scrollShop();
+  }
+  // apply filter
+  document.querySelectorAll('.pcard').forEach(c=>{
+    const brandMatch = !currentBrandFilter || c.dataset.brand===currentBrandFilter;
+    const catMatch   = cat==='all' || c.dataset.cat===cat;
+    c.classList.toggle('show', brandMatch && catMatch);
+  });
+}
+
 function scrollShop(){
   document.getElementById('shop').scrollIntoView({behavior:'smooth'});
 }
 
-// Read OOS IDs from localStorage (shared with POS)
-(function applyOosFromPOS(){
+// ── GOOGLE SHEETS OOS SYNC ──
+// Paste your Apps Script Web App URL below (between the quotes)
+const NP_SHEET_URL = 'https://script.google.com/macros/s/AKfycbypZib5GPfBFVIZmOq58XC61FiTxdhXJzE5yhBvgG0u5mgOIrpc2V1GR4r0y4PAMk9FSg/exec';
+
+async function applyOosFromSheet(){
+  if(!NP_SHEET_URL){ return; }
   try {
-    const oos = JSON.parse(localStorage.getItem('np_oos_ids')||'[]');
-    if(oos.length){
-      PRODUCTS.forEach(p=>{ p.inStock = !oos.includes(p.id); });
-    }
-  } catch(e){}
-})();
+    const res = await fetch(NP_SHEET_URL + '?t=' + Date.now(), {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-store'
+    });
+    if(!res.ok) return;
+    const data = await res.json();
+    const oos = data.oos || [];
+    PRODUCTS.forEach(p=>{ p.inStock = !oos.includes(p.id); });
+    if(oos.length) renderProducts();
+  } catch(e){
+    // silently fail — OOS sync is non-critical for customers
+  }
+}
 
 renderProducts();
 renderCafe();
+buildCarousel();
+applyOosFromSheet(); // runs after render, updates OOS tiles async
 </script>
 </body>
 </html>
