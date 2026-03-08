@@ -60,8 +60,26 @@ button{font-family:var(--fb);cursor:pointer}
 .wp-sub{font-size:13px;color:var(--mu);line-height:1.7;margin-bottom:22px}
 .wp-wa{display:flex;align-items:center;justify-content:center;gap:10px;background:#25d366;color:#000;border:none;border-radius:50px;padding:14px 28px;font-weight:700;font-size:15px;width:100%;text-decoration:none;transition:transform var(--t)}
 .wp-wa:hover{transform:translateY(-2px)}
-.wp-skip{background:none;border:none;color:var(--mu);font-size:12px;margin-top:14px;display:block;width:100%;cursor:pointer;transition:color var(--t)}
-.wp-skip:hover{color:var(--tx)}
+.wp-skip{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  color:var(--tx);
+  font-size:14px;
+  font-weight:600;
+  font-family:var(--fb);
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  cursor:pointer;
+  transition:all .2s;
+  border-radius:50px;
+  padding:13px 28px;
+  letter-spacing:.3px;
+}
+.wp-skip:hover{background:rgba(255,255,255,.1);color:var(--wh);transform:translateY(-1px)}
 .wp-features{display:flex;justify-content:center;gap:20px;margin:18px 0 0;flex-wrap:wrap}
 .wp-feat{font-size:11px;color:var(--mu);display:flex;align-items:center;gap:5px}
 .wp-feat::before{content:"checkmark";content:"✓";color:var(--gr);font-weight:700}
@@ -115,7 +133,7 @@ h1.ht .s{color:var(--mu);font-size:52%;letter-spacing:5px;display:block;margin-t
 .sec-alt{background:var(--sur)}
 .stag{font-family:var(--fm);font-size:10px;color:var(--or);letter-spacing:3px;text-transform:uppercase;margin-bottom:9px}
 .stitle{font-family:var(--fd);font-size:clamp(32px,4.5vw,52px);color:var(--wh);line-height:1;letter-spacing:1px;margin-bottom:8px}
-.ssub{font-size:13px;color:var(--mu);max-width:500px;line-height:1.75;margin-bottom:40px}
+.ssub{font-size:13px;color:var(--mu);max-width:500px;line-height:1.75;margin:0 auto 40px;text-align:center}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
 .reveal.vis{opacity:1;transform:translateY(0)}
 
@@ -241,7 +259,7 @@ h1.ht .s{color:var(--mu);font-size:52%;letter-spacing:5px;display:block;margin-t
 .cafe-name{font-size:14px;font-weight:700;color:var(--wh);margin-bottom:4px}
 .cafe-price{font-family:var(--fm);font-size:13px;color:var(--gr)}
 .cafe-cal{font-size:11px;color:var(--mu);margin-top:3px}
-.cafe-order-btn{margin-top:12px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25d366;border-radius:40px;padding:8px 16px;font-size:11px;font-weight:700;width:100%;cursor:pointer;transition:background var(--t);text-decoration:none;display:block;text-align:center}
+.cafe-order-btn{margin-top:12px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25d366;border-radius:40px;padding:10px 16px;font-size:12px;font-weight:700;width:100%;cursor:pointer;transition:background var(--t);text-decoration:none;display:flex;align-items:center;justify-content:center;gap:7px;line-height:1}
 .cafe-order-btn:hover{background:rgba(37,211,102,.2)}
 
 /* CONTACT */
@@ -301,20 +319,51 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 
 /* SHOP BY LEVEL */
 .level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:0}
-.level-card{border-radius:var(--r);overflow:hidden;cursor:pointer;position:relative;height:200px;display:flex;align-items:center;justify-content:center;transition:transform var(--t),box-shadow var(--t)}
-.level-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.5)}
-.level-card::before{content:'';position:absolute;inset:0;transition:opacity var(--t)}
-.level-card:hover::before{opacity:.7}
-.level-card.beginner{background:linear-gradient(135deg,#0f2027,#1a3a2a,#0f2027)}
-.level-card.beginner::before{background:linear-gradient(135deg,rgba(62,207,142,.15),transparent)}
-.level-card.intermediate{background:linear-gradient(135deg,#1a1a0f,#2a2a0a,#1a1a0f)}
-.level-card.intermediate::before{background:linear-gradient(135deg,rgba(245,166,35,.18),transparent)}
-.level-card.advanced{background:linear-gradient(135deg,#1a0f0f,#2a1010,#1a0f0f)}
-.level-card.advanced::before{background:linear-gradient(135deg,rgba(245,86,74,.2),transparent)}
-.level-geo{position:absolute;inset:0;opacity:.25}
+.level-card{
+  border-radius:var(--r);overflow:hidden;cursor:pointer;position:relative;
+  height:220px;display:flex;align-items:center;justify-content:center;
+  transition:transform .3s, box-shadow .3s;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+.level-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,0,0,.7)}
+/* dark overlay — always on, lightens slightly on hover */
+.level-card::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(0,0,0,.55);
+  transition:background .3s;
+}
+.level-card:hover::before{background:rgba(0,0,0,.38)}
+
+/* BEGINNER — light dumbbell / first day at gym */
+.level-card.beginner{
+  background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80');
+  box-shadow:0 4px 24px rgba(62,207,142,.15);
+  border:1px solid rgba(62,207,142,.2);
+}
+.level-card.beginner::before{background:linear-gradient(135deg,rgba(0,0,0,.45),rgba(10,60,35,.4))}
+.level-card.beginner:hover::before{background:linear-gradient(135deg,rgba(0,0,0,.35),rgba(10,60,35,.3))}
+
+/* INTERMEDIATE — barbell / lifting */
+.level-card.intermediate{
+  background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80');
+  box-shadow:0 4px 24px rgba(245,166,35,.15);
+  border:1px solid rgba(245,166,35,.2);
+}
+.level-card.intermediate::before{background:linear-gradient(135deg,rgba(0,0,0,.45),rgba(60,45,0,.4))}
+.level-card.intermediate:hover::before{background:linear-gradient(135deg,rgba(0,0,0,.35),rgba(60,45,0,.3))}
+
+/* ADVANCED — heavy powerlifting / competition */
+.level-card.advanced{
+  background-image:url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80');
+  box-shadow:0 4px 24px rgba(245,86,74,.15);
+  border:1px solid rgba(245,86,74,.2);
+}
+.level-card.advanced::before{background:linear-gradient(135deg,rgba(0,0,0,.45),rgba(60,10,5,.4))}
+.level-card.advanced:hover::before{background:linear-gradient(135deg,rgba(0,0,0,.35),rgba(60,10,5,.3))}
+
 .level-geo polygon{fill:rgba(255,255,255,.08)}
-.level-card .lc-label{position:relative;z-index:1;font-family:var(--fd);font-size:28px;color:var(--wh);letter-spacing:2px;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.6);transition:opacity .3s}
-.level-card .lc-sub{position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.5);margin-top:4px;letter-spacing:1px;font-family:var(--fm);text-align:center;transition:opacity .3s}
+.level-card .lc-label{position:relative;z-index:1;font-family:var(--fd);font-size:28px;color:var(--wh);letter-spacing:2px;font-weight:700;text-shadow:0 2px 16px rgba(0,0,0,.9),0 0 40px rgba(0,0,0,.8);transition:opacity .3s}
+.level-card .lc-sub{position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.8);margin-top:4px;text-shadow:0 1px 8px rgba(0,0,0,.9);letter-spacing:1px;font-family:var(--fm);text-align:center;transition:opacity .3s}
 .lc-inner{display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;z-index:1}
 .lc-hover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;opacity:0;transition:opacity .3s;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);border-radius:var(--r)}
 .lc-hover .lc-quote{font-size:22px;margin-bottom:10px}
@@ -327,12 +376,26 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 .gtab{padding:9px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--border2);color:var(--tx);background:transparent;transition:all var(--t);letter-spacing:.3px}
 .gtab.on{background:var(--or);color:#000;border-color:var(--or)}
 .gtab:hover:not(.on){border-color:var(--or);color:var(--or)}
-.goal-panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:110px}
-.gp-text h3{font-size:18px;font-weight:700;color:var(--wh);margin-bottom:6px}
-.gp-text p{font-size:13px;color:var(--mu);line-height:1.7;max-width:480px}
-.gp-icon{font-size:52px;opacity:.85;flex-shrink:0}
+.goal-panel{
+  position:relative;overflow:hidden;
+  border:1px solid var(--border);border-radius:16px;
+  padding:28px 32px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;min-height:130px;
+  background-size:cover;background-position:center;
+  background-repeat:no-repeat;
+  transition:background-image .3s;
+}
+.goal-panel::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(5,10,20,.78);
+  transition:background .3s;
+}
+.goal-panel > *{position:relative;z-index:1}
+.gp-text h3{font-size:18px;font-weight:700;color:var(--wh);margin-bottom:6px;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.gp-text p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.7;max-width:480px;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.gp-icon{font-size:64px;opacity:1;flex-shrink:0;filter:drop-shadow(0 4px 16px rgba(0,0,0,.8))}
 .gp-products{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.gp-tag{background:var(--sur);border:1px solid var(--border2);border-radius:20px;padding:5px 13px;font-size:11px;color:var(--tx);cursor:pointer;transition:all var(--t)}
+.gp-tag{background:rgba(7,13,24,.75);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:5px 13px;font-size:11px;color:var(--tx);cursor:pointer;transition:all var(--t);backdrop-filter:blur(4px)}
 .gp-tag:hover{border-color:var(--or);color:var(--or)}
 
 /* SHOP BY BRAND */
@@ -370,7 +433,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 
 @media(max-width:768px){
   .level-grid{grid-template-columns:1fr}
-  .level-card{height:140px}
+  .level-card{height:180px}
   .trust-bar{gap:24px}
   
 }
@@ -747,6 +810,15 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 .fd-progress{height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
 .fd-fill{height:100%;background:var(--gr);border-radius:4px;transition:width .4s}
 
+
+/* ── SVG icon alignment fix ── */
+button svg, a svg, .fsub svg, .cafe-order-btn svg,
+.pdm-wa-btn svg, .waf svg, .sb-btn svg {
+  display:inline-block;
+  vertical-align:middle;
+  flex-shrink:0;
+}
+
 </style>
 </head>
 <body>
@@ -762,8 +834,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
     <div class="wp-body">
       <div class="wp-title">Welcome to NutriPune! 💪</div>
       <div class="wp-sub">Genuine supplements at best prices. Chat with us for instant product advice or to place an order.</div>
-      <a href="https://wa.me/917992296841" target="_blank" class="wp-wa">📲 Chat on WhatsApp</a>
-      <button class="wp-skip" onclick="closeWp()">Continue browsing &rarr;</button>
+      <a href="https://wa.me/917992296841" target="_blank" class="wp-wa"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Chat on WhatsApp</a>
+      <button class="wp-skip" onclick="closeWp()"><span>Browse Store</span><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></button>
       <div class="wp-features">
         <span class="wp-feat">100% Genuine</span>
         <span class="wp-feat">Best Price</span>
@@ -809,7 +881,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
     </div>
     <div class="hero-stats">
       <div><div class="hs-v">100%</div><div class="hs-l">Genuine Stock</div></div>
-      <div><div class="hs-v">25+</div><div class="hs-l">Top Brands</div></div>
+      <div><div class="hs-v">30+</div><div class="hs-l">Top Brands</div></div>
       <div><div class="hs-v">400+</div><div class="hs-l">Products</div></div>
       <div><div class="hs-v">PUNE</div><div class="hs-l">Local Delivery</div></div>
     </div>
@@ -837,7 +909,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
     <div class="tbi">💰</div><strong>Best Price<br>Guaranteed</strong>
   </a>
   <a class="tb-item" href="https://wa.me/917992296841" target="_blank" style="cursor:pointer;text-decoration:none;color:inherit" title="Order on WhatsApp">
-    <div class="tbi">📲</div><strong>WhatsApp<br>Orders</strong>
+    <div class="tbi"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div><strong>WhatsApp<br>Orders</strong>
   </a>
   <div class="tb-item" style="cursor:default"><div class="tbi">✅</div><strong>Authenticity<br>Guaranteed</strong></div>
 </div>
@@ -852,11 +924,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
   </div>
   <div class="level-grid reveal">
     <div class="level-card beginner" onclick="filterAndScroll('beginner')">
-      <svg class="level-geo" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="0,300 200,0 400,300"/>
-        <polygon points="50,300 250,50 150,300"/>
-        <polygon points="200,300 350,100 400,200"/>
-      </svg>
+
       <div class="lc-inner">
         <div class="lc-label">BEGINNER</div>
         <div class="lc-sub">0–1 year training</div>
@@ -867,11 +935,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
       </div>
     </div>
     <div class="level-card intermediate" onclick="filterAndScroll('intermediate')">
-      <svg class="level-geo" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="0,0 200,300 400,0"/>
-        <polygon points="100,0 300,300 400,100"/>
-        <polygon points="0,150 200,0 100,300"/>
-      </svg>
+
       <div class="lc-inner">
         <div class="lc-label">INTERMEDIATE</div>
         <div class="lc-sub">1–3 years training</div>
@@ -882,11 +946,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
       </div>
     </div>
     <div class="level-card advanced" onclick="filterAndScroll('advanced')">
-      <svg class="level-geo" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="400,0 0,150 300,300"/>
-        <polygon points="200,0 0,300 400,200"/>
-        <polygon points="100,0 400,150 200,300"/>
-      </svg>
+
       <div class="lc-inner">
         <div class="lc-label">ADVANCED</div>
         <div class="lc-sub">3+ years · competition level</div>
@@ -912,7 +972,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
     <button class="gtab" onclick="setGoal('strength',this)">Strength & Power</button>
     <button class="gtab" onclick="setGoal('fatloss',this)">Weight Loss</button>
   </div>
-  <div class="goal-panel reveal" id="goalPanel">
+  <div class="goal-panel reveal" id="goalPanel" style="background-image:url('https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=900&q=80')">
     <div>
       <div class="gp-text">
         <h3>Lean Muscle Mass</h3>
@@ -935,7 +995,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
   <div class="reveal" style="text-align:center;margin-bottom:28px">
     <div class="stag">— Authorised Distributors</div>
     <div class="stitle">SHOP BY BRAND</div>
-    <p class="ssub">25+ premium brands. Every product genuine, sourced directly from authorised distributors.</p>
+    <p class="ssub">30+ premium brands. Every product genuine, sourced directly from authorised distributors.</p>
   </div>
   <!-- BRAND SEARCH -->
   <div class="brand-search-wrap reveal">
@@ -1395,6 +1455,26 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
             <div class="bp-sub">2 products</div>
           </div>
         </div>
+        <div class="brand-pill" onclick="filterBrand('NutriPune')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/nutripune.in" alt="NutriPune" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">NP</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">NutriPune</div>
+            <div class="bp-sub">1 product</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Bull Pharm')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/bullpharm.com" alt="Bull Pharm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">BP</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Bull Pharm</div>
+            <div class="bp-sub">20 products</div>
+          </div>
+        </div>
         <div class="brand-pill" onclick="filterBrand('MuscleBlaze')">
           <div class="bp-logo-wrap">
             <img class="bp-logo" src="https://logo.clearbit.com/muscleblaze.com" alt="MuscleBlaze" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -1545,6 +1625,26 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
             <div class="bp-sub">2 products</div>
           </div>
         </div>
+        <div class="brand-pill" onclick="filterBrand('NutriPune')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/nutripune.in" alt="NutriPune" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">NP</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">NutriPune</div>
+            <div class="bp-sub">1 product</div>
+          </div>
+        </div>
+        <div class="brand-pill" onclick="filterBrand('Bull Pharm')">
+          <div class="bp-logo-wrap">
+            <img class="bp-logo" src="https://logo.clearbit.com/bullpharm.com" alt="Bull Pharm" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span class="bp-logo-fb" style="display:none">BP</span>
+          </div>
+          <div class="bp-info">
+            <div class="bp-name">Bull Pharm</div>
+            <div class="bp-sub">20 products</div>
+          </div>
+        </div>
         <div class="brand-pill" onclick="filterBrand('MuscleBlaze')">
           <div class="bp-logo-wrap">
             <img class="bp-logo" src="https://logo.clearbit.com/muscleblaze.com" alt="MuscleBlaze" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -1648,11 +1748,23 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
       <div class="cdet"><div class="cdic">📞</div><div><div class="cdlb">Phone / WhatsApp</div><div class="cdvl"><a href="tel:+917992296841">+91 799 229 6841</a></div></div></div>
       <div class="cdet"><div class="cdic">📍</div><div><div class="cdlb">Location</div><div class="cdvl">Viman Nagar, Pune, Maharashtra</div></div></div>
       <div class="cdet"><div class="cdic">🕐</div><div><div class="cdlb">Shop Hours</div><div class="cdvl">Mon–Sat: 6 AM – 9 PM<br>Sunday: 7 AM – 1 PM</div></div></div>
-      <div class="cdet" style="border:none"><div class="cdic">📸</div><div><div class="cdlb">Instagram</div><div class="cdvl"><a href="https://instagram.com/nutripune" target="_blank">@nutripune</a></div></div></div>
+      <div class="cdet" style="border:none"><div class="cdic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ig-grad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f9ce34"/>
+      <stop offset="30%" stop-color="#ee2a7b"/>
+      <stop offset="65%" stop-color="#9b48b9"/>
+      <stop offset="100%" stop-color="#4c5fd7"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#ig-grad2)"/>
+  <circle cx="12" cy="12" r="4.2" stroke="white" stroke-width="1.7" fill="none"/>
+  <circle cx="17.2" cy="6.8" r="1.1" fill="white"/>
+</svg></div><div><div class="cdlb">Instagram</div><div class="cdvl"><a href="https://instagram.com/nutripune" target="_blank">@nutripune</a></div></div></div>
       <div style="margin-top:20px;background:var(--card);border:1px solid rgba(62,207,142,.2);border-radius:14px;padding:16px">
         <div style="font-family:var(--fm);font-size:9px;color:var(--gr);letter-spacing:2px;margin-bottom:6px">QUICK WHATSAPP ORDER</div>
         <p style="font-size:12px;color:var(--mu);line-height:1.7;margin-bottom:11px">Message us directly with product name and your area in Pune.</p>
-        <a href="https://wa.me/917992296841" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:#25d366;color:#000;padding:10px 18px;border-radius:40px;font-weight:700;font-size:12px">📲 WhatsApp Us</a>
+        <a href="https://wa.me/917992296841" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:#25d366;color:#000;padding:10px 18px;border-radius:40px;font-weight:700;font-size:12px"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp Us</a>
       </div>
     </div>
     <div class="cform">
@@ -1673,7 +1785,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
         </select>
       </div>
       <div class="fg"><label class="flb">Message</label><textarea class="fi fta" id="cfm" placeholder="Product name, quantity, your area in Pune..."></textarea></div>
-      <button class="fsub" onclick="submitContact()">Send on WhatsApp 📲</button>
+      <button class="fsub" onclick="submitContact()"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Send on WhatsApp</button>
     </div>
   </div>
 </section>
@@ -1751,12 +1863,25 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
     <div class="fl">NUTRI<span>PUNE</span></div>
     <p class="fdsc">Pune's sports nutrition shop + protein cafe. Genuine products. Real advice. Built by a powerlifter.</p>
     <div class="socials">
-      <a class="sl" href="https://instagram.com/nutripune" target="_blank">📸</a>
-      <a class="sl" href="https://wa.me/917992296841" target="_blank">📲</a>
+      <a class="sl" href="https://instagram.com/nutripune" target="_blank"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f9ce34"/>
+      <stop offset="30%" stop-color="#ee2a7b"/>
+      <stop offset="65%" stop-color="#9b48b9"/>
+      <stop offset="100%" stop-color="#4c5fd7"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#ig-grad)"/>
+  <rect x="2" y="2" width="20" height="20" rx="5.5" fill="none" stroke="url(#ig-grad)" stroke-width="0"/>
+  <circle cx="12" cy="12" r="4.2" stroke="white" stroke-width="1.7" fill="none"/>
+  <circle cx="17.2" cy="6.8" r="1.1" fill="white"/>
+</svg></a>
+      <a class="sl" href="https://wa.me/917992296841" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
     </div>
   </div>
   <div><div class="ftit">Shop</div><ul class="flinks"><li><a href="#shop">All Products</a></li><li><a href="#shop">Whey Protein</a></li><li><a href="#shop">Creatine</a></li><li><a href="#shop">Pre-Workout</a></li><li><a href="#cafe">Protein Cafe</a></li></ul></div>
-  <div><div class="ftit">Brands</div><ul class="flinks"><li><a href="#shop">MuscleBlaze</a></li><li><a href="#shop">Scitron</a></li><li><a href="#shop">AS-IT-IS</a></li><li><a href="#shop">MuscleTech</a></li></ul></div>
+  <div><div class="ftit">Brands</div><ul class="flinks"><li><a href="#bybrand" onclick="filterBrand('MuscleBlaze')">MuscleBlaze</a></li><li><a href="#bybrand" onclick="filterBrand('Scitron')">Scitron</a></li><li><a href="#bybrand" onclick="filterBrand('HealthFarm')">HealthFarm</a></li><li><a href="#bybrand" onclick="filterBrand('GNC')">GNC</a></li><li><a href="#bybrand" onclick="filterBrand('Nutrabay')">Nutrabay</a></li><li><a href="#bybrand" onclick="filterBrand('Zedon')">Zedon</a></li><li><a href="#bybrand" onclick="filterBrand('BigMuscles')">BigMuscles</a></li><li><a href="#bybrand" onclick="filterBrand('AS-IT-IS')">AS-IT-IS</a></li></ul></div>
   <div><div class="ftit">Info</div><ul class="flinks"><li><a href="#contact">Delivery Info</a></li><li><a href="#contact">Return Policy</a></li><li><a href="#contact">Bulk Orders</a></li><li><a href="#about">About Us</a></li></ul></div>
   <div class="fbot">
     <span>&copy; 2026 NutriPune. All rights reserved. Pune, Maharashtra.</span>
@@ -1764,7 +1889,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
   </div>
 </footer>
 
-<a class="waf" href="https://wa.me/917992296841" target="_blank" title="Chat on WhatsApp">📲</a>
+<a class="waf" href="https://wa.me/917992296841" target="_blank" title="Chat on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
 
 <!-- PRODUCT DETAIL MODAL -->
 <div class="pdm-ov" id="pdmOv" onclick="closePdm(event)">
@@ -1841,7 +1966,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
         <option value="cod">💵 Cash on Delivery (+₹30)</option>
       </select>
       <textarea class="cart-note" id="cartNote" placeholder="Address, area, special instructions..."></textarea>
-      <button class="co-btn" onclick="placeOrder()">Place Order via WhatsApp 📲</button>
+      <button class="co-btn" onclick="placeOrder()"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Place Order via WhatsApp</button>
       <button class="upi-btn2" onclick="toggleUpi()">💳 Pay via UPI / Scan QR</button>
       <div class="upi-popup" id="upiPop">
         <h4>Scan &amp; Pay</h4>
@@ -1909,7 +2034,7 @@ const PRODUCTS = [
   {id:5,cat:"whey",brand:"ON",name:"Gold Standard 100% Whey 2lb",shortName:"ON Gold Standard 2lb",icon:"🥛",
    img:"https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=500&q=80",
    price:2499,mrp:3299,badge:"World No.1",
-   desc:"The world's best-selling whey protein for 25+ years. Whey isolate as primary source. Banned substance tested.",
+   desc:"The world's best-selling whey protein for 30+ years. Whey isolate as primary source. Banned substance tested.",
    facts:[["Protein/scoop","24g"],["BCAAs","5.5g"],["Servings","29"],["Weight","907g"]],
    tags:["Whey Isolate Primary","Banned Substance Tested","World Best Seller"]},
   {id:6,cat:"mass",brand:"MuscleBlaze",name:"Mass Gainer XXL 3kg",shortName:"MB Mass Gainer 3kg",icon:"💪",
@@ -2198,7 +2323,7 @@ const PRODUCTS = [
   {id:214,cat:"creatine",brand:"AS-IT-IS",name:"Pure Creatine Monohydrate Unflavoured 100g",shortName:"AS-IT-IS Pure Creatine 100g",icon:"⚡",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80",price:252,mrp:368,badge:"Budget",desc:"Smallest and most affordable creatine pack. Perfect for beginners trying creatine for the first time.",facts:[["Creatine","5g/serving"],["Weight","100g"],["Servings","20"],["Certified","Labdoor"]],tags:["Budget Buy","Beginner Pack","20 Servings","Labdoor"]},
 
   // ══════════ OPTIMUM NUTRITION (ON) ══════════
-  {id:300,cat:"whey",brand:"ON",name:"Gold Standard 100% Whey 2.27kg (5lb)",shortName:"ON Gold Standard Whey 5lb",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80",price:8999,mrp:9849,badge:"World No.1",desc:"The world's best-selling protein for 25+ years. Whey isolate as primary source. 24g protein per serving. Banned substance tested.",facts:[["Protein","24g"],["Primary Source","Whey Isolate"],["Weight","2.27kg"],["Certified","Banned Substance Tested"]],tags:["World No.1","Whey Isolate Primary","5lb","Banned Substance Tested"]},
+  {id:300,cat:"whey",brand:"ON",name:"Gold Standard 100% Whey 2.27kg (5lb)",shortName:"ON Gold Standard Whey 5lb",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80",price:8999,mrp:9849,badge:"World No.1",desc:"The world's best-selling protein for 30+ years. Whey isolate as primary source. 24g protein per serving. Banned substance tested.",facts:[["Protein","24g"],["Primary Source","Whey Isolate"],["Weight","2.27kg"],["Certified","Banned Substance Tested"]],tags:["World No.1","Whey Isolate Primary","5lb","Banned Substance Tested"]},
   {id:301,cat:"whey",brand:"ON",name:"Gold Standard 100% Whey 907g (2lb)",shortName:"ON Gold Standard Whey 2lb",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80",price:3949,mrp:4429,badge:"Iconic",desc:"The iconic 2lb Gold Standard Whey. Most popular size for individual use. 29 servings of world-class protein.",facts:[["Protein","24g"],["Weight","907g"],["Servings","29"],["Source","Whey Isolate Primary"]],tags:["Iconic 2lb","Whey Isolate","29 Servings","World No.1"]},
   {id:302,cat:"whey",brand:"ON",name:"Gold Standard 100% Whey 454g (1lb)",shortName:"ON Gold Standard Whey 1lb",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80",price:2149,mrp:2389,badge:"Trial Size",desc:"1lb trial size of the world's best whey. Perfect to try before committing to a bigger pack.",facts:[["Protein","24g"],["Weight","454g"],["Servings","14"],["Type","Trial Size"]],tags:["Trial Size","1lb Pack","Gold Standard","World No.1"]},
   {id:303,cat:"whey",brand:"ON",name:"Gold Standard 100% Whey 4kg",shortName:"ON Gold Standard Whey 4kg",icon:"🥛",img:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&q=80",price:14999,mrp:16459,badge:"Economy 4kg",desc:"Mega economy 4kg Gold Standard Whey. Best price per serving for serious daily users.",facts:[["Protein","24g"],["Weight","4kg"],["Servings","111"],["Economy","Best Per Serving"]],tags:["4kg Economy","111 Servings","Best Per Serving","Gold Standard"]},
@@ -2241,8 +2366,8 @@ const PRODUCTS = [
   {id:58,cat:"whey",brand:"MuscleBlaze",name:"Beginner's Whey Protein 1kg",shortName:"MB Beginner's Whey 1kg",icon:"🥛",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg8.hkrtcdn.com%2F39658%2Fprd_3965797-MuscleBlaze-Beginners-Protein-Powder-2.2-lb-Chocolate_o.jpg&w=400&output=webp",price:1499,mrp:1499,badge:"Beginner",desc:"Starter whey protein from MuscleBlaze. Easy on the stomach, light formula, great taste. Best first protein supplement.",facts:[["Protein","22g"],["Best For","Beginners"],["Weight","1kg"],["Taste","Great"]],tags:["Beginner Friendly","Starter Pack","Easy Digest","Great Taste"]},
   {id:59,cat:"mass",brand:"MuscleBlaze",name:"Super Gainer XXL 5kg",shortName:"MB Super Gainer XXL 5kg",icon:"💪",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg6.hkrtcdn.com%2F37800%2Fprd_3779965-MuscleBlaze-Super-Gainer-XXL-Weight-Gainer-6.6-lb-Chocolate_o.jpg&w=400&output=webp",price:4249,mrp:5429,badge:"21% OFF",desc:"Economy 5kg Super Gainer XXL. Best value for serious hard gainers. 620 calories and 30g protein per serving.",facts:[["Protein","30g"],["Calories","620"],["Weight","5kg"],["Servings","30"]],tags:["5kg Economy","21% OFF","620 Calories","Hard Gainer"]},
   {id:60,cat:"mass",brand:"MuscleBlaze",name:"Super Gainer XXL 3kg",shortName:"MB Super Gainer XXL 3kg",icon:"💪",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg6.hkrtcdn.com%2F37800%2Fprd_3779965-MuscleBlaze-Super-Gainer-XXL-Weight-Gainer-6.6-lb-Chocolate_o.jpg&w=400&output=webp",price:2599,mrp:3829,badge:"32% OFF",desc:"3kg pack of MuscleBlaze Super Gainer XXL. Excellent mid-size option for regular mass gainers.",facts:[["Protein","30g"],["Calories","620"],["Weight","3kg"],["Servings","18"]],tags:["3kg Pack","32% OFF","620 Calories","Super Gainer"]},
-  {id:61,cat:"mass",brand:"MuscleBlaze",name:"Mass Gainer XXL 5kg",shortName:"MB Mass Gainer XXL 5kg",icon:"💪",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg10.hkrtcdn.com%2F30612%2Fprd_3061189-MuscleBlaze-Mass-Gainer-XXL-with-Complex-Carbs-and-Proteins-in-31-ratio-6.6-lb-Chocolate_o.jpg&w=400&output=webp",price:4599,mrp:6649,badge:"30% OFF",desc:"MuscleBlaze Mass Gainer XXL in 5kg economy pack. With 25+ vitamins and minerals for complete muscle building support.",facts:[["Protein","30g"],["Weight","5kg"],["Vitamins","25+"],["Servings","30"]],tags:["5kg Economy","30% OFF","25+ Vitamins","Mass Building"]},
-  {id:62,cat:"mass",brand:"MuscleBlaze",name:"Mass Gainer XXL 1kg",shortName:"MB Mass Gainer XXL 1kg",icon:"💪",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg10.hkrtcdn.com%2F30612%2Fprd_3061189-MuscleBlaze-Mass-Gainer-XXL-with-Complex-Carbs-and-Proteins-in-31-ratio-6.6-lb-Chocolate_o.jpg&w=400&output=webp",price:1149,mrp:1539,badge:"25% OFF",desc:"Entry-size Mass Gainer XXL. Try MuscleBlaze's most popular gainer before committing to a bigger pack.",facts:[["Protein","28g"],["Weight","1kg"],["Servings","6"],["Vitamins","25+"]],tags:["Trial Size","25% OFF","Entry Level","Mass Gainer"]},
+  {id:61,cat:"mass",brand:"MuscleBlaze",name:"Mass Gainer XXL 5kg",shortName:"MB Mass Gainer XXL 5kg",icon:"💪",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg10.hkrtcdn.com%2F30612%2Fprd_3061189-MuscleBlaze-Mass-Gainer-XXL-with-Complex-Carbs-and-Proteins-in-31-ratio-6.6-lb-Chocolate_o.jpg&w=400&output=webp",price:4599,mrp:6649,badge:"30% OFF",desc:"MuscleBlaze Mass Gainer XXL in 5kg economy pack. With 30+ vitamins and minerals for complete muscle building support.",facts:[["Protein","30g"],["Weight","5kg"],["Vitamins","30+"],["Servings","30"]],tags:["5kg Economy","30% OFF","30+ Vitamins","Mass Building"]},
+  {id:62,cat:"mass",brand:"MuscleBlaze",name:"Mass Gainer XXL 1kg",shortName:"MB Mass Gainer XXL 1kg",icon:"💪",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg10.hkrtcdn.com%2F30612%2Fprd_3061189-MuscleBlaze-Mass-Gainer-XXL-with-Complex-Carbs-and-Proteins-in-31-ratio-6.6-lb-Chocolate_o.jpg&w=400&output=webp",price:1149,mrp:1539,badge:"25% OFF",desc:"Entry-size Mass Gainer XXL. Try MuscleBlaze's most popular gainer before committing to a bigger pack.",facts:[["Protein","28g"],["Weight","1kg"],["Servings","6"],["Vitamins","30+"]],tags:["Trial Size","25% OFF","Entry Level","Mass Gainer"]},
   {id:63,cat:"creatine",brand:"MuscleBlaze",name:"Creatine Monohydrate CreAMP 250g",shortName:"MB CreAMP Creatine 250g",icon:"⚡",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg2.hkrtcdn.com%2F39779%2Fprd_3977891-MuscleBlaze-Creatine-Monohydrate-CreAMP-0.61-lb-Juicy-Berries_o.jpg&w=400&output=webp",price:899,mrp:1299,badge:"30% OFF",desc:"MuscleBlaze CreAMP micronised creatine. Trustified certified. 50 servings of pure pharmaceutical grade creatine.",facts:[["Creatine","5g/serving"],["Form","Micronised"],["Servings","50"],["Certified","Trustified"]],tags:["30% OFF","Trustified Certified","50 Servings","Pharmaceutical Grade"]},
   {id:64,cat:"creatine",brand:"MuscleBlaze",name:"Creatine Monohydrate CreAMP 100g",shortName:"MB CreAMP Creatine 100g",icon:"⚡",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg2.hkrtcdn.com%2F39779%2Fprd_3977891-MuscleBlaze-Creatine-Monohydrate-CreAMP-0.61-lb-Juicy-Berries_o.jpg&w=400&output=webp",price:549,mrp:719,badge:"Budget",desc:"100g starter pack of MuscleBlaze CreAMP creatine. Perfect for beginners trying creatine for the first time.",facts:[["Creatine","5g/serving"],["Weight","100g"],["Servings","20"],["Certified","Trustified"]],tags:["Budget Pick","Beginner Pack","20 Servings","Trustified"]},
   {id:65,cat:"preworkout",brand:"MuscleBlaze",name:"Pre-Workout WrathX 500g",shortName:"MB WrathX Pre-Workout 500g",icon:"🔥",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg6.hkrtcdn.com%2F40748%2Fprd_4074725_o.jpg&w=400&output=webp",price:2299,mrp:3499,badge:"34% OFF",desc:"MuscleBlaze WrathX pre-workout in 500g economy size. High-stim formula with explosive energy, pump and focus.",facts:[["Caffeine","200mg"],["L-Citrulline","3g"],["Weight","500g"],["Servings","60"]],tags:["34% OFF","60 Servings","500g Economy","High Stim"]},
@@ -2377,7 +2502,7 @@ const PRODUCTS = [
 
 
   // ── MUSCLEBLAZE MISSING ──
-  {id:68,cat:"mass",brand:"MuscleBlaze",name:"Mass Gainer XXL 3kg",shortName:"MB Mass Gainer XXL 3kg",icon:"💪",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg10.hkrtcdn.com%2F30612%2Fprd_3061189-MuscleBlaze-Mass-Gainer-XXL-with-Complex-Carbs-and-Proteins-in-31-ratio-6.6-lb-Chocolate_o.jpg&w=400&output=webp",price:3099,mrp:3099,badge:"Hard Gainer",desc:"MuscleBlaze Mass Gainer XXL in 3kg. 25+ vitamins and minerals, 620 calories per serving. Best mid-size mass gainer.",facts:[["Protein","28g"],["Calories","620"],["Weight","3kg"],["Vitamins","25+"]],tags:["3kg Pack","620 Calories","25+ Vitamins","Hard Gainer"]},
+  {id:68,cat:"mass",brand:"MuscleBlaze",name:"Mass Gainer XXL 3kg",shortName:"MB Mass Gainer XXL 3kg",icon:"💪",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg10.hkrtcdn.com%2F30612%2Fprd_3061189-MuscleBlaze-Mass-Gainer-XXL-with-Complex-Carbs-and-Proteins-in-31-ratio-6.6-lb-Chocolate_o.jpg&w=400&output=webp",price:3099,mrp:3099,badge:"Hard Gainer",desc:"MuscleBlaze Mass Gainer XXL in 3kg. 30+ vitamins and minerals, 620 calories per serving. Best mid-size mass gainer.",facts:[["Protein","28g"],["Calories","620"],["Weight","3kg"],["Vitamins","30+"]],tags:["3kg Pack","620 Calories","30+ Vitamins","Hard Gainer"]},
   {id:69,cat:"mass",brand:"MuscleBlaze",name:"Weight Gainer with Digezyme 3kg",shortName:"MB Weight Gainer Digezyme 3kg",icon:"💪",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg6.hkrtcdn.com%2F37800%2Fprd_3779965-MuscleBlaze-Super-Gainer-XXL-Weight-Gainer-6.6-lb-Chocolate_o.jpg&w=400&output=webp",price:2249,mrp:3599,badge:"37% OFF",desc:"MuscleBlaze Weight Gainer with DigeZyme enzyme complex for better nutrient absorption. 3kg pack.",facts:[["Protein","27g"],["Weight","3kg"],["Enzymes","DigeZyme"],["Calories","600+"]],tags:["DigeZyme","37% OFF","3kg Pack","Better Absorption"]},
   {id:70,cat:"vitamins",brand:"MuscleBlaze",name:"Liquid L-Carnitine Pro 3300mg 450ml",shortName:"MB L-Carnitine Pro 450ml",icon:"🔥",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg6.hkrtcdn.com%2F40748%2Fprd_4074725_o.jpg&w=400&output=webp",price:1599,mrp:1599,badge:"Fat Burning",desc:"Liquid L-Carnitine at 3300mg per serving. Supports fat burning, energy utilization and endurance.",facts:[["L-Carnitine","3300mg"],["Form","Liquid"],["Volume","450ml"],["Benefit","Fat Burning"]],tags:["3300mg Liquid","Fat Burning","Energy","Endurance"]},
   {id:71,cat:"vitamins",brand:"MuscleBlaze",name:"Testosterone Booster 60 tabs",shortName:"MB Testosterone Booster 60 tabs",icon:"🌿",img:"https://wsrv.nl/?url=https%3A%2F%2Fimg6.hkrtcdn.com%2F39254%2Fprd_3925365_o.jpg&w=400&output=webp",price:699,mrp:999,badge:"30% OFF",desc:"Natural testosterone booster with ashwagandha and tribulus. Supports strength, muscle and vitality.",facts:[["Key Herb","Ashwagandha+Tribulus"],["Tablets","60"],["Benefit","Natural Testosterone"],["Discount","30% OFF"]],tags:["Natural T-Booster","30% OFF","Ashwagandha","Tribulus"]},
@@ -2946,7 +3071,7 @@ function renderCafe(){
         <div class="cafe-price">${c.price}</div>
         <div class="cafe-cal">${c.cal} · Made Fresh</div>
         <p style="font-size:11px;color:var(--mu);margin-top:6px;line-height:1.6">${c.desc}</p>
-        <a href="https://wa.me/${PHONE}?text=${encodeURIComponent('Hi! I want a '+c.name)}" target="_blank" class="cafe-order-btn">📲 Order This Drink</a>
+        <a href="https://wa.me/${PHONE}?text=${encodeURIComponent('Hi! I want a '+c.name)}" target="_blank" class="cafe-order-btn" style="display:flex;align-items:center;justify-content:center;gap:7px"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Order This Drink</a>
       </div>`;
     g.appendChild(el);
   });
@@ -2965,7 +3090,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 
 const GOALS = {
-  lean:{title:'Lean Muscle Mass',desc:'Transform yourself into a lean, toned physique. Focus on isolate protein, fat burners and BCAA for recovery without excess calories.',icon:'🏃',
+  lean:{title:'Lean Muscle Mass',desc:'Transform yourself into a lean, toned physique. Focus on isolate protein, fat burners and BCAA for recovery without excess calories.',icon:'🏃',img:'https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=900&q=80',
     tags:[
       {label:'Whey Isolate',cat:'whey'},
       {label:'BCAA',cat:'bcaa'},
@@ -2973,7 +3098,7 @@ const GOALS = {
       {label:'Vitamins',cat:'vitamins'},
       {label:'Accessories',cat:'accessories'}
     ]},
-  bulk:{title:'Bulking Up',desc:'Maximise muscle mass and size. Combine mass gainers with whey protein, creatine and pre-workout to fuel heavy training.',icon:'💪',
+  bulk:{title:'Bulking Up',desc:'Maximise muscle mass and size. Combine mass gainers with whey protein, creatine and pre-workout to fuel heavy training.',icon:'💪',img:'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80',
     tags:[
       {label:'Mass Gainer',cat:'mass'},
       {label:'Creatine',cat:'creatine'},
@@ -2981,7 +3106,7 @@ const GOALS = {
       {label:'Pre-Workout',cat:'preworkout'},
       {label:'Vitamins',cat:'vitamins'}
     ]},
-  strength:{title:'Strength & Power',desc:'Built for powerlifters and strength athletes. Creatine, pre-workout and whey are the foundation.',icon:'🏋️',
+  strength:{title:'Strength & Power',desc:'Built for powerlifters and strength athletes. Creatine, pre-workout and whey are the foundation.',icon:'🏋️',img:'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=900&q=80',
     tags:[
       {label:'Creatine',cat:'creatine'},
       {label:'Pre-Workout',cat:'preworkout'},
@@ -2989,7 +3114,7 @@ const GOALS = {
       {label:'Vitamins',cat:'vitamins'},
       {label:'BCAA',cat:'bcaa'}
     ]},
-  fatloss:{title:'Weight Loss',desc:'Burn fat while preserving lean muscle. High-protein with fat burners and multivitamins to support your cut.',icon:'🔥',
+  fatloss:{title:'Weight Loss',desc:'Burn fat while preserving lean muscle. High-protein with fat burners and multivitamins to support your cut.',icon:'🔥',img:'https://images.unsplash.com/photo-1470468969717-61d5d54fd036?auto=format&fit=crop&w=900&q=80',
     tags:[
       {label:'Fat Burner',cat:'fatburner'},
       {label:'Vitamins',cat:'vitamins'},
@@ -3002,7 +3127,9 @@ function setGoal(key, btn){
   document.querySelectorAll('.gtab').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   const g=GOALS[key];
-  document.getElementById('goalPanel').innerHTML=`
+  const panel = document.getElementById('goalPanel');
+  panel.style.backgroundImage = g.img ? `url('${g.img}')` : 'none';
+  panel.innerHTML=`
     <div>
       <div class="gp-text"><h3>${g.title}</h3><p>${g.desc}</p></div>
       <div class="gp-products">${g.tags.map(t=>`<span class="gp-tag" onclick="filterByCat('${t.cat}','${t.label}')">${t.label}</span>`).join('')}</div>
@@ -3303,18 +3430,22 @@ async function applyOosFromSheet(){
   try {
     const res = await fetch(NP_SHEET_URL + '?t=' + Date.now(), {
       method: 'GET',
-      mode: 'cors',
       cache: 'no-store'
     });
     if(!res.ok) return;
-    const data = await res.json();
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); } catch(e){ return; }
     const oos = data.oos || [];
     PRODUCTS.forEach(p=>{ p.inStock = !oos.includes(p.id); });
-    if(oos.length) renderProducts();
+    renderProducts();
   } catch(e){
-    // silently fail — OOS sync is non-critical for customers
+    // silently fail
   }
 }
+
+// Re-check OOS every 5 minutes while page is open
+setInterval(applyOosFromSheet, 5 * 60 * 1000);
 
 
 // ─── BRAND SEARCH ───
@@ -3331,7 +3462,7 @@ const BRAND_DATA = [...new Set(PRODUCTS.map(p=>p.brand))].map(b=>({
     'SSN':'ssnbodybuilding.com','BSN':'bsnusa.com','Bull Pharm':'bullpharm.com',
     'Mydrol':'mydrol.in','Ultimate Nutrition':'ultimatenutrition.com','FastUp':'fastandup.in',
     'Oziva':'oziva.in','Himalaya':'himalayawellness.com','Thorne':'thorne.com',
-    'Centrum':'centrum.com','Amway':'nutrilite.com','NutriPune':'nutripune'
+    'Centrum':'centrum.com','Amway':'nutrilite.com','NutriPune':'nutripune.in','NutriPune':'nutripune'
   }[b] || ''
 }));
 
