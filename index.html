@@ -325,11 +325,11 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
   transition:transform .3s, box-shadow .3s;
   background-size:cover;background-position:center;background-repeat:no-repeat;
 }
-.level-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,0,0,.7)}
+.level-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,0,0,.7);filter:saturate(1.2) brightness(1.05)}
 /* dark overlay — always on, lightens slightly on hover */
 .level-card::before{
   content:'';position:absolute;inset:0;
-  background:rgba(0,0,0,.55);
+  background:rgba(0,0,0,.3);
   transition:background .3s;
 }
 .level-card:hover::before{background:rgba(0,0,0,.38)}
@@ -340,8 +340,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
   box-shadow:0 4px 24px rgba(62,207,142,.15);
   border:1px solid rgba(62,207,142,.2);
 }
-.level-card.beginner::before{background:linear-gradient(135deg,rgba(0,0,0,.45),rgba(10,60,35,.4))}
-.level-card.beginner:hover::before{background:linear-gradient(135deg,rgba(0,0,0,.35),rgba(10,60,35,.3))}
+.level-card.beginner::before{background:linear-gradient(135deg,rgba(0,0,0,.25),rgba(10,60,35,.2))}
+.level-card.beginner:hover::before{background:linear-gradient(135deg,rgba(0,0,0,.1),rgba(10,60,35,.1))}
 
 /* INTERMEDIATE — barbell / lifting */
 .level-card.intermediate{
@@ -349,8 +349,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
   box-shadow:0 4px 24px rgba(245,166,35,.15);
   border:1px solid rgba(245,166,35,.2);
 }
-.level-card.intermediate::before{background:linear-gradient(135deg,rgba(0,0,0,.45),rgba(60,45,0,.4))}
-.level-card.intermediate:hover::before{background:linear-gradient(135deg,rgba(0,0,0,.35),rgba(60,45,0,.3))}
+.level-card.intermediate::before{background:linear-gradient(135deg,rgba(0,0,0,.25),rgba(60,45,0,.2))}
+.level-card.intermediate:hover::before{background:linear-gradient(135deg,rgba(0,0,0,.1),rgba(60,45,0,.1))}
 
 /* ADVANCED — heavy powerlifting / competition */
 .level-card.advanced{
@@ -358,14 +358,14 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
   box-shadow:0 4px 24px rgba(245,86,74,.15);
   border:1px solid rgba(245,86,74,.2);
 }
-.level-card.advanced::before{background:linear-gradient(135deg,rgba(0,0,0,.45),rgba(60,10,5,.4))}
-.level-card.advanced:hover::before{background:linear-gradient(135deg,rgba(0,0,0,.35),rgba(60,10,5,.3))}
+.level-card.advanced::before{background:linear-gradient(135deg,rgba(0,0,0,.25),rgba(60,10,5,.2))}
+.level-card.advanced:hover::before{background:linear-gradient(135deg,rgba(0,0,0,.1),rgba(60,10,5,.1))}
 
 .level-geo polygon{fill:rgba(255,255,255,.08)}
 .level-card .lc-label{position:relative;z-index:1;font-family:var(--fd);font-size:28px;color:var(--wh);letter-spacing:2px;font-weight:700;text-shadow:0 2px 16px rgba(0,0,0,.9),0 0 40px rgba(0,0,0,.8);transition:opacity .3s}
 .level-card .lc-sub{position:relative;z-index:1;font-size:11px;color:rgba(255,255,255,.8);margin-top:4px;text-shadow:0 1px 8px rgba(0,0,0,.9);letter-spacing:1px;font-family:var(--fm);text-align:center;transition:opacity .3s}
 .lc-inner{display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;z-index:1}
-.lc-hover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;opacity:0;transition:opacity .3s;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);border-radius:var(--r)}
+.lc-hover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;opacity:0;transition:opacity .3s;background:rgba(0,0,0,.3);backdrop-filter:blur(2px);border-radius:var(--r)}
 .lc-hover .lc-quote{font-size:22px;margin-bottom:10px}
 .lc-hover .lc-desc{font-size:13px;color:rgba(255,255,255,.9);line-height:1.65;font-weight:400}
 .level-card:hover .lc-hover{opacity:1}
@@ -378,20 +378,21 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 .gtab:hover:not(.on){border-color:var(--or);color:var(--or)}
 .goal-panel{
   position:relative;overflow:hidden;
-  border:1px solid var(--border);border-radius:16px;
+  border:1px solid rgba(255,255,255,.15);border-radius:16px;
   padding:28px 32px;display:flex;align-items:center;
-  justify-content:space-between;gap:20px;min-height:130px;
-  background-size:cover;background-position:center;
+  justify-content:space-between;gap:20px;min-height:140px;
+  background-size:cover;background-position:center top;
   background-repeat:no-repeat;
   transition:background-image .3s;
+  filter:saturate(1.15);
 }
 .goal-panel::before{
   content:'';position:absolute;inset:0;
-  background:rgba(5,10,20,.78);
+  background:linear-gradient(90deg,rgba(5,10,20,.75) 50%,rgba(5,10,20,.2));
   transition:background .3s;
 }
 .goal-panel > *{position:relative;z-index:1}
-.gp-text h3{font-size:18px;font-weight:700;color:var(--wh);margin-bottom:6px;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.gp-text h3{font-size:22px;font-weight:900;color:var(--wh);margin-bottom:8px;text-shadow:0 2px 16px rgba(0,0,0,.9);letter-spacing:.5px;font-family:var(--fd)}
 .gp-text p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.7;max-width:480px;text-shadow:0 1px 8px rgba(0,0,0,.7)}
 .gp-icon{font-size:64px;opacity:1;flex-shrink:0;filter:drop-shadow(0 4px 16px rgba(0,0,0,.8))}
 .gp-products{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
@@ -493,7 +494,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 .carousel-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:4}
 .cdot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .3s;border:none}
 .cdot.on{background:var(--or);width:22px;border-radius:4px}
-.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.15);color:#fff;width:40px;height:40px;border-radius:50%;font-size:24px;cursor:pointer;z-index:4;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.15);color:#fff;width:40px;height:40px;border-radius:50%;font-size:24px;cursor:pointer;z-index:4;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
 .carousel-arrow:hover{background:var(--or);color:#000;border-color:var(--or)}
 .carousel-prev{left:14px}
 .carousel-next{right:14px}
@@ -961,10 +962,12 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
 
 <!-- SHOP BY GOAL -->
 <section class="sec sec-alt" id="bygoal">
-  <div class="reveal">
-    <div class="stag">— What are you training for?</div>
-    <div class="stitle">SHOP BY GOAL</div>
-    <p class="ssub">Tell us your goal and we will show you exactly what you need.</p>
+  <div class="reveal" style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:28px">
+    <div>
+      <div class="stag">— What are you training for?</div>
+      <div class="stitle" style="margin-bottom:0">SHOP BY GOAL</div>
+    </div>
+    <p style="font-size:13px;color:var(--mu);margin:0;line-height:1.5">Tell us your goal and we will show you exactly what you need.</p>
   </div>
   <div class="goal-tabs reveal">
     <button class="gtab on" onclick="setGoal('lean',this)">Lean Muscle Mass</button>
@@ -986,7 +989,6 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
         <span class="gp-tag" onclick="filterAndScroll('lean')">Ashwagandha</span>
       </div>
     </div>
-    <div class="gp-icon">🏃</div>
   </div>
 </section>
 
@@ -3134,7 +3136,7 @@ function setGoal(key, btn){
       <div class="gp-text"><h3>${g.title}</h3><p>${g.desc}</p></div>
       <div class="gp-products">${g.tags.map(t=>`<span class="gp-tag" onclick="filterByCat('${t.cat}','${t.label}')">${t.label}</span>`).join('')}</div>
     </div>
-    <div class="gp-icon">${g.icon}</div>`;
+`;
 }
 
 function filterByCat(cat, label){
