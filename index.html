@@ -272,17 +272,22 @@ h1.ht .s{color:var(--mu);font-size:52%;letter-spacing:5px;display:block;margin-t
 
 /* Menu strip header */
 .cafe-menu-header{
-  display:flex;align-items:center;justify-content:center;gap:16px;
-  margin-bottom:36px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-bottom:36px;padding:0 8px;overflow:hidden;
 }
 .cafe-menu-header::before,.cafe-menu-header::after{
-  content:'';flex:1;height:1px;
+  content:'';flex:1;height:1px;min-width:16px;
   background:linear-gradient(90deg,transparent,rgba(37,211,102,.3));
+  flex-shrink:1;
 }
 .cafe-menu-header::after{background:linear-gradient(90deg,rgba(37,211,102,.3),transparent)}
 .cafe-menu-title{
-  font-family:var(--fd);font-size:11px;letter-spacing:6px;
-  color:rgba(37,211,102,.6);white-space:nowrap;
+  font-family:var(--fd);font-size:10px;letter-spacing:3px;
+  color:rgba(37,211,102,.6);flex-shrink:1;text-align:center;
+}
+@media(max-width:480px){
+  .cafe-menu-title{font-size:9px;letter-spacing:2px}
+  .cafe-menu-header::before,.cafe-menu-header::after{min-width:8px}
 }
 
 /* Grid */
@@ -2074,7 +2079,7 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
     <p class="ssub">Fresh protein drinks made to order. Pre-workout, post-workout, or just because you deserve good coffee.</p>
   </div>
   <div class="cafe-menu-header reveal">
-    <span class="cafe-menu-title">VIMAN NAGAR · PUNE · MADE FRESH · TAKEAWAY ONLY</span>
+    <span class="cafe-menu-title">PUNE · MADE FRESH · TAKEAWAY</span>
   </div>
   <div class="cafe-grid reveal" id="cafeGrid"></div>
 </section>
