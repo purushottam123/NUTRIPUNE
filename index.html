@@ -1209,7 +1209,7 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
 .moto-author{
   font-family:var(--fm);font-size:13px;
   color:rgba(255,255,255,.35);letter-spacing:4px;
-  margin-top:16px;transition:opacity .35s ease;
+  margin-top:16px;transition:opacity .4s ease;
 }
 
 /* Controls */
@@ -4581,87 +4581,117 @@ const MOTOS = [
   { q:"THE PLATFORM DOESN'T CARE ABOUT YOUR FEELINGS.", a:"— UNKNOWN", w:"PLATFORM" },
 ];
 
-let motoIdx = 0;
-let motoTimer = null;
+// ═══════════════════════════════════════
+// MOTIVATION SLIDER — clean rewrite
+// ═══════════════════════════════════════
+var motoIdx  = 0;
+var motoTimer = null;
+var motoRunning = false;
 
 function buildMotoDots(){
-  const dots = document.getElementById('motoDots');
+  var dots = document.getElementById('motoDots');
   if(!dots) return;
-  dots.innerHTML = MOTOS.map((_, i) =>
-    `<button class="moto-dot${i===0?' active':''}" onclick="goMoto(${i})"></button>`
-  ).join('');
+  var html = '';
+  for(var i=0;i<MOTOS.length;i++){
+    html += '<button class="moto-dot'+(i===0?' active':'')+'" onclick="goMoto('+i+')"></button>';
+  }
+  dots.innerHTML = html;
 }
 
-function goMoto(idx){
-  const qEl  = document.getElementById('motoQuote');
-  const aEl  = document.getElementById('motoAuthor');
-  const bgEl = document.getElementById('motoBgWord');
-  if(!qEl) return;
+function goMoto(newIdx){
+  var qEl  = document.getElementById('motoQuote');
+  var aEl  = document.getElementById('motoAuthor');
+  var bgEl = document.getElementById('motoBgWord');
+  if(!qEl || !aEl || !bgEl) return;
 
-  // Fade out
-  qEl.style.opacity='0'; qEl.style.transform='translateY(12px)';
-  aEl.style.opacity='0';
+  newIdx = ((newIdx % MOTOS.length) + MOTOS.length) % MOTOS.length;
+  if(newIdx === motoIdx && motoRunning) return;
+  motoIdx = newIdx;
 
+  // Step 1: fade OUT
+  qEl.style.opacity   = '0';
+  qEl.style.transform = 'translateY(14px)';
+  aEl.style.opacity   = '0';
+
+  // Step 2: after fade out — swap content — then fade IN
   setTimeout(function(){
-    motoIdx = ((idx % MOTOS.length) + MOTOS.length) % MOTOS.length;
-    const m = MOTOS[motoIdx];
+    var m = MOTOS[motoIdx];
     qEl.textContent  = m.q;
     aEl.textContent  = m.a;
     bgEl.textContent = m.w;
 
-    // Update dots
-    document.querySelectorAll('.moto-dot').forEach(function(d,i){
-      d.classList.toggle('active', i===motoIdx);
+    // update dots
+    var allDots = document.querySelectorAll('.moto-dot');
+    for(var i=0;i<allDots.length;i++){
+      allDots[i].classList.toggle('active', i===motoIdx);
+    }
+
+    // Force browser to register the opacity:0 before animating back
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        qEl.style.opacity   = '1';
+        qEl.style.transform = 'translateY(0)';
+        aEl.style.opacity   = '1';
+      });
     });
-
-    // Fade in
-    qEl.style.opacity='1'; qEl.style.transform='translateY(0)';
-    aEl.style.opacity='1';
-  }, 350);
-
-  // Restart auto-timer
-  clearInterval(motoTimer);
-  motoTimer = setInterval(function(){ goMoto(motoIdx + 1); }, 5000);
+  }, 400);
 }
 
 function nextMoto(){ goMoto(motoIdx + 1); }
 function prevMoto(){ goMoto(motoIdx - 1); }
 
-// ── Init on DOMContentLoaded ──
+function startMotoTimer(){
+  clearInterval(motoTimer);
+  motoTimer = setInterval(function(){
+    goMoto(motoIdx + 1);
+  }, 5000);
+  motoRunning = true;
+}
+
+// ═══════════════════════════════════════
+// FLOAT BUTTON + SCROLL RESTORE — clean rewrite
+// ═══════════════════════════════════════
 document.addEventListener('DOMContentLoaded', function(){
 
-  // 1. Scroll restore fix — go to top on refresh
+  // Scroll to top on every page load
   if(history.scrollRestoration) history.scrollRestoration = 'manual';
-  window.scrollTo(0,0);
+  setTimeout(function(){ window.scrollTo(0,0); }, 0);
 
-  // 2. Floating coaching button — use scroll event (more reliable than IntersectionObserver)
+  // Float coaching button — hide when coaching section on screen
   var floatBtn = document.querySelector('.float-coaching');
   var coachSec = document.getElementById('coaching');
   if(floatBtn && coachSec){
-    function checkCoachVisible(){
-      var rect = coachSec.getBoundingClientRect();
-      var inView = rect.top < window.innerHeight && rect.bottom > 0;
-      floatBtn.style.opacity     = inView ? '0' : '1';
-      floatBtn.style.pointerEvents = inView ? 'none' : 'all';
-      floatBtn.style.transform   = inView ? 'translateY(20px) scale(0.9)' : '';
+    function updateFloatBtn(){
+      var r = coachSec.getBoundingClientRect();
+      var visible = r.top < window.innerHeight * 0.95 && r.bottom > 50;
+      if(visible){
+        floatBtn.style.opacity      = '0';
+        floatBtn.style.pointerEvents= 'none';
+        floatBtn.style.transform    = 'translateY(16px) scale(0.85)';
+      } else {
+        floatBtn.style.opacity      = '1';
+        floatBtn.style.pointerEvents= 'all';
+        floatBtn.style.transform    = '';
+      }
     }
-    window.addEventListener('scroll', checkCoachVisible, {passive:true});
-    checkCoachVisible();
+    window.addEventListener('scroll', updateFloatBtn, {passive:true});
+    updateFloatBtn();
   }
 
-  // 3. Motivation slider
+  // Init motivation slider
   buildMotoDots();
   var qEl  = document.getElementById('motoQuote');
   var aEl  = document.getElementById('motoAuthor');
   var bgEl = document.getElementById('motoBgWord');
   if(qEl && aEl && bgEl){
-    qEl.textContent  = MOTOS[0].q;
-    aEl.textContent  = MOTOS[0].a;
-    bgEl.textContent = MOTOS[0].w;
-    // Start slider after short delay so transitions are attached
-    setTimeout(function(){
-      motoTimer = setInterval(function(){ goMoto(motoIdx + 1); }, 5000);
-    }, 800);
+    var m0 = MOTOS[0];
+    qEl.textContent  = m0.q;
+    aEl.textContent  = m0.a;
+    bgEl.textContent = m0.w;
+    qEl.style.opacity = '1';
+    aEl.style.opacity = '1';
+    // Start timer after 1.5s so page settles first
+    setTimeout(startMotoTimer, 1500);
   }
 
 });
