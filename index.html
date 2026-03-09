@@ -875,6 +875,126 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
   flex-shrink:0;
 }
 
+
+/* ══════════════════════════════
+   COACHING SECTION
+══════════════════════════════ */
+.coaching-wrap{
+  display:grid;grid-template-columns:420px 1fr;
+  min-height:680px;
+}
+@media(max-width:900px){.coaching-wrap{grid-template-columns:1fr}}
+
+/* Photo column */
+.coach-photo-col{
+  position:relative;overflow:hidden;
+  background:#060c14;
+}
+.coach-photo-frame{
+  position:relative;width:100%;height:100%;min-height:500px;
+}
+.coach-photo-frame img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+  display:block;
+  filter:grayscale(20%) contrast(1.1);
+}
+/* diagonal cut right edge */
+.coach-photo-col::after{
+  content:'';position:absolute;top:0;right:-1px;bottom:0;
+  width:80px;
+  background:linear-gradient(to right,transparent,var(--ink));
+  z-index:2;
+}
+@media(max-width:900px){.coach-photo-col::after{display:none}}
+
+.coach-photo-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:60px 28px 24px;
+  background:linear-gradient(0deg,rgba(0,0,0,.95) 0%,transparent 100%);
+  z-index:3;
+}
+.cpl-name{display:block;font-family:var(--fd);font-size:32px;font-weight:900;color:#fff;letter-spacing:3px}
+.cpl-title{display:block;font-size:12px;color:var(--or);letter-spacing:2px;font-weight:600;margin-top:3px;text-transform:uppercase}
+
+/* Stat chips */
+.coach-stats{
+  position:absolute;top:20px;left:20px;
+  display:flex;flex-direction:column;gap:8px;z-index:3;
+}
+.cs-chip{
+  background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
+  border-left:3px solid var(--or);
+  padding:6px 12px;display:flex;flex-direction:column;gap:1px;
+}
+.cs-val{font-family:var(--fd);font-size:20px;font-weight:900;color:#fff;line-height:1}
+.cs-val small{font-size:11px;color:var(--or);margin-left:2px}
+.cs-lbl{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase}
+
+/* Content column */
+.coach-content-col{
+  background:var(--ink);
+  padding:56px 48px;
+  display:flex;flex-direction:column;gap:0;
+}
+@media(max-width:768px){.coach-content-col{padding:36px 22px}}
+
+.coach-tag{
+  font-size:10px;letter-spacing:4px;color:var(--or);font-weight:700;
+  text-transform:uppercase;margin-bottom:14px;font-family:var(--fm);
+}
+.coach-title{
+  font-family:var(--fd);font-size:clamp(28px,4vw,48px);
+  font-weight:900;color:#fff;line-height:1.05;
+  letter-spacing:1px;margin-bottom:22px;
+}
+.coach-title span{color:var(--or)}
+
+.coach-body{
+  font-size:14px;color:rgba(255,255,255,.65);line-height:1.8;
+  max-width:520px;margin-bottom:32px;border-left:3px solid rgba(249,115,22,.3);
+  padding-left:16px;
+}
+
+/* USPs */
+.coach-usps{display:flex;flex-direction:column;gap:18px;margin-bottom:32px}
+.coach-usp{display:flex;gap:14px;align-items:flex-start}
+.cusp-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.cusp-title{font-family:var(--fd);font-size:14px;font-weight:800;color:#fff;letter-spacing:.5px;margin-bottom:3px}
+.cusp-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.65}
+
+/* Divider headline */
+.coach-divider{
+  font-family:var(--fd);font-size:clamp(13px,1.8vw,18px);
+  color:rgba(255,255,255,.9);font-weight:900;letter-spacing:1px;
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:16px 0;margin-bottom:28px;
+}
+
+/* Enquiry Form */
+.coach-form{display:flex;flex-direction:column;gap:10px}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.cf-row{grid-template-columns:1fr}}
+
+.cf-inp{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:12px 14px;
+  font-size:13px;color:#fff;font-family:var(--fm);
+  outline:none;transition:border .2s;width:100%;box-sizing:border-box;
+}
+.cf-inp:focus{border-color:var(--or)}
+.cf-inp option{background:#111;color:#fff}
+.cf-area{resize:vertical;min-height:80px}
+
+.cf-submit{
+  background:var(--or);border:none;border-radius:8px;
+  padding:14px 24px;font-size:13px;font-weight:800;
+  font-family:var(--fd);letter-spacing:1.5px;color:#000;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .2s,box-shadow .2s;margin-top:4px;
+}
+.cf-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,115,22,.4)}
 </style>
 </head>
 <body>
@@ -911,6 +1031,7 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
     <a href="#about">About</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
+    <a href="#coaching" style="color:var(--or);font-weight:700">Coaching</a>
     <button class="nav-order" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Order Now</button>
   </div>
   <div class="nr">
@@ -1930,6 +2051,114 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
         <span class="faq-arrow">›</span>
       </button>
       <div class="faq-a">Yes! Whey protein, creatine, and multivitamins are commonly stacked together and are safe for healthy adults. Creatine + protein is one of the most effective and well-researched combinations for muscle gain. We recommend keeping it simple — protein post-workout, creatine daily, multivitamin in the morning.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     PERSONAL TRAINING / COACHING SECTION
+══════════════════════════════════════ -->
+<section class="sec" id="coaching" style="overflow:hidden;padding:0">
+
+  <!-- TOP BANNER BAR -->
+  <div style="background:var(--or);padding:10px 24px;text-align:center">
+    <span style="font-family:var(--fd);font-size:11px;letter-spacing:4px;color:#000;font-weight:900">NATIONAL POWERLIFTING STANDARDS &nbsp;·&nbsp; ELITE COACHING &nbsp;·&nbsp; LIMITED SPOTS</span>
+  </div>
+
+  <div class="coaching-wrap">
+
+    <!-- LEFT — Photo -->
+    <div class="coach-photo-col">
+      <div class="coach-photo-frame">
+        <!-- REPLACE src with your competition photo URL -->
+        <img id="coachPhoto"
+          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80"
+          alt="Prem — National Level Powerlifter"
+          onerror="this.style.display='none'">
+        <div class="coach-photo-label">
+          <span class="cpl-name">PREM</span>
+          <span class="cpl-title">National Level Powerlifter</span>
+        </div>
+        <!-- Stat chips -->
+        <div class="coach-stats">
+          <div class="cs-chip"><span class="cs-val">250<small>kg</small></span><span class="cs-lbl">Squat</span></div>
+          <div class="cs-chip"><span class="cs-val">250<small>kg</small></span><span class="cs-lbl">Deadlift</span></div>
+          <div class="cs-chip"><span class="cs-val">130<small>kg</small></span><span class="cs-lbl">Bench</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — Content -->
+    <div class="coach-content-col">
+
+      <div class="coach-tag reveal">— ONLINE &amp; OFFLINE COACHING</div>
+      <h2 class="coach-title reveal">TRAIN WITH A<br><span>NATIONAL LEVEL</span><br>POWERLIFTER.</h2>
+
+      <p class="coach-body reveal">
+        I offer Online &amp; Offline Powerlifting coaching for athletes who refuse to settle for "good enough." I strictly manage my roster so my expertise is never spread thin — because you deserve full attention, not a crowd.
+      </p>
+
+      <!-- 3 USPs -->
+      <div class="coach-usps reveal">
+        <div class="coach-usp">
+          <div class="cusp-icon">⚡</div>
+          <div>
+            <div class="cusp-title">Precision Breakdown</div>
+            <div class="cusp-desc">Every lift gets full technical analysis based on National competition standards — not generic gym advice.</div>
+          </div>
+        </div>
+        <div class="coach-usp">
+          <div class="cusp-icon">📈</div>
+          <div>
+            <div class="cusp-title">Live 1-on-1 Sessions</div>
+            <div class="cusp-desc">Monthly deep-dive sessions designed to break through your plateaus with direct coach feedback.</div>
+          </div>
+        </div>
+        <div class="coach-usp">
+          <div class="cusp-icon">🔬</div>
+          <div>
+            <div class="cusp-title">Scientific Biomechanics</div>
+            <div class="cusp-desc">Your program built for your levers and body — not a copy-paste template.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider headline -->
+      <div class="coach-divider reveal">
+  Stop Guessing. Start Training With National-Level Precision.
+  <div style="font-size:11px;color:var(--or);letter-spacing:2px;margin-top:8px;font-family:var(--fm);font-weight:600">⚠️ LIMITED SPOTS — Fill the form below to apply</div>
+</div>
+
+      <!-- ENQUIRY FORM -->
+      <form class="coach-form reveal" onsubmit="submitCoachEnquiry(event)">
+        <div class="cf-row">
+          <input class="cf-inp" id="cfcName" type="text" placeholder="Your Name *" required>
+          <input class="cf-inp" id="cfcPhone" type="tel" placeholder="WhatsApp Number *" required>
+        </div>
+        <div class="cf-row">
+          <select class="cf-inp" id="cfcType">
+            <option value="" disabled selected>Training Type</option>
+            <option value="Online Coaching">Online Coaching</option>
+            <option value="Offline Coaching (Pune)">Offline Coaching — Pune</option>
+            <option value="Both Online + Offline">Both Online + Offline</option>
+          </select>
+          <select class="cf-inp" id="cfcLevel">
+            <option value="" disabled selected>Current Level</option>
+            <option value="Beginner (0-1 yr)">Beginner — 0 to 1 year</option>
+            <option value="Intermediate (1-3 yr)">Intermediate — 1 to 3 years</option>
+            <option value="Advanced (3+ yr)">Advanced — 3+ years</option>
+            <option value="Competitive">Competitive Athlete</option>
+          </select>
+        </div>
+        <textarea class="cf-inp cf-area" id="cfcMsg" placeholder="Tell me about your goals, current lifts, or anything I should know…" rows="3"></textarea>
+        <button type="submit" class="cf-submit">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          APPLY FOR COACHING — ENQUIRE NOW
+        </button>
+<p style="font-size:11px;color:rgba(255,255,255,.35);margin-top:10px;text-align:center">Pricing discussed personally on WhatsApp. Spots are limited — serious enquiries only.</p>
+      </form>
+
     </div>
   </div>
 </section>
@@ -3233,6 +3462,20 @@ function toggleUpi(){
   if(p.classList.contains('open')){
     document.getElementById('upiQR').innerHTML=`<img src="${QR_B64}" style="width:180px;height:180px;border-radius:12px;object-fit:contain;background:#fff;padding:8px;margin:0 auto 10px;display:block;">`;
   }
+}
+
+function submitCoachEnquiry(e){
+  e.preventDefault();
+  const name  = document.getElementById('cfcName').value.trim();
+  const phone = document.getElementById('cfcPhone').value.trim();
+  const type  = document.getElementById('cfcType').value  || 'Not specified';
+  const level = document.getElementById('cfcLevel').value || 'Not specified';
+  const msg   = document.getElementById('cfcMsg').value.trim();
+  if(!name||!phone){showToast('Please fill name and phone number');return;}
+  const wa = `Hi Prem! I want to enquire about coaching.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${phone}%0ATraining Type: ${encodeURIComponent(type)}%0ACurrent Level: ${encodeURIComponent(level)}%0A%0AGoals / Message:%0A${encodeURIComponent(msg||'—')}%0A%0APlease share pricing details.`;
+  window.open('https://wa.me/'+PHONE+'?text='+wa,'_blank');
+  showToast('Opening WhatsApp with your enquiry! 💪');
+  e.target.reset();
 }
 
 function submitContact(){
