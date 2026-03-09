@@ -319,100 +319,140 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 
 /* SHOP BY LEVEL */
 .level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:0}
-/* ── LEVEL CARDS — bold redesign ── */
+/* ══════════════════════════════════
+   LEVEL CARDS — HARDCORE REDESIGN
+══════════════════════════════════ */
+.level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:0}
+
 .level-card{
   border-radius:0;overflow:hidden;cursor:pointer;position:relative;
-  height:240px;display:flex;align-items:flex-end;
-  transition:transform .3s,box-shadow .35s,clip-path .3s;
+  height:340px;display:flex;flex-direction:column;justify-content:flex-end;
+  transition:transform .3s,box-shadow .3s,flex .3s;
   background-size:cover;background-position:center;
-  clip-path:polygon(0 0,100% 0,100% 88%,96% 100%,0 100%);
 }
-.level-card:hover{
-  transform:translateY(-6px);
-  clip-path:polygon(0 0,100% 0,100% 92%,97% 100%,0 100%);
-}
+.level-grid:hover .level-card{ flex:0.85 }
+.level-grid:hover .level-card:hover{ flex:1.3; }
+.level-card:hover{ z-index:2; }
 
-/* Bold color wash overlay — bottom to top gradient gives depth */
+/* Dark gradient — heavy at bottom */
 .level-card::before{
   content:'';position:absolute;inset:0;
-  transition:opacity .3s;
+  background:linear-gradient(0deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.1) 100%);
+  transition:background .3s;
 }
-.level-card:hover::before{opacity:.85}
+.level-card:hover::before{
+  background:linear-gradient(0deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.5) 55%,rgba(0,0,0,.15) 100%);
+}
 
-/* ── BEGINNER — fresh green energy ── */
+/* Colour accent — top edge bar */
+.level-card.beginner::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:#3ecf8e;z-index:3}
+.level-card.intermediate::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:#f5a623;z-index:3}
+.level-card.advanced::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:#f5564a;z-index:3}
+
+/* Background images */
 .level-card.beginner{
-  background:
-    linear-gradient(160deg, rgba(6,40,20,.0) 0%, rgba(6,40,20,.85) 100%),
-    url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80') center/cover;
-  border:none;border-left:4px solid #3ecf8e;
-  box-shadow:0 8px 32px rgba(62,207,142,.12);
+  background-image:linear-gradient(0deg,rgba(0,30,15,.6),rgba(0,30,15,.1)),
+    url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80');
+  box-shadow:inset -2px 0 0 rgba(62,207,142,.3);
 }
-.level-card.beginner::before{background:linear-gradient(160deg,rgba(22,160,80,.18),rgba(6,40,20,.6))}
-.level-card.beginner:hover{box-shadow:0 20px 50px rgba(62,207,142,.3)}
-
-/* ── INTERMEDIATE — fire orange energy ── */
 .level-card.intermediate{
-  background:
-    linear-gradient(160deg, rgba(40,25,0,.0) 0%, rgba(40,25,0,.85) 100%),
-    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80') center/cover;
-  border:none;border-left:4px solid #f5a623;
-  box-shadow:0 8px 32px rgba(245,166,35,.12);
+  background-image:linear-gradient(0deg,rgba(30,20,0,.6),rgba(30,20,0,.1)),
+    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80');
+  box-shadow:inset -2px 0 0 rgba(245,166,35,.3);
 }
-.level-card.intermediate::before{background:linear-gradient(160deg,rgba(200,100,0,.2),rgba(40,20,0,.6))}
-.level-card.intermediate:hover{box-shadow:0 20px 50px rgba(245,166,35,.3)}
-
-/* ── ADVANCED — red intense power ── */
 .level-card.advanced{
-  background:
-    linear-gradient(160deg, rgba(40,0,0,.0) 0%, rgba(40,0,0,.85) 100%),
-    url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80') center/cover;
-  border:none;border-left:4px solid #f5564a;
-  box-shadow:0 8px 32px rgba(245,86,74,.12);
+  background-image:linear-gradient(0deg,rgba(30,0,0,.6),rgba(30,0,0,.1)),
+    url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=800&q=80');
 }
-.level-card.advanced::before{background:linear-gradient(160deg,rgba(200,20,10,.2),rgba(40,0,0,.6))}
-.level-card.advanced:hover{box-shadow:0 20px 50px rgba(245,86,74,.3)}
 
-.lc-inner{display:flex;flex-direction:column;align-items:flex-start;gap:5px;position:relative;z-index:1;padding:18px 20px;width:100%}
+/* Big background number */
+.lc-num{
+  position:absolute;top:16px;right:20px;
+  font-family:var(--fd);font-size:80px;font-weight:900;
+  color:rgba(255,255,255,.06);line-height:1;
+  transition:color .3s,font-size .3s;
+  z-index:1;
+}
+.level-card:hover .lc-num{color:rgba(255,255,255,.12);font-size:90px}
+
+/* SHOP NOW CTA — sits above inner, hidden until hover */
+.lc-cta{
+  position:absolute;top:20px;left:0;right:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fd);font-size:11px;letter-spacing:3px;
+  color:rgba(255,255,255,0);font-weight:700;
+  transition:color .3s;z-index:3;
+}
+.level-card:hover .lc-cta{color:rgba(255,255,255,.5)}
+
+.lc-inner{
+  display:flex;flex-direction:column;align-items:flex-start;gap:6px;
+  position:relative;z-index:2;padding:20px 22px;width:100%;
+}
+
+.lc-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+.lc-pills span{
+  font-size:9px;letter-spacing:.5px;font-family:var(--fm);font-weight:600;
+  padding:3px 9px;border-radius:0;text-transform:uppercase;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.7);
+}
+.level-card.beginner .lc-pills span{border-color:rgba(62,207,142,.3);color:rgba(62,207,142,.8)}
+.level-card.intermediate .lc-pills span{border-color:rgba(245,166,35,.3);color:rgba(245,166,35,.8)}
+.level-card.advanced .lc-pills span{border-color:rgba(245,86,74,.3);color:rgba(245,86,74,.8)}
+
 .lc-hover{
-  position:absolute;inset:0;z-index:2;
+  position:absolute;inset:0;z-index:3;
   display:flex;flex-direction:column;
-  align-items:flex-start;justify-content:flex-end;
-  padding:22px 24px;text-align:left;
+  align-items:flex-start;justify-content:center;
+  padding:28px 24px;text-align:left;
   opacity:0;transition:opacity .25s,transform .25s;
-  transform:translateY(8px);
-  background:linear-gradient(0deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.2) 60%,transparent 100%);
-  border-radius:20px;
+  transform:translateY(12px);
+  background:rgba(0,0,0,.82);
 }
 .lc-hover .lc-quote{display:none}
-.lc-hover .lc-desc{font-size:12px;color:rgba(255,255,255,.9);line-height:1.65;max-width:280px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.lc-hover .lc-desc{
+  font-size:13px;color:rgba(255,255,255,.85);line-height:1.7;
+  text-shadow:0 1px 8px rgba(0,0,0,.8);margin-bottom:18px;
+}
+.lc-hover-cta{
+  font-family:var(--fd);font-size:11px;letter-spacing:2px;
+  font-weight:700;color:#fff;
+  padding:8px 16px;border:1px solid rgba(255,255,255,.3);
+  display:inline-block;transition:all .2s;
+}
+.level-card.beginner .lc-hover-cta{border-color:#3ecf8e;color:#3ecf8e}
+.level-card.intermediate .lc-hover-cta{border-color:#f5a623;color:#f5a623}
+.level-card.advanced .lc-hover-cta{border-color:#f5564a;color:#f5564a}
 .level-card:hover .lc-hover{opacity:1;transform:translateY(0)}
 .level-card:hover .lc-inner{opacity:0;transition:opacity .15s}
 
 /* SHOP BY GOAL */
 .goal-tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
-.gtab{padding:9px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--border2);color:var(--tx);background:transparent;transition:all var(--t);letter-spacing:.3px}
+.gtab{padding:10px 22px;border-radius:0;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid var(--border2);color:var(--tx);background:transparent;transition:all var(--t);letter-spacing:1.5px;text-transform:uppercase;font-family:var(--fd)}
 .gtab.on{background:var(--or);color:#000;border-color:var(--or)}
 .gtab:hover:not(.on){border-color:var(--or);color:var(--or)}
 .goal-panel{
   position:relative;overflow:hidden;
-  border:1px solid rgba(255,255,255,.12);border-radius:16px;
-  padding:28px 32px;display:flex;align-items:center;
-  gap:20px;min-height:150px;
+  border:none;border-radius:0;
+  border-left:4px solid var(--or);
+  padding:36px 40px;display:flex;align-items:center;
+  gap:32px;min-height:180px;
   background-size:cover;background-position:center;
   background-repeat:no-repeat;
-  transition:background .4s;
+  transition:background-image .35s;
 }
 .goal-panel::before{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(4,8,18,.88) 40%,rgba(4,8,18,.3) 100%);
+  background:linear-gradient(100deg,rgba(4,8,18,.96) 45%,rgba(4,8,18,.45) 100%);
 }
 .goal-panel > *{position:relative;z-index:1}
-.gp-text h3{font-size:22px;font-weight:900;color:var(--wh);margin-bottom:8px;text-shadow:0 2px 16px rgba(0,0,0,.9);letter-spacing:.5px;font-family:var(--fd)}
-.gp-text p{font-size:13px;color:rgba(255,255,255,.8);line-height:1.7;max-width:480px;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.gp-text h3{font-size:26px;font-weight:900;color:#fff;margin-bottom:10px;letter-spacing:2px;font-family:var(--fd);text-transform:uppercase;text-shadow:0 2px 20px rgba(0,0,0,1)}
+.gp-text p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.75;max-width:520px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
 .gp-icon{font-size:64px;opacity:1;flex-shrink:0;filter:drop-shadow(0 4px 16px rgba(0,0,0,.8))}
 .gp-products{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-.gp-tag{background:rgba(7,13,24,.75);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:5px 13px;font-size:11px;color:var(--tx);cursor:pointer;transition:all var(--t);backdrop-filter:blur(4px)}
-.gp-tag:hover{border-color:var(--or);color:var(--or)}
+.gp-tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:0;padding:6px 14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.7);cursor:pointer;transition:all var(--t);font-family:var(--fd)}
+.gp-tag:hover{border-color:var(--or);color:var(--or);background:rgba(249,115,22,.1)}
 
 /* SHOP BY BRAND */
 
@@ -939,39 +979,61 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
     <p class="ssub">Not sure where to start? Find the right supplements based on your training experience.</p>
   </div>
   <div class="level-grid reveal">
-    <div class="level-card beginner" onclick="filterAndScroll('beginner')">
 
+    <!-- BEGINNER -->
+    <div class="level-card beginner" onclick="filterAndScroll('beginner')">
+      <div class="lc-num">01</div>
       <div class="lc-inner">
+        <div class="lc-tag">LEVEL</div>
         <div class="lc-label">BEGINNER</div>
         <div class="lc-sub">0–1 year training</div>
+        <div class="lc-pills">
+          <span>Whey Protein</span><span>Multivitamin</span><span>Creatine</span>
+        </div>
       </div>
+      <div class="lc-cta">SHOP NOW →</div>
       <div class="lc-hover">
-        <div class="lc-quote">💬</div>
-        <div class="lc-desc">For all budding health buffs who are just starting out on their fitness journey. Whey protein and multivitamins are your foundation.</div>
+        <div class="lc-desc">Your foundation stack. Whey protein for muscle growth, multivitamins for recovery. Keep it simple and stay consistent.</div>
+        <div class="lc-hover-cta">EXPLORE BEGINNER STACK →</div>
       </div>
     </div>
-    <div class="level-card intermediate" onclick="filterAndScroll('intermediate')">
 
+    <!-- INTERMEDIATE -->
+    <div class="level-card intermediate" onclick="filterAndScroll('intermediate')">
+      <div class="lc-num">02</div>
       <div class="lc-inner">
+        <div class="lc-tag">LEVEL</div>
         <div class="lc-label">INTERMEDIATE</div>
         <div class="lc-sub">1–3 years training</div>
+        <div class="lc-pills">
+          <span>Creatine</span><span>Pre-Workout</span><span>BCAA</span>
+        </div>
       </div>
+      <div class="lc-cta">SHOP NOW →</div>
       <div class="lc-hover">
-        <div class="lc-quote">💬</div>
-        <div class="lc-desc">In the middle of your fitness journey and looking to improve? This range is for you. Add creatine, BCAA and pre-workout to your stack.</div>
+        <div class="lc-desc">Time to push harder. Add creatine for strength, pre-workout for intensity, and BCAA for faster recovery between sessions.</div>
+        <div class="lc-hover-cta">EXPLORE INTERMEDIATE STACK →</div>
       </div>
     </div>
-    <div class="level-card advanced" onclick="filterAndScroll('advanced')">
 
+    <!-- ADVANCED -->
+    <div class="level-card advanced" onclick="filterAndScroll('advanced')">
+      <div class="lc-num">03</div>
       <div class="lc-inner">
+        <div class="lc-tag">LEVEL</div>
         <div class="lc-label">ADVANCED</div>
-        <div class="lc-sub">3+ years · competition level</div>
+        <div class="lc-sub">3+ years · competition</div>
+        <div class="lc-pills">
+          <span>Isolate</span><span>Fat Burner</span><span>Test Booster</span>
+        </div>
       </div>
+      <div class="lc-cta">SHOP NOW →</div>
       <div class="lc-hover">
-        <div class="lc-quote">💬</div>
-        <div class="lc-desc">The perfect range for serious athletes who have advanced well into their fitness journey. Full stack — isolate, creatine, pre-workout, fat burner.</div>
+        <div class="lc-desc">Elite athletes only. Full stack — isolate protein, creatine, pre-workout, fat burner. Push past your natural limits.</div>
+        <div class="lc-hover-cta">EXPLORE ADVANCED STACK →</div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1996,14 +2058,59 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
   </div>
 </div>
 
+<!-- PREPAID PAYMENT MODAL -->
+<div class="suc-ov" id="prepaidMo" style="z-index:9999">
+  <div class="suc-box" style="max-width:380px;text-align:center">
+    <span class="suc-ic">💳</span>
+    <h3 style="color:#f5a623;letter-spacing:2px">PREPAID ONLY</h3>
+    <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:16px">
+      We only accept <strong style="color:#fff">UPI / online payment</strong> before dispatch. No COD available.<br>
+      Scan QR or pay to UPI ID below, then send screenshot on WhatsApp.
+    </p>
+
+    <!-- QR Code -->
+    <div id="ppQR" style="margin:0 auto 12px"></div>
+
+    <!-- UPI ID copy box -->
+    <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px">
+      <span style="font-family:monospace;font-size:14px;color:#fff;letter-spacing:.5px">7992296841@ptsbi</span>
+      <button onclick="navigator.clipboard.writeText('7992296841@ptsbi');showToast('UPI ID copied! ✅')" style="background:var(--or);border:none;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;color:#000;cursor:pointer;letter-spacing:.5px">COPY</button>
+    </div>
+
+    <!-- Order summary -->
+    <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:10px 16px;margin-bottom:18px;text-align:left">
+      <div style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;margin-bottom:4px">ORDER TOTAL</div>
+      <div id="ppTotal" style="font-family:var(--fd);font-size:24px;color:#fff;font-weight:900"></div>
+      <div id="ppRef" style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px"></div>
+    </div>
+
+    <!-- Buttons -->
+    <button onclick="confirmAndSendWA()" style="width:100%;background:#25d366;border:none;border-radius:10px;padding:13px;font-size:13px;font-weight:700;color:#000;cursor:pointer;letter-spacing:1px;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      I've Paid — Send Order on WhatsApp
+    </button>
+    <button onclick="cancelPrepaid()" style="width:100%;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:11px;font-size:12px;color:rgba(255,255,255,.5);cursor:pointer">
+      Cancel
+    </button>
+  </div>
+</div>
+
 <!-- SUCCESS -->
 <div class="suc-ov" id="sucOv">
   <div class="suc-box">
-    <span class="suc-ic">🎉</span>
-    <h3>ORDER PLACED!</h3>
-    <p>Your order was sent to us on WhatsApp. We will confirm within 30 minutes.</p>
+    <span class="suc-ic">⏳</span>
+    <h3>AWAITING PAYMENT</h3>
+    <p style="color:rgba(255,255,255,.7);font-size:13px;line-height:1.7">
+      Your order is <strong style="color:#f5a623">pending</strong> until we receive your UPI payment on WhatsApp.<br>
+      Send the payment screenshot on WhatsApp to confirm your order.
+    </p>
     <div class="suc-ref" id="sucRef">Order #NP-000000</div>
-    <button class="btn-o" style="width:100%;justify-content:center" onclick="document.getElementById('sucOv').classList.remove('open')">Continue Shopping</button>
+    <button class="btn-o" style="width:100%;justify-content:center;background:#25d366;border-color:#25d366;color:#000;gap:8px;margin-bottom:8px"
+      onclick="window.open('https://wa.me/'+PHONE,'_blank')">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Open WhatsApp to Pay
+    </button>
+    <button class="btn-o" style="width:100%;justify-content:center;background:transparent" onclick="document.getElementById('sucOv').classList.remove('open')">Continue Shopping</button>
   </div>
 </div>
 
@@ -3038,22 +3145,59 @@ function showPaySection(){
   if(pay) pay.style.display='block';
 }
 
+// ── WhatsApp order state ──
+let _pendingOrderRef = null;
+let _pendingOrderMsg = null;
+let _pendingOrderTotal = 0;
+
 function placeOrder(){
   const items=Object.values(cart);
   if(!items.length){showToast('Cart is empty!');return;}
   const total=items.reduce((s,i)=>s+i.price*i.qty,0);
   const note=document.getElementById('cartNote').value;
-  const pm=document.getElementById('pmSel').value;
   const ref='NP-'+Date.now().toString().slice(-6);
   const lines=items.map(i=>`${i.shortName} x${i.qty} = Rs.${i.price*i.qty}`).join(', ');
-  const couponD = (activeCoupon ? (activeCoupon.type==='percent' ? Math.round(total*activeCoupon.value/100) : activeCoupon.value) : 0);
-  const ft=pm==='cod'?(total-couponD)+30:(total-couponD);
-  const msg=`Order from NutriPune | Ref: ${ref} | ${lines} | Total: Rs.${ft} | Payment: ${pm==='cod'?'COD':'UPI'}${note?' | Note: '+note:''}`;
-  document.getElementById('sucRef').textContent='Order '+ref;
-  document.getElementById('sucOv').classList.add('open');
+  const couponD=(activeCoupon?(activeCoupon.type==='percent'?Math.round(total*activeCoupon.value/100):activeCoupon.value):0);
+  const ft=(total-couponD);
+  const msg=`Order from NutriPune%0ARef: ${ref}%0A%0A${items.map(i=>`• ${i.shortName} x${i.qty} — Rs.${i.price*i.qty}`).join('%0A')}%0A%0ATotal: Rs.${ft}%0APayment: UPI%2FPrepaid%0AUpi ID: 7992296841@ptsbi${note?'%0ANote: '+encodeURIComponent(note):''}`;
+
+  // Store pending state — don't confirm yet
+  _pendingOrderRef = ref;
+  _pendingOrderMsg = msg;
+  _pendingOrderTotal = ft;
+
+  // Show prepaid modal BEFORE opening WhatsApp
+  showPrepaidModal(ref, ft, msg);
+}
+
+function showPrepaidModal(ref, total, msg){
+  const el = document.getElementById('prepaidMo');
+  if(!el) return;
+  document.getElementById('ppRef').textContent = ref;
+  document.getElementById('ppTotal').textContent = 'Rs.' + total.toLocaleString('en-IN');
+  // Show QR
+  document.getElementById('ppQR').innerHTML = `<img src="${QR_B64}" style="width:160px;height:160px;border-radius:8px;object-fit:contain;background:#fff;padding:6px;display:block;margin:0 auto">`;
+  el.classList.add('open');
+}
+
+function confirmAndSendWA(){
+  if(!_pendingOrderRef) return;
+  // Open WhatsApp
+  window.open('https://wa.me/'+PHONE+'?text='+_pendingOrderMsg,'_blank');
+  // Close prepaid modal
+  document.getElementById('prepaidMo').classList.remove('open');
   document.getElementById('cartOv').classList.remove('open');
-  window.open('https://wa.me/'+PHONE+'?text='+encodeURIComponent(msg),'_blank');
+  // Show "pending" success — NOT confirmed yet
+  document.getElementById('sucRef').textContent = 'Order '+_pendingOrderRef;
+  document.getElementById('sucOv').classList.add('open');
+  // Clear cart only after WA opened
   cart={};updateCartUI();
+  _pendingOrderRef=null;_pendingOrderMsg=null;
+}
+
+function cancelPrepaid(){
+  document.getElementById('prepaidMo').classList.remove('open');
+  _pendingOrderRef=null;_pendingOrderMsg=null;
 }
 
 function toggleUpi(){
@@ -3105,7 +3249,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 
 const GOALS = {
-  lean:{title:'Lean Muscle Mass',desc:'Transform yourself into a lean, toned physique. Focus on isolate protein, fat burners and BCAA for recovery without excess calories.',icon:'🏃',img:'https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=900&q=80',
+  lean:{color:'#3ecf8e',title:'Lean Muscle Mass',desc:'Transform yourself into a lean, toned physique. Focus on isolate protein, fat burners and BCAA for recovery without excess calories.',icon:'🏃',img:'https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?auto=format&fit=crop&w=900&q=80',
     tags:[
       {label:'Whey Isolate',cat:'whey'},
       {label:'BCAA',cat:'bcaa'},
@@ -3113,7 +3257,7 @@ const GOALS = {
       {label:'Vitamins',cat:'vitamins'},
       {label:'Accessories',cat:'accessories'}
     ]},
-  bulk:{title:'Bulking Up',desc:'Maximise muscle mass and size. Combine mass gainers with whey protein, creatine and pre-workout to fuel heavy training.',icon:'💪',img:'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80',
+  bulk:{color:'#f5a623',title:'Bulking Up',desc:'Maximise muscle mass and size. Combine mass gainers with whey protein, creatine and pre-workout to fuel heavy training.',icon:'💪',img:'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80',
     tags:[
       {label:'Mass Gainer',cat:'mass'},
       {label:'Creatine',cat:'creatine'},
@@ -3121,7 +3265,7 @@ const GOALS = {
       {label:'Pre-Workout',cat:'preworkout'},
       {label:'Vitamins',cat:'vitamins'}
     ]},
-  strength:{title:'Strength & Power',desc:'Built for powerlifters and strength athletes. Creatine, pre-workout and whey are the foundation.',icon:'🏋️',img:'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=900&q=80',
+  strength:{color:'#4c9ff5',title:'Strength & Power',desc:'Built for powerlifters and strength athletes. Creatine, pre-workout and whey are the foundation.',icon:'🏋️',img:'https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=900&q=80',
     tags:[
       {label:'Creatine',cat:'creatine'},
       {label:'Pre-Workout',cat:'preworkout'},
@@ -3129,7 +3273,7 @@ const GOALS = {
       {label:'Vitamins',cat:'vitamins'},
       {label:'BCAA',cat:'bcaa'}
     ]},
-  fatloss:{title:'Weight Loss',desc:'Burn fat while preserving lean muscle. High-protein with fat burners and multivitamins to support your cut.',icon:'🔥',img:'https://images.unsplash.com/photo-1470468969717-61d5d54fd036?auto=format&fit=crop&w=900&q=80',
+  fatloss:{color:'#f5564a',title:'Weight Loss',desc:'Burn fat while preserving lean muscle. High-protein with fat burners and multivitamins to support your cut.',icon:'🔥',img:'https://images.unsplash.com/photo-1470468969717-61d5d54fd036?auto=format&fit=crop&w=900&q=80',
     tags:[
       {label:'Fat Burner',cat:'fatburner'},
       {label:'Vitamins',cat:'vitamins'},
@@ -3150,6 +3294,7 @@ function setGoal(key, btn){
     </div>
 `;
   panel.style.backgroundImage = g.img ? `url('${g.img}')` : 'none';
+  panel.style.borderLeftColor = g.color || 'var(--or)';
 }
 
 function filterByCat(cat, label){
