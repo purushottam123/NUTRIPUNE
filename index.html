@@ -1089,7 +1089,7 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
   padding:14px 24px;font-size:13px;font-weight:800;
   font-family:var(--fd);letter-spacing:1.5px;color:#000;
   cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:transform .2s,box-shadow .2s;margin-top:4px;
+  transition:transform .2s,box-shadow .2s,opacity .4s;margin-top:4px;
 }
 .cf-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,115,22,.4)}
 
@@ -1131,6 +1131,132 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
 @keyframes coachGlow{0%,100%{opacity:.4}50%{opacity:1}}
 
 
+
+/* Coach strip header */
+.coach-strip-header{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 24px;background:rgba(0,0,0,.3);
+  overflow:hidden;
+}
+.coach-strip-line{
+  flex:1;height:1px;min-width:8px;flex-shrink:1;
+  background:linear-gradient(90deg,transparent,rgba(245,166,35,.4));
+}
+.coach-strip-line:last-child{
+  background:linear-gradient(90deg,rgba(245,166,35,.4),transparent);
+}
+.coach-strip-text{
+  font-family:var(--fd);font-size:10px;letter-spacing:3px;
+  color:rgba(245,166,35,.7);flex-shrink:1;text-align:center;
+}
+@media(max-width:480px){
+  .coach-strip-text{font-size:9px;letter-spacing:2px}
+}
+
+/* ══════════════════════════════════════
+   HARDCORE MOTIVATION SECTION
+══════════════════════════════════════ */
+.moto-section{
+  position:relative;overflow:hidden;
+  background:#000;
+  padding:70px 24px 0;
+  border-top:3px solid #1a0000;
+  border-bottom:3px solid #1a0000;
+}
+
+/* Huge background word */
+.moto-bg-word{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:var(--fd);font-size:clamp(120px,25vw,260px);
+  font-weight:900;letter-spacing:-4px;
+  color:rgba(255,255,255,.03);
+  pointer-events:none;user-select:none;
+  transition:color 1s;white-space:nowrap;
+}
+
+/* Main quote area */
+.moto-main{
+  position:relative;z-index:2;
+  max-width:900px;margin:0 auto;
+  text-align:center;padding-bottom:48px;
+}
+
+.moto-quote-wrap{
+  margin-bottom:36px;
+}
+
+.moto-bar{
+  width:60px;height:4px;
+  background:#c00;
+  margin:0 auto 28px;
+  transition:width .4s;
+}
+.moto-section:hover .moto-bar{width:120px}
+
+.moto-quote{
+  font-family:var(--fd);
+  font-size:clamp(28px,5vw,64px);
+  font-weight:900;
+  color:#fff;
+  line-height:1.05;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transition:opacity .35s,transform .35s;
+  min-height:130px;
+  display:flex;align-items:center;justify-content:center;
+}
+.moto-quote.fade-out{opacity:0;transform:translateY(12px)}
+.moto-quote.fade-in{opacity:1;transform:translateY(0)}
+
+.moto-author{
+  font-family:var(--fm);font-size:13px;
+  color:rgba(255,255,255,.35);letter-spacing:4px;
+  margin-top:16px;transition:opacity .35s;
+}
+.moto-author.fade-out{opacity:0}
+
+/* Controls */
+.moto-controls{
+  display:flex;align-items:center;justify-content:center;gap:20px;
+}
+.moto-btn{
+  background:none;border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.4);width:40px;height:40px;border-radius:50%;
+  font-size:16px;cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.moto-btn:hover{border-color:#c00;color:#fff;background:rgba(200,0,0,.15)}
+.moto-dots{display:flex;gap:6px;align-items:center}
+.moto-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  cursor:pointer;transition:all .3s;border:none;padding:0;
+}
+.moto-dot.active{background:#c00;width:20px;border-radius:3px}
+
+/* Bottom ticker */
+.moto-ticker-wrap{
+  background:#c00;
+  padding:10px 0;
+  overflow:hidden;
+  margin:0 -24px;
+}
+.moto-ticker{
+  display:flex;width:max-content;
+  animation:motoTick 30s linear infinite;
+  white-space:nowrap;
+}
+.moto-ticker span{
+  font-family:var(--fd);font-size:13px;
+  letter-spacing:3px;color:#000;font-weight:900;
+  padding:0 4px;
+}
+.moto-ticker-wrap:hover .moto-ticker{animation-play-state:paused}
+@keyframes motoTick{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -2071,6 +2197,55 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
   </div>
 </section>
 
+
+<!-- ══════════════════════════════════════
+     HARDCORE MOTIVATION STRIP
+══════════════════════════════════════ -->
+<div class="moto-section" id="motoSection">
+
+  <!-- Big background word -->
+  <div class="moto-bg-word" id="motoBgWord">IRON</div>
+
+  <!-- Main quote display -->
+  <div class="moto-main">
+    <div class="moto-quote-wrap">
+      <div class="moto-bar"></div>
+      <div class="moto-quote" id="motoQuote">THE IRON NEVER LIES TO YOU.</div>
+      <div class="moto-author" id="motoAuthor">— HENRY ROLLINS</div>
+    </div>
+    <div class="moto-controls">
+      <button class="moto-btn" onclick="prevMoto()">&#8592;</button>
+      <div class="moto-dots" id="motoDots"></div>
+      <button class="moto-btn" onclick="nextMoto()">&#8594;</button>
+    </div>
+  </div>
+
+  <!-- Scrolling ticker below -->
+  <div class="moto-ticker-wrap">
+    <div class="moto-ticker">
+      <span>NO PAIN NO GAIN &nbsp;·&nbsp; </span>
+      <span>BLOOD SWEAT IRON &nbsp;·&nbsp; </span>
+      <span>EAT BIG LIFT BIG &nbsp;·&nbsp; </span>
+      <span>REST WHEN DEAD &nbsp;·&nbsp; </span>
+      <span>WEAK IS A CHOICE &nbsp;·&nbsp; </span>
+      <span>THE BAR DOESN'T CARE &nbsp;·&nbsp; </span>
+      <span>MORE WEIGHT MORE RESPECT &nbsp;·&nbsp; </span>
+      <span>SUFFER NOW DOMINATE LATER &nbsp;·&nbsp; </span>
+      <span>YOUR ONLY LIMIT IS YOU &nbsp;·&nbsp; </span>
+      <span>NO PAIN NO GAIN &nbsp;·&nbsp; </span>
+      <span>BLOOD SWEAT IRON &nbsp;·&nbsp; </span>
+      <span>EAT BIG LIFT BIG &nbsp;·&nbsp; </span>
+      <span>REST WHEN DEAD &nbsp;·&nbsp; </span>
+      <span>WEAK IS A CHOICE &nbsp;·&nbsp; </span>
+      <span>THE BAR DOESN'T CARE &nbsp;·&nbsp; </span>
+      <span>MORE WEIGHT MORE RESPECT &nbsp;·&nbsp; </span>
+      <span>SUFFER NOW DOMINATE LATER &nbsp;·&nbsp; </span>
+      <span>YOUR ONLY LIMIT IS YOU &nbsp;·&nbsp; </span>
+    </div>
+  </div>
+
+</div>
+
 <!-- CAFE -->
 <section class="sec sec-alt" id="cafe">
   <div class="reveal">
@@ -2214,6 +2389,13 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
   <!-- TOP BANNER BAR -->
   <div style="background:var(--or);padding:10px 24px;text-align:center">
     <span style="font-family:var(--fd);font-size:11px;letter-spacing:4px;color:#000;font-weight:900">NATIONAL POWERLIFTING STANDARDS &nbsp;·&nbsp; ELITE COACHING &nbsp;·&nbsp; LIMITED SPOTS</span>
+  </div>
+
+  <!-- STRIP LINE — like cafe section -->
+  <div class="coach-strip-header">
+    <div class="coach-strip-line"></div>
+    <span class="coach-strip-text">PUNE · ONLINE &amp; OFFLINE · NATURAL ATHLETE</span>
+    <div class="coach-strip-line"></div>
   </div>
 
   <div class="coaching-wrap">
@@ -4375,8 +4557,104 @@ rotateCarouselHourly();
 // Re-run at the top of every hour
 const msToNextHour = (60 - new Date().getMinutes()) * 60000 - new Date().getSeconds() * 1000;
 setTimeout(() => { rotateCarouselHourly(); setInterval(rotateCarouselHourly, 3600000); }, msToNextHour);
-applyCouponVisibility(); // runs after render, updates OOS tiles async
+applyCouponVis
 
+// Hide floating coaching button when coaching section is visible
+(function(){
+  const floatBtn = document.querySelector('.float-coaching');
+  const coachSec = document.getElementById('coaching');
+  if(!floatBtn || !coachSec) return;
+  const obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        floatBtn.style.opacity='0';
+        floatBtn.style.pointerEvents='none';
+        floatBtn.style.transform='translateY(20px)';
+      } else {
+        floatBtn.style.opacity='1';
+        floatBtn.style.pointerEvents='all';
+        floatBtn.style.transform='';
+      }
+    });
+  }, {threshold:0.1});
+  obs.observe(coachSec);
+})();ibility(); // runs after render, updates OOS tiles async
+
+
+
+
+// ══════════════════════════════════════
+// HARDCORE MOTIVATION SLIDER
+// ══════════════════════════════════════
+const MOTOS = [
+  { q:"THE IRON NEVER LIES TO YOU.", a:"— HENRY ROLLINS", w:"IRON" },
+  { q:"PAIN IS TEMPORARY. GLORY IS FOREVER.", a:"— ARNOLD SCHWARZENEGGER", w:"GLORY" },
+  { q:"IF IT DOESN'T CHALLENGE YOU, IT DOESN'T CHANGE YOU.", a:"— FRED DEVITO", w:"CHANGE" },
+  { q:"THE ONLY BAD WORKOUT IS THE ONE THAT DIDN'T HAPPEN.", a:"— UNKNOWN", w:"GRIND" },
+  { q:"YOU DON'T FIND WILLPOWER. YOU CREATE IT.", a:"— UNKNOWN", w:"WILL" },
+  { q:"SUFFER THE PAIN OF DISCIPLINE OR SUFFER THE PAIN OF REGRET.", a:"— JIM ROHN", w:"PAIN" },
+  { q:"WEAK PEOPLE TAKE BREAKS. CHAMPIONS TAKE SETS.", a:"— UNKNOWN", w:"SETS" },
+  { q:"THE BARBELL DOESN'T KNOW YOUR EXCUSES.", a:"— UNKNOWN", w:"IRON" },
+  { q:"YOUR BODY CAN STAND ALMOST ANYTHING. IT'S YOUR MIND YOU HAVE TO CONVINCE.", a:"— UNKNOWN", w:"MIND" },
+  { q:"EAT. SLEEP. LIFT. REPEAT. UNTIL DEATH.", a:"— UNKNOWN", w:"LIFT" },
+  { q:"THE ONLY PLACE WHERE SUCCESS COMES BEFORE WORK IS IN THE DICTIONARY.", a:"— VINCE LOMBARDI", w:"WORK" },
+  { q:"HEAVY IS THE CROWN. HEAVIER IS THE BAR.", a:"— UNKNOWN", w:"HEAVY" },
+  { q:"DON'T STOP WHEN IT HURTS. STOP WHEN YOU'RE DONE.", a:"— UNKNOWN", w:"DONE" },
+  { q:"BLOODSHOT EYES. CHALK ON HANDS. IRON IN THE SOUL.", a:"— UNKNOWN", w:"SOUL" },
+  { q:"THE PLATFORM DOESN'T CARE ABOUT YOUR FEELINGS.", a:"— UNKNOWN", w:"PLATFORM" },
+];
+
+let motoIdx = 0;
+let motoTimer = null;
+
+function buildMotoDots(){
+  const dots = document.getElementById('motoDots');
+  if(!dots) return;
+  dots.innerHTML = MOTOS.map((_, i) =>
+    `<button class="moto-dot${i===0?' active':''}" onclick="goMoto(${i})"></button>`
+  ).join('');
+}
+
+function goMoto(idx, dir){
+  const qEl  = document.getElementById('motoQuote');
+  const aEl  = document.getElementById('motoAuthor');
+  const bgEl = document.getElementById('motoBgWord');
+  if(!qEl) return;
+
+  // Fade out
+  qEl.classList.add('fade-out');
+  aEl.classList.add('fade-out');
+
+  setTimeout(function(){
+    motoIdx = ((idx % MOTOS.length) + MOTOS.length) % MOTOS.length;
+    const m = MOTOS[motoIdx];
+    qEl.textContent  = m.q;
+    aEl.textContent  = m.a;
+    bgEl.textContent = m.w;
+
+    // Update dots
+    document.querySelectorAll('.moto-dot').forEach(function(d,i){
+      d.classList.toggle('active', i===motoIdx);
+    });
+
+    qEl.classList.remove('fade-out');
+    aEl.classList.remove('fade-out');
+    qEl.classList.add('fade-in');
+  }, 350);
+
+  // Restart timer
+  clearInterval(motoTimer);
+  motoTimer = setInterval(function(){ goMoto(motoIdx+1); }, 5000);
+}
+
+function nextMoto(){ goMoto(motoIdx + 1); }
+function prevMoto(){ goMoto(motoIdx - 1); }
+
+// Init
+(function(){
+  buildMotoDots();
+  motoTimer = setInterval(function(){ goMoto(motoIdx+1); }, 5000);
+})();
 
 </script>
 </body>
