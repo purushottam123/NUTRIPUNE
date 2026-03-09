@@ -23,6 +23,9 @@ function toggleCart(){
 function toggleMenu(){
   document.getElementById('navL').classList.toggle('mopen');
 }
+function closeMenu(){
+  document.getElementById('navL').classList.remove('mopen');
+}
 </script>
 
 <style>
@@ -1202,7 +1205,7 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
   line-height:1.05;
   letter-spacing:2px;
   text-transform:uppercase;
-  transition:opacity .35s ease,transform .35s ease;
+  transition:opacity .4s ease,transform .4s ease ease,transform .35s ease;
   min-height:130px;
   display:flex;align-items:center;justify-content:center;
 }
@@ -1295,12 +1298,12 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
 <nav id="nav">
   <div class="nl">NUTRI<span>PUNE</span></div>
   <div class="nl2" id="navL">
-    <a href="#shop">Products</a>
-    <a href="#cafe">Cafe</a>
-    <a href="#about">About</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
-    <a href="#coaching" style="color:var(--or);font-weight:700;position:relative">Coaching<span style="position:absolute;top:-4px;right:-8px;width:7px;height:7px;background:#f5564a;border-radius:50%;animation:pulse 1.5s infinite"></span></a>
+    <a href="#shop" onclick="closeMenu()">Products</a>
+    <a href="#cafe" onclick="closeMenu()">Cafe</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#faq" onclick="closeMenu()">FAQ</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+    <a href="#coaching" onclick="closeMenu()" style="color:var(--or);font-weight:700;position:relative">Coaching<span style="position:absolute;top:-4px;right:-8px;width:7px;height:7px;background:#f5564a;border-radius:50%;animation:pulse 1.5s infinite"></span></a>
     <button class="nav-order" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Order Now</button>
   </div>
   <div class="nr">
@@ -4553,9 +4556,7 @@ rotateCarouselHourly();
 // Re-run at the top of every hour
 const msToNextHour = (60 - new Date().getMinutes()) * 60000 - new Date().getSeconds() * 1000;
 setTimeout(() => { rotateCarouselHourly(); setInterval(rotateCarouselHourly, 3600000); }, msToNextHour);
-applyCouponVis
-
-ibility(); // runs after render, updates OOS tiles async
+applyCouponVisibility(); // runs after render, updates OOS tiles async
 
 
 
@@ -4603,38 +4604,28 @@ function goMoto(newIdx){
   var aEl  = document.getElementById('motoAuthor');
   var bgEl = document.getElementById('motoBgWord');
   if(!qEl || !aEl || !bgEl) return;
-
   newIdx = ((newIdx % MOTOS.length) + MOTOS.length) % MOTOS.length;
-  if(newIdx === motoIdx && motoRunning) return;
   motoIdx = newIdx;
+  var m = MOTOS[motoIdx];
 
-  // Step 1: fade OUT
-  qEl.style.opacity   = '0';
-  qEl.style.transform = 'translateY(14px)';
-  aEl.style.opacity   = '0';
+  // Swap immediately, CSS transition handles the animation
+  qEl.textContent  = m.q;
+  aEl.textContent  = m.a;
+  bgEl.textContent = m.w;
 
-  // Step 2: after fade out — swap content — then fade IN
+  // Flash effect — quick opacity dip
+  qEl.style.opacity = '0.2';
+  aEl.style.opacity = '0.2';
   setTimeout(function(){
-    var m = MOTOS[motoIdx];
-    qEl.textContent  = m.q;
-    aEl.textContent  = m.a;
-    bgEl.textContent = m.w;
+    qEl.style.opacity = '1';
+    aEl.style.opacity = '1';
+  }, 80);
 
-    // update dots
-    var allDots = document.querySelectorAll('.moto-dot');
-    for(var i=0;i<allDots.length;i++){
-      allDots[i].classList.toggle('active', i===motoIdx);
-    }
-
-    // Force browser to register the opacity:0 before animating back
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){
-        qEl.style.opacity   = '1';
-        qEl.style.transform = 'translateY(0)';
-        aEl.style.opacity   = '1';
-      });
-    });
-  }, 400);
+  // Update dots
+  var allDots = document.querySelectorAll('.moto-dot');
+  for(var i=0;i<allDots.length;i++){
+    allDots[i].classList.toggle('active', i===motoIdx);
+  }
 }
 
 function nextMoto(){ goMoto(motoIdx + 1); }
