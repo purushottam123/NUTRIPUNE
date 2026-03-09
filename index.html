@@ -1094,7 +1094,7 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
 .cf-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,115,22,.4)}
 
 /* ── FLOATING COACHING BUTTON ── */
-.float-coaching{
+.float-coaching{transition:opacity .4s ease,transform .4s ease,box-shadow .2s;
   position:fixed;left:20px;bottom:90px;z-index:8000;
   display:flex;align-items:center;gap:8px;
   background:linear-gradient(135deg,#f5a623,#e8920f);
@@ -1202,19 +1202,15 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
   line-height:1.05;
   letter-spacing:2px;
   text-transform:uppercase;
-  transition:opacity .35s,transform .35s;
+  transition:opacity .35s ease,transform .35s ease;
   min-height:130px;
   display:flex;align-items:center;justify-content:center;
 }
-.moto-quote.fade-out{opacity:0;transform:translateY(12px)}
-.moto-quote.fade-in{opacity:1;transform:translateY(0)}
-
 .moto-author{
   font-family:var(--fm);font-size:13px;
   color:rgba(255,255,255,.35);letter-spacing:4px;
-  margin-top:16px;transition:opacity .35s;
+  margin-top:16px;transition:opacity .35s ease;
 }
-.moto-author.fade-out{opacity:0}
 
 /* Controls */
 .moto-controls{
@@ -2198,54 +2194,6 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
 </section>
 
 
-<!-- ══════════════════════════════════════
-     HARDCORE MOTIVATION STRIP
-══════════════════════════════════════ -->
-<div class="moto-section" id="motoSection">
-
-  <!-- Big background word -->
-  <div class="moto-bg-word" id="motoBgWord">IRON</div>
-
-  <!-- Main quote display -->
-  <div class="moto-main">
-    <div class="moto-quote-wrap">
-      <div class="moto-bar"></div>
-      <div class="moto-quote" id="motoQuote">THE IRON NEVER LIES TO YOU.</div>
-      <div class="moto-author" id="motoAuthor">— HENRY ROLLINS</div>
-    </div>
-    <div class="moto-controls">
-      <button class="moto-btn" onclick="prevMoto()">&#8592;</button>
-      <div class="moto-dots" id="motoDots"></div>
-      <button class="moto-btn" onclick="nextMoto()">&#8594;</button>
-    </div>
-  </div>
-
-  <!-- Scrolling ticker below -->
-  <div class="moto-ticker-wrap">
-    <div class="moto-ticker">
-      <span>NO PAIN NO GAIN &nbsp;·&nbsp; </span>
-      <span>BLOOD SWEAT IRON &nbsp;·&nbsp; </span>
-      <span>EAT BIG LIFT BIG &nbsp;·&nbsp; </span>
-      <span>REST WHEN DEAD &nbsp;·&nbsp; </span>
-      <span>WEAK IS A CHOICE &nbsp;·&nbsp; </span>
-      <span>THE BAR DOESN'T CARE &nbsp;·&nbsp; </span>
-      <span>MORE WEIGHT MORE RESPECT &nbsp;·&nbsp; </span>
-      <span>SUFFER NOW DOMINATE LATER &nbsp;·&nbsp; </span>
-      <span>YOUR ONLY LIMIT IS YOU &nbsp;·&nbsp; </span>
-      <span>NO PAIN NO GAIN &nbsp;·&nbsp; </span>
-      <span>BLOOD SWEAT IRON &nbsp;·&nbsp; </span>
-      <span>EAT BIG LIFT BIG &nbsp;·&nbsp; </span>
-      <span>REST WHEN DEAD &nbsp;·&nbsp; </span>
-      <span>WEAK IS A CHOICE &nbsp;·&nbsp; </span>
-      <span>THE BAR DOESN'T CARE &nbsp;·&nbsp; </span>
-      <span>MORE WEIGHT MORE RESPECT &nbsp;·&nbsp; </span>
-      <span>SUFFER NOW DOMINATE LATER &nbsp;·&nbsp; </span>
-      <span>YOUR ONLY LIMIT IS YOU &nbsp;·&nbsp; </span>
-    </div>
-  </div>
-
-</div>
-
 <!-- CAFE -->
 <section class="sec sec-alt" id="cafe">
   <div class="reveal">
@@ -2380,6 +2328,54 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
   </div>
 </section>
 
+
+<!-- ══════════════════════════════════════
+     HARDCORE MOTIVATION STRIP
+══════════════════════════════════════ -->
+<div class="moto-section" id="motoSection">
+
+  <!-- Big background word -->
+  <div class="moto-bg-word" id="motoBgWord">IRON</div>
+
+  <!-- Main quote display -->
+  <div class="moto-main">
+    <div class="moto-quote-wrap">
+      <div class="moto-bar"></div>
+      <div class="moto-quote" id="motoQuote">THE IRON NEVER LIES TO YOU.</div>
+      <div class="moto-author" id="motoAuthor">— HENRY ROLLINS</div>
+    </div>
+    <div class="moto-controls">
+      <button class="moto-btn" onclick="prevMoto()">&#8592;</button>
+      <div class="moto-dots" id="motoDots"></div>
+      <button class="moto-btn" onclick="nextMoto()">&#8594;</button>
+    </div>
+  </div>
+
+  <!-- Scrolling ticker below -->
+  <div class="moto-ticker-wrap">
+    <div class="moto-ticker">
+      <span>NO PAIN NO GAIN &nbsp;·&nbsp; </span>
+      <span>BLOOD SWEAT IRON &nbsp;·&nbsp; </span>
+      <span>EAT BIG LIFT BIG &nbsp;·&nbsp; </span>
+      <span>REST WHEN DEAD &nbsp;·&nbsp; </span>
+      <span>WEAK IS A CHOICE &nbsp;·&nbsp; </span>
+      <span>THE BAR DOESN'T CARE &nbsp;·&nbsp; </span>
+      <span>MORE WEIGHT MORE RESPECT &nbsp;·&nbsp; </span>
+      <span>SUFFER NOW DOMINATE LATER &nbsp;·&nbsp; </span>
+      <span>YOUR ONLY LIMIT IS YOU &nbsp;·&nbsp; </span>
+      <span>NO PAIN NO GAIN &nbsp;·&nbsp; </span>
+      <span>BLOOD SWEAT IRON &nbsp;·&nbsp; </span>
+      <span>EAT BIG LIFT BIG &nbsp;·&nbsp; </span>
+      <span>REST WHEN DEAD &nbsp;·&nbsp; </span>
+      <span>WEAK IS A CHOICE &nbsp;·&nbsp; </span>
+      <span>THE BAR DOESN'T CARE &nbsp;·&nbsp; </span>
+      <span>MORE WEIGHT MORE RESPECT &nbsp;·&nbsp; </span>
+      <span>SUFFER NOW DOMINATE LATER &nbsp;·&nbsp; </span>
+      <span>YOUR ONLY LIMIT IS YOU &nbsp;·&nbsp; </span>
+    </div>
+  </div>
+
+</div>
 
 <!-- ══════════════════════════════════════
      PERSONAL TRAINING / COACHING SECTION
@@ -4560,25 +4556,25 @@ setTimeout(() => { rotateCarouselHourly(); setInterval(rotateCarouselHourly, 360
 applyCouponVis
 
 // Hide floating coaching button when coaching section is visible
-(function(){
+window.addEventListener('load', function(){
   const floatBtn = document.querySelector('.float-coaching');
   const coachSec = document.getElementById('coaching');
-  if(!floatBtn || !coachSec) return;
+  if(!floatBtn || !coachSec){ console.warn('Coach float: element not found'); return; }
   const obs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
         floatBtn.style.opacity='0';
         floatBtn.style.pointerEvents='none';
-        floatBtn.style.transform='translateY(20px)';
+        floatBtn.style.transform='translateY(20px) scale(.9)';
       } else {
         floatBtn.style.opacity='1';
         floatBtn.style.pointerEvents='all';
         floatBtn.style.transform='';
       }
     });
-  }, {threshold:0.1});
+  }, {threshold:0.05});
   obs.observe(coachSec);
-})();ibility(); // runs after render, updates OOS tiles async
+});ibility(); // runs after render, updates OOS tiles async
 
 
 
@@ -4615,15 +4611,15 @@ function buildMotoDots(){
   ).join('');
 }
 
-function goMoto(idx, dir){
+function goMoto(idx){
   const qEl  = document.getElementById('motoQuote');
   const aEl  = document.getElementById('motoAuthor');
   const bgEl = document.getElementById('motoBgWord');
   if(!qEl) return;
 
   // Fade out
-  qEl.classList.add('fade-out');
-  aEl.classList.add('fade-out');
+  qEl.style.opacity='0'; qEl.style.transform='translateY(12px)';
+  aEl.style.opacity='0';
 
   setTimeout(function(){
     motoIdx = ((idx % MOTOS.length) + MOTOS.length) % MOTOS.length;
@@ -4637,12 +4633,12 @@ function goMoto(idx, dir){
       d.classList.toggle('active', i===motoIdx);
     });
 
-    qEl.classList.remove('fade-out');
-    aEl.classList.remove('fade-out');
-    qEl.classList.add('fade-in');
+    // Fade in
+    qEl.style.opacity='1'; qEl.style.transform='translateY(0)';
+    aEl.style.opacity='1';
   }, 350);
 
-  // Restart timer
+  // Restart auto-timer
   clearInterval(motoTimer);
   motoTimer = setInterval(function(){ goMoto(motoIdx+1); }, 5000);
 }
@@ -4650,11 +4646,19 @@ function goMoto(idx, dir){
 function nextMoto(){ goMoto(motoIdx + 1); }
 function prevMoto(){ goMoto(motoIdx - 1); }
 
-// Init
-(function(){
+// Init on load
+window.addEventListener('load', function(){
   buildMotoDots();
+  // Set initial quote
+  const m = MOTOS[0];
+  const qEl = document.getElementById('motoQuote');
+  const aEl = document.getElementById('motoAuthor');
+  const bgEl = document.getElementById('motoBgWord');
+  if(qEl){ qEl.textContent = m.q; qEl.style.opacity='1'; }
+  if(aEl){ aEl.textContent = m.a; aEl.style.opacity='1'; }
+  if(bgEl){ bgEl.textContent = m.w; }
   motoTimer = setInterval(function(){ goMoto(motoIdx+1); }, 5000);
-})();
+});
 
 </script>
 </body>
