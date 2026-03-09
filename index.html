@@ -4555,26 +4555,7 @@ const msToNextHour = (60 - new Date().getMinutes()) * 60000 - new Date().getSeco
 setTimeout(() => { rotateCarouselHourly(); setInterval(rotateCarouselHourly, 3600000); }, msToNextHour);
 applyCouponVis
 
-// Hide floating coaching button when coaching section is visible
-window.addEventListener('load', function(){
-  const floatBtn = document.querySelector('.float-coaching');
-  const coachSec = document.getElementById('coaching');
-  if(!floatBtn || !coachSec){ console.warn('Coach float: element not found'); return; }
-  const obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        floatBtn.style.opacity='0';
-        floatBtn.style.pointerEvents='none';
-        floatBtn.style.transform='translateY(20px) scale(.9)';
-      } else {
-        floatBtn.style.opacity='1';
-        floatBtn.style.pointerEvents='all';
-        floatBtn.style.transform='';
-      }
-    });
-  }, {threshold:0.05});
-  obs.observe(coachSec);
-});ibility(); // runs after render, updates OOS tiles async
+ibility(); // runs after render, updates OOS tiles async
 
 
 
@@ -4646,18 +4627,44 @@ function goMoto(idx){
 function nextMoto(){ goMoto(motoIdx + 1); }
 function prevMoto(){ goMoto(motoIdx - 1); }
 
-// Init on load
+// ── Combined load init ──
 window.addEventListener('load', function(){
+
+  // 1. Floating coaching button hide on scroll into section
+  var floatBtn = document.querySelector('.float-coaching');
+  var coachSec = document.getElementById('coaching');
+  if(floatBtn && coachSec){
+    var coachObs = new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting){
+        floatBtn.style.opacity='0';
+        floatBtn.style.pointerEvents='none';
+        floatBtn.style.transform='translateY(20px) scale(0.9)';
+      } else {
+        floatBtn.style.opacity='1';
+        floatBtn.style.pointerEvents='all';
+        floatBtn.style.transform='';
+      }
+    }, {threshold:0.05});
+    coachObs.observe(coachSec);
+  }
+
+  // 2. Motivation slider init
   buildMotoDots();
-  // Set initial quote
-  const m = MOTOS[0];
-  const qEl = document.getElementById('motoQuote');
-  const aEl = document.getElementById('motoAuthor');
-  const bgEl = document.getElementById('motoBgWord');
-  if(qEl){ qEl.textContent = m.q; qEl.style.opacity='1'; }
-  if(aEl){ aEl.textContent = m.a; aEl.style.opacity='1'; }
-  if(bgEl){ bgEl.textContent = m.w; }
-  motoTimer = setInterval(function(){ goMoto(motoIdx+1); }, 5000);
+  var qEl  = document.getElementById('motoQuote');
+  var aEl  = document.getElementById('motoAuthor');
+  var bgEl = document.getElementById('motoBgWord');
+  if(qEl && aEl && bgEl){
+    var m0 = MOTOS[0];
+    qEl.textContent  = m0.q;
+    aEl.textContent  = m0.a;
+    bgEl.textContent = m0.w;
+    qEl.style.opacity='1';
+    aEl.style.opacity='1';
+    qEl.style.transition='opacity .35s ease, transform .35s ease';
+    aEl.style.transition='opacity .35s ease';
+    motoTimer = setInterval(function(){ goMoto(motoIdx+1); }, 5000);
+  }
+
 });
 
 </script>
