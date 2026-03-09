@@ -3807,7 +3807,7 @@ function submitCoachEnquiry(e){
   const level = document.getElementById('cfcLevel').value || 'Not specified';
   const msg   = document.getElementById('cfcMsg').value.trim();
   if(!name||!phone){showToast('Please fill name and phone number');return;}
-  const wa = `Hi Prem! I want to enquire about coaching.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${phone}%0ATraining Type: ${encodeURIComponent(type)}%0ACurrent Level: ${encodeURIComponent(level)}%0A%0AGoals / Message:%0A${encodeURIComponent(msg||'—')}%0A%0APlease share pricing details.`;
+  const wa = `Hi Purushottam! I want to enquire about coaching.%0A%0AName: ${encodeURIComponent(name)}%0APhone: ${phone}%0ATraining Type: ${encodeURIComponent(type)}%0ACurrent Level: ${encodeURIComponent(level)}%0A%0AGoals / Message:%0A${encodeURIComponent(msg||'—')}%0A%0APlease share pricing details.`;
   window.open('https://wa.me/'+PHONE+'?text='+wa,'_blank');
   showToast('Opening WhatsApp with your enquiry! 💪');
   e.target.reset();
@@ -4621,48 +4621,47 @@ function goMoto(idx){
 
   // Restart auto-timer
   clearInterval(motoTimer);
-  motoTimer = setInterval(function(){ goMoto(motoIdx+1); }, 5000);
+  motoTimer = setInterval(function(){ goMoto(motoIdx + 1); }, 5000);
 }
 
 function nextMoto(){ goMoto(motoIdx + 1); }
 function prevMoto(){ goMoto(motoIdx - 1); }
 
-// ── Combined load init ──
-window.addEventListener('load', function(){
+// ── Init on DOMContentLoaded ──
+document.addEventListener('DOMContentLoaded', function(){
 
-  // 1. Floating coaching button hide on scroll into section
+  // 1. Scroll restore fix — go to top on refresh
+  if(history.scrollRestoration) history.scrollRestoration = 'manual';
+  window.scrollTo(0,0);
+
+  // 2. Floating coaching button — use scroll event (more reliable than IntersectionObserver)
   var floatBtn = document.querySelector('.float-coaching');
   var coachSec = document.getElementById('coaching');
   if(floatBtn && coachSec){
-    var coachObs = new IntersectionObserver(function(entries){
-      if(entries[0].isIntersecting){
-        floatBtn.style.opacity='0';
-        floatBtn.style.pointerEvents='none';
-        floatBtn.style.transform='translateY(20px) scale(0.9)';
-      } else {
-        floatBtn.style.opacity='1';
-        floatBtn.style.pointerEvents='all';
-        floatBtn.style.transform='';
-      }
-    }, {threshold:0.05});
-    coachObs.observe(coachSec);
+    function checkCoachVisible(){
+      var rect = coachSec.getBoundingClientRect();
+      var inView = rect.top < window.innerHeight && rect.bottom > 0;
+      floatBtn.style.opacity     = inView ? '0' : '1';
+      floatBtn.style.pointerEvents = inView ? 'none' : 'all';
+      floatBtn.style.transform   = inView ? 'translateY(20px) scale(0.9)' : '';
+    }
+    window.addEventListener('scroll', checkCoachVisible, {passive:true});
+    checkCoachVisible();
   }
 
-  // 2. Motivation slider init
+  // 3. Motivation slider
   buildMotoDots();
   var qEl  = document.getElementById('motoQuote');
   var aEl  = document.getElementById('motoAuthor');
   var bgEl = document.getElementById('motoBgWord');
   if(qEl && aEl && bgEl){
-    var m0 = MOTOS[0];
-    qEl.textContent  = m0.q;
-    aEl.textContent  = m0.a;
-    bgEl.textContent = m0.w;
-    qEl.style.opacity='1';
-    aEl.style.opacity='1';
-    qEl.style.transition='opacity .35s ease, transform .35s ease';
-    aEl.style.transition='opacity .35s ease';
-    motoTimer = setInterval(function(){ goMoto(motoIdx+1); }, 5000);
+    qEl.textContent  = MOTOS[0].q;
+    aEl.textContent  = MOTOS[0].a;
+    bgEl.textContent = MOTOS[0].w;
+    // Start slider after short delay so transitions are attached
+    setTimeout(function(){
+      motoTimer = setInterval(function(){ goMoto(motoIdx + 1); }, 5000);
+    }, 800);
   }
 
 });
