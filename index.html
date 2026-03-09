@@ -4651,7 +4651,7 @@ function startMotoTimer(){
 // ═══════════════════════════════════════
 // FLOAT BUTTON + SCROLL RESTORE — clean rewrite
 // ═══════════════════════════════════════
-document.addEventListener('DOMContentLoaded', function(){
+(function(){
 
   // Scroll to top on every page load
   if(history.scrollRestoration) history.scrollRestoration = 'manual';
@@ -4665,13 +4665,15 @@ document.addEventListener('DOMContentLoaded', function(){
       var r = coachSec.getBoundingClientRect();
       var visible = r.top < window.innerHeight * 0.95 && r.bottom > 50;
       if(visible){
-        floatBtn.style.opacity      = '0';
-        floatBtn.style.pointerEvents= 'none';
-        floatBtn.style.transform    = 'translateY(16px) scale(0.85)';
+        floatBtn.style.opacity         = '0';
+        floatBtn.style.pointerEvents   = 'none';
+        floatBtn.style.animationPlayState = 'paused';
+        floatBtn.style.visibility      = 'hidden';
       } else {
-        floatBtn.style.opacity      = '1';
-        floatBtn.style.pointerEvents= 'all';
-        floatBtn.style.transform    = '';
+        floatBtn.style.opacity         = '1';
+        floatBtn.style.pointerEvents   = 'all';
+        floatBtn.style.animationPlayState = 'running';
+        floatBtn.style.visibility      = 'visible';
       }
     }
     window.addEventListener('scroll', updateFloatBtn, {passive:true});
@@ -4694,7 +4696,7 @@ document.addEventListener('DOMContentLoaded', function(){
     setTimeout(startMotoTimer, 1500);
   }
 
-});
+})();
 
 </script>
 </body>
