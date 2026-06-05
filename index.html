@@ -34,31 +34,116 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "NutriPune",
-  "description": "Genuine supplements store and protein cafe in Baner, Pune. 100% authentic products at best prices with same-day delivery.",
-  "url": "https://nutripune.in",
-  "telephone": "+917992296841",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Baner",
-    "addressLocality": "Pune",
-    "addressRegion": "Maharashtra",
-    "addressCountry": "IN"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 18.5590,
-    "longitude": 73.7868
-  },
-  "openingHours": "Mo-Su 09:00-21:00",
-  "priceRange": "₹₹",
-  "servesCuisine": "Protein Cafe",
-  "sameAs": [
-    "https://www.instagram.com/nutripune"
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://nutripune.in/#business",
+      "name": "NutriPune",
+      "description": "Genuine supplements store and protein cafe in Baner, Pune. 100% authentic products at best prices with same-day delivery.",
+      "url": "https://nutripune.in",
+      "telephone": "+917992296841",
+      "image": "https://nutripune.in/og-image.jpg",
+      "logo": "https://nutripune.in/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Baner",
+        "addressLocality": "Pune",
+        "addressRegion": "Maharashtra",
+        "postalCode": "411045",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 18.5590,
+        "longitude": 73.7868
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "09:00",
+          "closes": "21:00"
+        }
+      ],
+      "priceRange": "₹₹",
+      "currenciesAccepted": "INR",
+      "paymentAccepted": "Cash, UPI",
+      "areaServed": {
+        "@type": "City",
+        "name": "Pune"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Supplements & Protein Cafe",
+        "itemListElement": [
+          {"@type": "OfferCatalog", "name": "Whey Protein"},
+          {"@type": "OfferCatalog", "name": "Creatine"},
+          {"@type": "OfferCatalog", "name": "Pre-Workout"},
+          {"@type": "OfferCatalog", "name": "Protein Cafe"}
+        ]
+      },
+      "sameAs": [
+        "https://www.instagram.com/nutripune"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nutripune.in/#website",
+      "url": "https://nutripune.in",
+      "name": "NutriPune",
+      "description": "Pune's premier supplement store and protein cafe in Baner",
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are NutriPune supplements 100% genuine?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes — every product sold at NutriPune is 100% authentic, sourced directly from authorized distributors. We do not sell expired or counterfeit products."}
+        },
+        {
+          "@type": "Question",
+          "name": "Does NutriPune offer same-day delivery in Pune?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. We offer same-day delivery within Pune for orders placed before 6 PM. Simply place your order via WhatsApp."}
+        },
+        {
+          "@type": "Question",
+          "name": "Where is NutriPune located?",
+          "acceptedAnswer": {"@type": "Answer", "text": "NutriPune is located in Baner, Pune, Maharashtra. Open daily 9 AM to 9 PM."}
+        }
+      ]
+    }
   ]
 }
 </script>
+
+<!-- PWA Web App Manifest -->
+<link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;NutriPune&quot;,&quot;short_name&quot;:&quot;NutriPune&quot;,&quot;description&quot;:&quot;Genuine supplements and protein cafe in Baner, Pune&quot;,&quot;start_url&quot;:&quot;/&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;%2307090d&quot;,&quot;theme_color&quot;:&quot;%23f5a623&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;/logo.png&quot;,&quot;sizes&quot;:&quot;192x192&quot;,&quot;type&quot;:&quot;image/png&quot;},{&quot;src&quot;:&quot;/logo.png&quot;,&quot;sizes&quot;:&quot;512x512&quot;,&quot;type&quot;:&quot;image/png&quot;}]}">
+<meta name="theme-color" content="#f5a623">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NutriPune">
+
+<!-- Google Analytics GA4 — replace G-XXXXXXXXXX with your real ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', {
+    page_title: 'NutriPune Home',
+    page_location: 'https://nutripune.in/'
+  });
+</script>
+
+<!-- Performance: DNS prefetch for key domains -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link rel="dns-prefetch" href="//www.googletagmanager.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <!-- Early function definitions so onclick works before main script loads -->
@@ -5231,3 +5316,4 @@ async function submitReview(){
 </script>
 </body>
 </html>
+  
