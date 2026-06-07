@@ -299,6 +299,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+// App Check
+const appCheck = firebase.appCheck();
+appCheck.activate('6LdUohEtAAAAACPuQYTsKMY5UMlKznxgkUPOBOxQ', true);
 
 // ══ STATE ══
 let confirmationResult = null;
