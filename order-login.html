@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order — NutriPune</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<style>
+:root {
+  --bg:#07090d; --sur:#0d1420; --card:#101925; --card2:#131f2e;
+  --border:rgba(255,255,255,0.06); --border2:rgba(255,255,255,0.12);
+  --or:#f5a623; --or2:#e8920f; --gr:#3ecf8e; --rd:#f5564a;
+  --tx:#d8e8f2; --mu:#4e6a7e; --wh:#fff;
+  --fd:'Bebas Neue',sans-serif; --fb:'DM Sans',sans-serif; --fm:'DM Mono',monospace;
+  --r:18px; --t:.25s;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:var(--fb);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+
+/* ── TOP BAR ── */
+.topbar{width:100%;max-width:480px;display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.logo-text{font-family:var(--fd);font-size:26px;letter-spacing:2px;color:var(--or)}
+.back-btn{margin-left:auto;font-size:13px;color:var(--mu);font-family:var(--fm);cursor:pointer;text-decoration:none;border:1px solid var(--border2);padding:6px 14px;border-radius:50px;transition:color var(--t),border-color var(--t)}
+.back-btn:hover{color:var(--tx);border-color:var(--or)}
+
+/* ── CARD ── */
+.card{width:100%;max-width:480px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:32px 28px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--or),var(--or2))}
+
+/* ── STEPS ── */
+.step{display:none}
+.step.active{display:block}
+
+/* ── STEP 1 — PHONE ── */
+.step-tag{font-family:var(--fm);font-size:11px;color:var(--or);letter-spacing:2px;margin-bottom:10px}
+.step-title{font-family:var(--fd);font-size:32px;color:var(--wh);letter-spacing:1px;margin-bottom:6px;line-height:1}
+.step-sub{font-size:13px;color:var(--mu);margin-bottom:28px;line-height:1.6}
+
+.phone-row{display:flex;gap:8px;margin-bottom:16px}
+.country-code{background:var(--sur);border:1px solid var(--border2);border-radius:12px;padding:13px 14px;color:var(--tx);font-family:var(--fm);font-size:14px;width:72px;text-align:center;flex-shrink:0}
+.phone-inp{flex:1;background:var(--sur);border:1px solid var(--border2);border-radius:12px;padding:13px 16px;color:var(--tx);font-family:var(--fb);font-size:16px;outline:none;transition:border-color var(--t);letter-spacing:.5px}
+.phone-inp:focus{border-color:var(--or)}
+.phone-inp::placeholder{color:var(--mu);letter-spacing:0}
+
+.btn-primary{width:100%;background:var(--or);color:#000;border:none;border-radius:50px;padding:14px;font-weight:700;font-size:15px;cursor:pointer;font-family:var(--fb);transition:transform var(--t),opacity var(--t);letter-spacing:.3px}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+.recaptcha-note{font-size:11px;color:var(--mu);text-align:center;margin-top:14px;line-height:1.6}
+#recaptcha-container{margin-top:16px}
+
+/* ── STEP 2 — OTP ── */
+.otp-wrap{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
+.otp-box{width:52px;height:58px;background:var(--sur);border:1.5px solid var(--border2);border-radius:12px;font-size:22px;font-weight:700;color:var(--wh);text-align:center;outline:none;font-family:var(--fm);transition:border-color var(--t),transform var(--t);caret-color:var(--or)}
+.otp-box:focus{border-color:var(--or);transform:scale(1.05)}
+.otp-box.filled{border-color:rgba(245,166,35,.4)}
+
+.resend-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.resend-info{font-size:13px;color:var(--mu);font-family:var(--fm)}
+.resend-btn{font-size:13px;color:var(--or);cursor:pointer;background:none;border:none;font-family:var(--fb);font-weight:600;padding:0}
+.resend-btn:disabled{color:var(--mu);cursor:not-allowed}
+
+.verified-phone{font-size:13px;color:var(--mu);text-align:center;margin-bottom:24px}
+.verified-phone span{color:var(--tx);font-weight:600}
+
+/* ── STEP 3 — ORDER FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-full{grid-column:1/-1}
+.inp-wrap{display:flex;flex-direction:column;gap:6px}
+.inp-label{font-size:11px;color:var(--mu);font-family:var(--fm);letter-spacing:1px}
+.inp{background:var(--sur);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;color:var(--tx);font-family:var(--fb);font-size:14px;outline:none;transition:border-color var(--t);width:100%}
+.inp:focus{border-color:var(--or)}
+.inp::placeholder{color:var(--mu)}
+.inp-select{background:var(--sur);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;color:var(--tx);font-family:var(--fb);font-size:14px;outline:none;width:100%;cursor:pointer}
+.inp-textarea{min-height:90px;resize:vertical}
+
+.order-items{background:var(--sur);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
+.order-items-title{font-size:11px;color:var(--mu);font-family:var(--fm);letter-spacing:1px;margin-bottom:12px}
+.item-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.item-name-inp{flex:1}
+.item-qty-inp{width:72px}
+.item-remove{background:none;border:none;color:var(--mu);cursor:pointer;font-size:18px;padding:0 4px;line-height:1;transition:color var(--t)}
+.item-remove:hover{color:var(--rd)}
+.add-item-btn{font-size:13px;color:var(--or);cursor:pointer;background:none;border:none;font-family:var(--fb);font-weight:600;padding:0;display:flex;align-items:center;gap:4px}
+
+.coupon-row{display:flex;gap:8px;margin-bottom:12px}
+.coupon-inp{flex:1}
+.coupon-apply{background:none;border:1px solid var(--or);color:var(--or);border-radius:50px;padding:8px 18px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--fb);transition:background var(--t),color var(--t);white-space:nowrap}
+.coupon-apply:hover{background:var(--or);color:#000}
+.coupon-msg{font-size:12px;font-family:var(--fm);margin-bottom:12px}
+.coupon-msg.ok{color:var(--gr)}
+.coupon-msg.err{color:var(--rd)}
+
+.total-row{display:flex;justify-content:space-between;align-items:center;background:var(--sur);border-radius:10px;padding:12px 16px;margin-bottom:20px}
+.total-label{font-size:13px;color:var(--mu);font-family:var(--fm)}
+.total-val{font-family:var(--fd);font-size:24px;color:var(--or);letter-spacing:1px}
+
+/* ── STATUS ── */
+.status-msg{font-size:13px;font-family:var(--fm);text-align:center;margin-top:12px;min-height:18px}
+.status-msg.ok{color:var(--gr)}
+.status-msg.err{color:var(--rd)}
+.status-msg.info{color:var(--mu)}
+
+/* ── SUCCESS ── */
+.success-wrap{text-align:center;padding:16px 0}
+.success-icon{font-size:56px;margin-bottom:16px}
+.success-title{font-family:var(--fd);font-size:36px;color:var(--wh);letter-spacing:1px;margin-bottom:8px}
+.success-sub{font-size:14px;color:var(--mu);line-height:1.7;margin-bottom:24px}
+.wa-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#000;border:none;border-radius:50px;padding:14px 28px;font-weight:700;font-size:15px;cursor:pointer;font-family:var(--fb);text-decoration:none;transition:transform var(--t)}
+.wa-btn:hover{transform:translateY(-2px)}
+
+/* ── PROGRESS DOTS ── */
+.progress{display:flex;gap:6px;justify-content:center;margin-bottom:28px}
+.prog-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);transition:background var(--t),transform var(--t)}
+.prog-dot.active{background:var(--or);transform:scale(1.3)}
+.prog-dot.done{background:rgba(245,166,35,.4)}
+
+/* ── SPINNER ── */
+.spinner{width:20px;height:20px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle;margin-right:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:420px){
+  .otp-box{width:44px;height:52px;font-size:20px}
+  .form-grid{grid-template-columns:1fr}
+  .card{padding:24px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo-text">NUTRIPUNE</div>
+  <a href="/" class="back-btn">← Back</a>
+</div>
+
+<div class="card">
+  <!-- Progress -->
+  <div class="progress">
+    <div class="prog-dot active" id="dot1"></div>
+    <div class="prog-dot" id="dot2"></div>
+    <div class="prog-dot" id="dot3"></div>
+  </div>
+
+  <!-- STEP 1: Phone Number -->
+  <div class="step active" id="step1">
+    <div class="step-tag">STEP 1 OF 3</div>
+    <div class="step-title">ENTER PHONE</div>
+    <div class="step-sub">Apna WhatsApp number daalo. Usi pe OTP aayega.</div>
+
+    <div class="phone-row">
+      <div class="country-code">🇮🇳 +91</div>
+      <input class="phone-inp" id="phoneInput" type="tel" maxlength="10" placeholder="98765 43210" inputmode="numeric">
+    </div>
+
+    <div id="recaptcha-container"></div>
+
+    <button class="btn-primary" id="sendOtpBtn" onclick="sendOTP()">
+      Send OTP
+    </button>
+    <div class="status-msg" id="s1msg"></div>
+    <div class="recaptcha-note">Protected by Google reCAPTCHA.<br>By continuing you agree to our Terms & Privacy Policy.</div>
+  </div>
+
+  <!-- STEP 2: OTP Verify -->
+  <div class="step" id="step2">
+    <div class="step-tag">STEP 2 OF 3</div>
+    <div class="step-title">VERIFY OTP</div>
+    <div class="step-sub">6-digit code enter karo jo aaya hai.</div>
+
+    <div class="verified-phone" id="phoneDisplay"></div>
+
+    <div class="otp-wrap" id="otpWrap">
+      <input class="otp-box" maxlength="1" inputmode="numeric" id="o0">
+      <input class="otp-box" maxlength="1" inputmode="numeric" id="o1">
+      <input class="otp-box" maxlength="1" inputmode="numeric" id="o2">
+      <input class="otp-box" maxlength="1" inputmode="numeric" id="o3">
+      <input class="otp-box" maxlength="1" inputmode="numeric" id="o4">
+      <input class="otp-box" maxlength="1" inputmode="numeric" id="o5">
+    </div>
+
+    <div class="resend-row">
+      <span class="resend-info" id="resendTimer">Resend in 30s</span>
+      <button class="resend-btn" id="resendBtn" disabled onclick="resendOTP()">Resend OTP</button>
+    </div>
+
+    <button class="btn-primary" id="verifyBtn" onclick="verifyOTP()">
+      Verify & Continue
+    </button>
+    <div class="status-msg" id="s2msg"></div>
+  </div>
+
+  <!-- STEP 3: Order Form -->
+  <div class="step" id="step3">
+    <div class="step-tag">STEP 3 OF 3</div>
+    <div class="step-title">PLACE ORDER</div>
+    <div class="step-sub">Products aur delivery details bharo.</div>
+
+    <!-- Product Items -->
+    <div class="order-items">
+      <div class="order-items-title">PRODUCTS</div>
+      <div id="itemsList">
+        <div class="item-row" id="item-0">
+          <input class="inp item-name-inp" placeholder="Product name e.g. Whey Gold 1kg" id="iname-0">
+          <input class="inp item-qty-inp" placeholder="Qty" type="number" min="1" value="1" id="iqty-0">
+          <button class="item-remove" onclick="removeItem(0)" style="display:none">×</button>
+        </div>
+      </div>
+      <button class="add-item-btn" onclick="addItem()">+ Add another product</button>
+    </div>
+
+    <!-- Customer Details -->
+    <div class="form-grid" style="margin-bottom:12px">
+      <div class="inp-wrap form-full">
+        <label class="inp-label">FULL NAME</label>
+        <input class="inp" id="custName" placeholder="Rahul Sharma">
+      </div>
+      <div class="inp-wrap form-full">
+        <label class="inp-label">DELIVERY ADDRESS</label>
+        <textarea class="inp inp-textarea" id="custAddr" placeholder="Flat no, Building, Area, Pune — PIN code"></textarea>
+      </div>
+      <div class="inp-wrap">
+        <label class="inp-label">PAYMENT</label>
+        <select class="inp-select" id="payMode">
+          <option value="UPI">UPI / GPay / PhonePe</option>
+          <option value="COD">Cash on Delivery (+₹30)</option>
+          <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+      </div>
+      <div class="inp-wrap">
+        <label class="inp-label">DELIVERY TIME</label>
+        <select class="inp-select" id="delivTime">
+          <option value="ASAP">As soon as possible</option>
+          <option value="Morning">Morning (9–12 PM)</option>
+          <option value="Afternoon">Afternoon (12–4 PM)</option>
+          <option value="Evening">Evening (4–8 PM)</option>
+        </select>
+      </div>
+      <div class="inp-wrap form-full">
+        <label class="inp-label">NOTE (optional)</label>
+        <input class="inp" id="custNote" placeholder="Koi special request ya flavour preference?">
+      </div>
+    </div>
+
+    <!-- Coupon -->
+    <div class="coupon-row">
+      <input class="inp coupon-inp" id="couponInp" placeholder="Coupon code — e.g. NUTRI10" style="text-transform:uppercase">
+      <button class="coupon-apply" onclick="applyCoupon()">Apply</button>
+    </div>
+    <div class="coupon-msg" id="couponMsg"></div>
+
+    <!-- Total -->
+    <div class="total-row">
+      <div>
+        <div class="total-label">ESTIMATED TOTAL</div>
+        <div style="font-size:11px;color:var(--mu);font-family:var(--fm);margin-top:2px">Final price confirmed on WhatsApp</div>
+      </div>
+      <div class="total-val" id="totalDisplay">₹ —</div>
+    </div>
+
+    <button class="btn-primary" onclick="placeOrder()">
+      📦 Place Order on WhatsApp
+    </button>
+    <div class="status-msg" id="s3msg"></div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="step" id="step4">
+    <div class="success-wrap">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">ORDER SENT!</div>
+      <div class="success-sub" id="successMsg">Tumhara order WhatsApp pe bhej diya gaya hai.<br>Hum 15 minute mein confirm karenge.</div>
+      <a class="wa-btn" id="waLink" href="#" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Open WhatsApp Chat
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// FIREBASE CONFIG — Replace with yours from Firebase Console
+// ══════════════════════════════════════
+const firebaseConfig = {
+  apiKey: "AIzaSyAtudl0y12Lrmb8X3yD0lFlBD8qP3bUT5Y",
+  authDomain: "nutripune.firebaseapp.com",
+  projectId: "nutripune",
+  storageBucket: "nutripune.firebasestorage.app",
+  messagingSenderId: "745865807247",
+  appId: "1:745865807247:web:79c7bc0882a8f5ea7337fa",
+  measurementId: "G-182DJHVB74"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// ══ STATE ══
+let confirmationResult = null;
+let verifiedPhone = '';
+let itemCount = 1;
+let couponApplied = false;
+let resendTimer = null;
+
+// ══ RECAPTCHA ══
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+  'size': 'invisible',
+  'callback': () => {}
+});
+
+// ══ OTP BOXES — auto-advance ══
+document.querySelectorAll('.otp-box').forEach((box, i) => {
+  box.addEventListener('input', e => {
+    const val = e.target.value.replace(/\D/g, '');
+    e.target.value = val;
+    if (val) {
+      e.target.classList.add('filled');
+      if (i < 5) document.getElementById('o' + (i + 1)).focus();
+      else verifyOTP();
+    } else {
+      e.target.classList.remove('filled');
+    }
+  });
+  box.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !box.value && i > 0) {
+      document.getElementById('o' + (i - 1)).focus();
+    }
+  });
+  box.addEventListener('paste', e => {
+    e.preventDefault();
+    const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+    paste.split('').forEach((ch, idx) => {
+      const el = document.getElementById('o' + idx);
+      if (el) { el.value = ch; el.classList.add('filled'); }
+    });
+    if (paste.length === 6) verifyOTP();
+  });
+});
+
+// ══ SEND OTP ══
+async function sendOTP() {
+  const phone = document.getElementById('phoneInput').value.replace(/\D/g,'');
+  const msg = document.getElementById('s1msg');
+  const btn = document.getElementById('sendOtpBtn');
+
+  if (phone.length !== 10) {
+    showMsg(msg, '10-digit number daalo.', 'err'); return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>OTP bhej rahe hain…';
+  showMsg(msg, '', '');
+
+  try {
+    const fullPhone = '+91' + phone;
+    confirmationResult = await auth.signInWithPhoneNumber(fullPhone, window.recaptchaVerifier);
+    verifiedPhone = fullPhone;
+
+    document.getElementById('phoneDisplay').innerHTML =
+      'OTP bheja: <span>+91 ' + phone.slice(0,5) + ' ' + phone.slice(5) + '</span>';
+
+    goStep(2);
+    startResendTimer();
+    document.getElementById('o0').focus();
+  } catch (err) {
+    showMsg(msg, 'Error: ' + (err.message || 'Try again.'), 'err');
+    btn.disabled = false;
+    btn.innerHTML = 'Send OTP';
+    window.recaptchaVerifier.render().then(id => grecaptcha.reset(id));
+  }
+}
+
+// ══ VERIFY OTP ══
+async function verifyOTP() {
+  const otp = [0,1,2,3,4,5].map(i => document.getElementById('o'+i).value).join('');
+  const msg = document.getElementById('s2msg');
+  const btn = document.getElementById('verifyBtn');
+
+  if (otp.length < 6) {
+    showMsg(msg, '6-digit OTP poora daalo.', 'err'); return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Verify ho raha hai…';
+
+  try {
+    await confirmationResult.confirm(otp);
+    showMsg(msg, '✓ Verified!', 'ok');
+    clearInterval(resendTimer);
+    setTimeout(() => goStep(3), 800);
+  } catch (err) {
+    showMsg(msg, 'Wrong OTP. Dobara check karo.', 'err');
+    btn.disabled = false;
+    btn.innerHTML = 'Verify & Continue';
+  }
+}
+
+// ══ RESEND ══
+async function resendOTP() {
+  const btn = document.getElementById('resendBtn');
+  btn.disabled = true;
+  try {
+    const phone = document.getElementById('phoneInput').value.replace(/\D/g,'');
+    confirmationResult = await auth.signInWithPhoneNumber('+91' + phone, window.recaptchaVerifier);
+    showMsg(document.getElementById('s2msg'), 'OTP dobara bheja gaya!', 'ok');
+    startResendTimer();
+    [0,1,2,3,4,5].forEach(i => {
+      const el = document.getElementById('o'+i);
+      el.value = ''; el.classList.remove('filled');
+    });
+    document.getElementById('o0').focus();
+  } catch(e) {
+    showMsg(document.getElementById('s2msg'), 'Error. Try again.', 'err');
+  }
+}
+
+function startResendTimer() {
+  let sec = 30;
+  const timerEl = document.getElementById('resendTimer');
+  const btn = document.getElementById('resendBtn');
+  btn.disabled = true;
+  clearInterval(resendTimer);
+  resendTimer = setInterval(() => {
+    sec--;
+    timerEl.textContent = 'Resend in ' + sec + 's';
+    if (sec <= 0) {
+      clearInterval(resendTimer);
+      timerEl.textContent = '';
+      btn.disabled = false;
+    }
+  }, 1000);
+}
+
+// ══ PRODUCT ITEMS ══
+function addItem() {
+  const list = document.getElementById('itemsList');
+  const div = document.createElement('div');
+  div.className = 'item-row';
+  div.id = 'item-' + itemCount;
+  div.innerHTML =
+    '<input class="inp item-name-inp" placeholder="Product name" id="iname-' + itemCount + '">' +
+    '<input class="inp item-qty-inp" placeholder="Qty" type="number" min="1" value="1" id="iqty-' + itemCount + '">' +
+    '<button class="item-remove" onclick="removeItem(' + itemCount + ')">×</button>';
+  list.appendChild(div);
+  itemCount++;
+  // show remove on first item too if >1
+  if (document.querySelectorAll('.item-row').length > 1) {
+    document.querySelector('#item-0 .item-remove').style.display = 'block';
+  }
+}
+
+function removeItem(id) {
+  const el = document.getElementById('item-' + id);
+  if (el) el.remove();
+  const rows = document.querySelectorAll('.item-row');
+  if (rows.length === 1) {
+    rows[0].querySelector('.item-remove').style.display = 'none';
+  }
+}
+
+// ══ COUPON ══
+const COUPONS = { 'NUTRI10': 10, 'NUTRIPUNE': 15, 'FIRST20': 20 };
+
+function applyCoupon() {
+  const code = document.getElementById('couponInp').value.trim().toUpperCase();
+  const msgEl = document.getElementById('couponMsg');
+  if (COUPONS[code]) {
+    couponApplied = COUPONS[code];
+    showMsg(msgEl, '✓ ' + couponApplied + '% discount lagaya! WhatsApp pe confirm hoga.', 'ok');
+  } else if (code) {
+    couponApplied = false;
+    showMsg(msgEl, '✗ Invalid coupon code.', 'err');
+  }
+}
+
+// ══ PLACE ORDER ══
+function placeOrder() {
+  const name = document.getElementById('custName').value.trim();
+  const addr = document.getElementById('custAddr').value.trim();
+  const pay  = document.getElementById('payMode').value;
+  const time = document.getElementById('delivTime').value;
+  const note = document.getElementById('custNote').value.trim();
+  const msg  = document.getElementById('s3msg');
+  const coupon = document.getElementById('couponInp').value.trim().toUpperCase();
+
+  if (!name) { showMsg(msg, 'Naam daalo.', 'err'); return; }
+  if (!addr) { showMsg(msg, 'Address daalo.', 'err'); return; }
+
+  // Collect products
+  const items = [];
+  document.querySelectorAll('.item-row').forEach(row => {
+    const id = row.id.split('-')[1];
+    const nm = (document.getElementById('iname-'+id)||{}).value||'';
+    const qt = (document.getElementById('iqty-'+id)||{}).value||'1';
+    if (nm.trim()) items.push(nm.trim() + ' × ' + qt);
+  });
+
+  if (!items.length) { showMsg(msg, 'Kam se kam ek product daalo.', 'err'); return; }
+
+  // Build WhatsApp message
+  const ph = verifiedPhone.replace('+91','');
+  let waMsg = `🛒 *NutriPune Order*\n\n`;
+  waMsg += `*Products:*\n`;
+  items.forEach(it => waMsg += `• ${it}\n`);
+  waMsg += `\n*Customer:* ${name}`;
+  waMsg += `\n*Phone:* +91 ${ph.slice(0,5)} ${ph.slice(5)}`;
+  waMsg += `\n*Address:* ${addr}`;
+  waMsg += `\n*Payment:* ${pay}`;
+  waMsg += `\n*Delivery:* ${time}`;
+  if (note) waMsg += `\n*Note:* ${note}`;
+  if (coupon && couponApplied) waMsg += `\n*Coupon:* ${coupon} (${couponApplied}% off)`;
+  waMsg += `\n\n_Verified phone: +91 ${ph}_`;
+
+  const waUrl = 'https://wa.me/917992296841?text=' + encodeURIComponent(waMsg);
+  document.getElementById('waLink').href = waUrl;
+  document.getElementById('successMsg').innerHTML =
+    `Order WhatsApp pe bhej diya gaya hai, ${name}!<br>Hum 15 minute mein confirm karenge. 💪`;
+
+  goStep(4);
+  setTimeout(() => window.open(waUrl, '_blank'), 500);
+}
+
+// ══ STEP NAVIGATION ══
+function goStep(n) {
+  [1,2,3,4].forEach(i => {
+    document.getElementById('step'+i).classList.toggle('active', i===n);
+    const dot = document.getElementById('dot'+i);
+    if (dot) {
+      dot.classList.toggle('active', i===n);
+      dot.classList.toggle('done', i<n);
+    }
+  });
+}
+
+// ══ HELPERS ══
+function showMsg(el, txt, type) {
+  el.textContent = txt;
+  el.className = 'status-msg' + (type ? ' '+type : '');
+}
+</script>
+</body>
+</html>
