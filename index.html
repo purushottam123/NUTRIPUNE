@@ -723,6 +723,20 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 .rv-ai-dot:nth-child(2){animation-delay:.25s}
 .rv-ai-dot:nth-child(3){animation-delay:.5s}
 @keyframes rvblink{0%,100%{opacity:.2}50%{opacity:1}}
+/* ─── REVIEW MEDIA UPLOAD ─── */
+.rv-media-btn{display:flex;align-items:center;gap:8px;background:var(--sur);border:1.5px dashed var(--border2);border-radius:10px;padding:11px 16px;color:var(--mu);font-size:12px;font-family:var(--fb);cursor:pointer;transition:border-color var(--t),color var(--t);margin-bottom:10px;width:100%;}
+.rv-media-btn:hover{border-color:var(--or);color:var(--or);}
+.rv-media-btn span{font-size:16px;}
+.rv-media-preview{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+.rv-media-thumb{position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:1px solid var(--border2);flex-shrink:0;}
+.rv-media-thumb img,.rv-media-thumb video{width:100%;height:100%;object-fit:cover;display:block;}
+.rv-media-del{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.75);border:none;color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;padding:0;}
+.rv-card-media{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.rv-card-media-item{width:88px;height:88px;border-radius:8px;overflow:hidden;cursor:pointer;border:1px solid var(--border);flex-shrink:0;background:var(--card);}
+.rv-card-media-item img,.rv-card-media-item video{width:100%;height:100%;object-fit:cover;display:block;}
+.rv-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.93);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.rv-lightbox img,.rv-lightbox video{max-width:90vw;max-height:88vh;border-radius:12px;object-fit:contain;}
+.rv-lightbox-close{position:absolute;top:16px;right:20px;color:#fff;font-size:28px;line-height:1;cursor:pointer;background:none;border:none;}
 @media(max-width:600px){.rv-summary{gap:16px}.rv-big-num{font-size:40px}.rv-grid{grid-template-columns:1fr}}
 
 /* Big background number */
@@ -2834,6 +2848,12 @@ button svg, a svg, .fsub svg, .cafe-order-btn svg,
     </div>
     <input class="rv-inp" id="rvName" type="text" placeholder="Your name *" maxlength="50">
     <textarea class="rv-inp rv-textarea" id="rvText" placeholder="Share your experience with NutriPune — product quality, service, delivery…"></textarea>
+    <!-- Media Upload -->
+    <button type="button" class="rv-media-btn" onclick="document.getElementById('rvMedia').click()">
+      <span>📷</span> Add Photos / Videos <small style="margin-left:auto;opacity:.6;font-size:10px;">(optional · jpg, png, mp4, mov…)</small>
+    </button>
+    <input type="file" id="rvMedia" accept="image/*,video/*" multiple style="display:none" onchange="rvPreviewMedia(this)">
+    <div id="rvMediaPreview" class="rv-media-preview"></div>
     <button class="rv-submit" id="rvSubmit" onclick="submitReview()">Post Review</button>
   </div>
 
@@ -4057,7 +4077,7 @@ function renderProducts(){
         ${p.badge?`<div class="pcard-badge">${p.badge}</div>`:''}
         ${save>0?`<div class="pcard-off-badge">${save}% OFF</div>`:''}
         <div class="pcard-icon-fb" style="position:absolute;font-size:72px;opacity:.15;pointer-events:none;user-select:none;bottom:8px;right:8px;top:auto;left:auto">${p.icon}</div>
-        <img src="${p.img}" alt="${p.name}" loading="lazy" referrerpolicy="no-referrer" style="position:relative;z-index:1" onerror="this.style.display='none'">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" referrerpolicy="no-referrer" style="position:relative;z-index:1" onerror="this.style.display='none';var f=this.parentNode.querySelector('.pcard-icon-fb');if(f){f.style.opacity='1';f.style.fontSize='88px';f.style.position='static';f.style.display='block';f.style.textAlign='center';f.style.paddingTop='28px';f.style.color='rgba(245,166,35,0.7)';}">
       </div>
       <div class="pcard-body">
         <div class="pcard-brand">${p.brand}</div>
@@ -4613,7 +4633,7 @@ function buildCarousel(){
   track.innerHTML=slides.map((p,i)=>{
     const save=Math.round((p.mrp-p.price)/p.mrp*100);
     return `<div class="carousel-slide" onclick="openProduct(${p.id})">
-      <img class="cs-img" src="${p.img}" alt="${p.name}" loading="${i===0?'eager':'lazy'}" referrerpolicy="no-referrer" onerror="this.style.background='#1a1a1a';this.style.display='none'">
+      <img class="cs-img" data-icon="${p.icon}" src="${p.img}" alt="${p.name}" loading="${i===0?'eager':'lazy'}" referrerpolicy="no-referrer" onerror="this.parentNode.style.background='linear-gradient(145deg,#0c1825,#152234)';var fb=document.createElement('div');fb.textContent=this.dataset.icon;fb.style.cssText='font-size:110px;display:flex;align-items:center;justify-content:center;height:100%;opacity:.5;';this.replaceWith(fb)">
       <div class="cs-overlay"></div>
       ${p.badge?`<div class="cs-badge">${p.badge}</div>`:''}
       <div class="cs-content">
@@ -5258,7 +5278,55 @@ function waBroadcastSignup(){
 }
 
 
-var rvRating = 0;
+// ── REVIEW MEDIA HELPERS ──
+function rvPreviewMedia(input){
+  var wrap = document.getElementById('rvMediaPreview');
+  if(!wrap) return;
+  wrap.innerHTML='';
+  if(!input.files||!input.files.length) return;
+  Array.from(input.files).forEach(function(file,idx){
+    var url = URL.createObjectURL(file);
+    var isVideo = file.type.startsWith('video');
+    var thumb = document.createElement('div');
+    thumb.className='rv-media-thumb';
+    var media = document.createElement(isVideo?'video':'img');
+    media.src = url;
+    if(isVideo){ media.muted=true; media.playsInline=true; media.preload='metadata'; }
+    else { media.alt='Preview'; }
+    var del = document.createElement('button');
+    del.className='rv-media-del';
+    del.title='Remove';
+    del.innerHTML='✕';
+    del.onclick=function(){
+      // Remove this file from the input (rebuild DataTransfer)
+      var dt = new DataTransfer();
+      Array.from(input.files).forEach(function(f,i){ if(i!==idx) dt.items.add(f); });
+      input.files = dt.files;
+      rvPreviewMedia(input);
+    };
+    thumb.appendChild(media);
+    thumb.appendChild(del);
+    wrap.appendChild(thumb);
+  });
+}
+
+function rvLightbox(url, type){
+  var lb = document.createElement('div');
+  lb.className='rv-lightbox';
+  var close = document.createElement('button');
+  close.className='rv-lightbox-close';
+  close.innerHTML='✕';
+  close.onclick=function(){ document.body.removeChild(lb); };
+  lb.onclick=function(e){ if(e.target===lb) document.body.removeChild(lb); };
+  var el = document.createElement(type==='video'?'video':'img');
+  el.src=url;
+  if(type==='video'){ el.controls=true; el.autoplay=true; el.style.maxWidth='90vw'; el.style.maxHeight='85vh'; }
+  else { el.alt='Review photo'; }
+  lb.appendChild(close);
+  lb.appendChild(el);
+  document.body.appendChild(lb);
+}
+
 var rvReviews = [];
 
 (function initReviewPicker(){
@@ -5317,6 +5385,19 @@ function rvRenderCard(r){
   var card = document.createElement('div');
   card.className = 'rv-card';
   card.id = 'rvc-'+r.id;
+  // Build media HTML
+  var mediaHTML = '';
+  if(r.media && r.media.length){
+    mediaHTML = '<div class="rv-card-media">';
+    r.media.forEach(function(m){
+      if(m.type==='video'){
+        mediaHTML += '<div class="rv-card-media-item" onclick="rvLightbox(\''+m.url+'\',\'video\')"><video src="'+m.url+'" muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video></div>';
+      } else {
+        mediaHTML += '<div class="rv-card-media-item" onclick="rvLightbox(\''+m.url+'\',\'image\')"><img src="'+m.url+'" alt="Review photo" loading="lazy"></div>';
+      }
+    });
+    mediaHTML += '</div>';
+  }
   card.innerHTML =
     '<div class="rv-top">'+
       '<span class="rv-name">'+r.name+'</span>'+
@@ -5324,6 +5405,7 @@ function rvRenderCard(r){
     '</div>'+
     '<div class="rv-stars">'+rvStarsHTML(r.rating,15)+'</div>'+
     '<div class="rv-text">'+r.text+'</div>'+
+    mediaHTML+
     '<div class="rv-reply" id="rvreply-'+r.id+'">'+
       '<div class="rv-reply-tag">💪 NUTRIPUNE TEAM</div>'+
       '<div class="rv-reply-text" id="rvreplytxt-'+r.id+'">'+
@@ -5356,19 +5438,37 @@ async function submitReview(){
   if(!rvRating){alert('Please select a star rating.');return;}
   var btn = document.getElementById('rvSubmit');
   if(btn){btn.disabled=true;btn.textContent='Posting…';}
+
+  // Collect media (convert files → object URLs stored in review)
+  var mediaInput = document.getElementById('rvMedia');
+  var mediaArr = [];
+  if(mediaInput && mediaInput.files && mediaInput.files.length){
+    for(var i=0;i<mediaInput.files.length;i++){
+      var file = mediaInput.files[i];
+      var url = URL.createObjectURL(file);
+      var type = file.type.startsWith('video') ? 'video' : 'image';
+      mediaArr.push({url:url,type:type});
+    }
+  }
+
   var r = {
     id: Date.now(),
     name: name.trim(),
     text: text.trim(),
     rating: rvRating,
     date: new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}),
+    media: mediaArr,
     reply: null
   };
   rvReviews.push(r);
   rvUpdateSummary();
   rvRenderCard(r);
+  // Reset form
   if(document.getElementById('rvName')) document.getElementById('rvName').value='';
   if(document.getElementById('rvText')) document.getElementById('rvText').value='';
+  if(mediaInput) mediaInput.value='';
+  var prev=document.getElementById('rvMediaPreview');
+  if(prev) prev.innerHTML='';
   rvRating=0;
   var pickerStars = document.querySelectorAll('#rvPicker .rv-sp');
   pickerStars.forEach(function(s){s.classList.remove('on');});
