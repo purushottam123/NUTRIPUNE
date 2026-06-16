@@ -448,6 +448,7 @@ h1.ht .s{color:var(--mu);font-size:52%;letter-spacing:5px;display:block;margin-t
   border-right:1px solid rgba(37,211,102,.07);
   border-bottom:1px solid rgba(37,211,102,.07);
   transition:background .25s;
+  display:flex;flex-direction:column;
 }
 .cafe-card:hover{background:rgba(37,211,102,.05)}
 .cafe-card:hover .cafe-img{transform:scale(1.06)}
@@ -467,7 +468,7 @@ h1.ht .s{color:var(--mu);font-size:52%;letter-spacing:5px;display:block;margin-t
   pointer-events:none;
 }
 
-.cafe-body{padding:16px 18px 18px}
+.cafe-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
 .cafe-tag{
   font-size:9px;letter-spacing:3px;color:rgba(37,211,102,.6);
   font-family:var(--fd);text-transform:uppercase;margin-bottom:6px;
@@ -516,6 +517,7 @@ h1.ht .s{color:var(--mu);font-size:52%;letter-spacing:5px;display:block;margin-t
   font-size:11px;font-weight:800;font-family:var(--fd);
   letter-spacing:1.5px;color:#25d366;
   cursor:pointer;transition:all .2s;text-decoration:none;width:100%;box-sizing:border-box;
+  margin-top:auto;
 }
 .cafe-order-btn:hover{background:rgba(37,211,102,.18);border-color:rgba(37,211,102,.5)}
 
