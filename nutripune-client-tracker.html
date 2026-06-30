@@ -468,7 +468,7 @@ function openLogModal(type){
             <div id="preview_${angle}" style="width:100%; aspect-ratio:3/4; background:#1f1f1f; border:1px dashed var(--border); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:4px; cursor:pointer;" onclick="document.getElementById('file_${angle}').click()">
               <span style="font-size:11px; color:var(--muted);">+ ${angle}</span>
             </div>
-            <input type="file" id="file_${angle}" accept="image/*" capture="environment" style="display:none;" onchange="handlePhotoSelect('${angle}', this)">
+            <input type="file" id="file_${angle}" accept="image/*" style="display:none;" onchange="handlePhotoSelect('${angle}', this)">
           </div>
         `).join('')}
       </div>
