@@ -116,6 +116,17 @@
   .filter-pills{display:flex; gap:8px; margin-bottom:14px; overflow-x:auto;}
   .pill{padding:6px 14px; border-radius:20px; border:1px solid var(--border); color:var(--muted); font-size:12px; white-space:nowrap; cursor:pointer;}
   .pill.active{background:var(--gold); color:#000; border-color:var(--gold); font-weight:700;}
+  .ai-btn{
+    background:linear-gradient(135deg, #1a1a1a, #2a2210); border:1px solid var(--gold2) !important;
+    color:var(--gold2) !important;
+  }
+  .ai-loading{display:flex; align-items:center; gap:10px; padding:20px 0; color:var(--muted); font-size:14px;}
+  .spinner{
+    width:18px; height:18px; border:2px solid #333; border-top-color:var(--gold); border-radius:50%;
+    animation:spin 0.8s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .ai-result{font-size:14px; line-height:1.6; color:#eee; white-space:pre-wrap;}
 </style>
 </head>
 <body>
@@ -374,13 +385,22 @@ function renderDetail(app){
   </div>`;
 
   if(currentView.tab === 'workout'){
-    html += `<button class="btn" style="width:100%; margin-bottom:12px;" onclick="openLogModal('workout')">+ Add workout log</button>`;
+    html += `<div class="row" style="gap:8px; margin-bottom:12px;">
+      <button class="btn" style="flex:1;" onclick="openLogModal('workout')">+ Add workout log</button>
+      <button class="btn secondary ai-btn" style="flex:1;" onclick="aiSuggestWorkout('${c.id}')">✨ AI Suggest</button>
+    </div>`;
     html += renderLogs(c.workouts, 'workout');
   } else if(currentView.tab === 'diet'){
-    html += `<button class="btn" style="width:100%; margin-bottom:12px;" onclick="openLogModal('diet')">+ Add diet log</button>`;
+    html += `<div class="row" style="gap:8px; margin-bottom:12px;">
+      <button class="btn" style="flex:1;" onclick="openLogModal('diet')">+ Add diet log</button>
+      <button class="btn secondary ai-btn" style="flex:1;" onclick="aiSuggestDiet('${c.id}')">✨ AI Suggest</button>
+    </div>`;
     html += renderLogs(c.diets, 'diet');
   } else {
-    html += `<button class="btn" style="width:100%; margin-bottom:12px;" onclick="openLogModal('progress')">+ Add weight / measurement</button>`;
+    html += `<div class="row" style="gap:8px; margin-bottom:12px;">
+      <button class="btn" style="flex:1;" onclick="openLogModal('progress')">+ Add weight / measurement</button>
+      <button class="btn secondary ai-btn" style="flex:1;" onclick="aiProgressInsight('${c.id}')">✨ AI Insight</button>
+    </div>`;
     html += renderProgress(c.progress);
   }
 
@@ -776,7 +796,18 @@ function openClientProgress(clientId){
 
 // --- More tab ---
 function renderMoreTab(app){
+  const currentKey = getGroqKey();
+  const maskedKey = currentKey ? currentKey.slice(0,6) + '••••••••' + currentKey.slice(-4) : '';
   app.innerHTML = `
+    <div class="dash-card">
+      <div class="section-title" style="margin-top:0;">✨ AI Settings</div>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:10px;">
+        AI Suggest features (Workout, Diet, Progress Insight) need a free Groq API key. Get one at <b style="color:var(--gold2);">console.groq.com</b> → API Keys → Create API Key.
+      </div>
+      ${currentKey ? `<div style="font-size:13px; color:var(--success); margin-bottom:10px;">✓ Key saved: ${maskedKey}</div>` : `<div style="font-size:13px; color:var(--muted); margin-bottom:10px;">No key saved yet.</div>`}
+      <input id="groqKeyInput" placeholder="gsk_..." value="" style="margin-bottom:8px;">
+      <button class="btn" style="width:100%;" onclick="saveGroqKeyFromInput()">Save key</button>
+    </div>
     <div class="dash-card">
       <div class="section-title" style="margin-top:0;">Backup</div>
       <button class="btn secondary" style="width:100%; margin-bottom:10px;" onclick="exportData()">Export backup (.json)</button>
@@ -795,7 +826,191 @@ function renderMoreTab(app){
   `;
 }
 
+function saveGroqKeyFromInput(){
+  const val = document.getElementById('groqKeyInput').value.trim();
+  if(!val){ alert('Paste a valid Groq API key first.'); return; }
+  setGroqKey(val);
+  showSaveStatus('AI key saved');
+  render();
+}
+
 loadClients();
+
+// --- AI Features ---
+function getGroqKey(){
+  return localStorage.getItem('np_groq_key') || '';
+}
+function setGroqKey(key){
+  localStorage.setItem('np_groq_key', key);
+}
+
+async function callGroqAPI(promptText){
+  const key = getGroqKey();
+  if(!key) throw new Error('NO_GROQ_KEY');
+  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${key}`
+    },
+    body: JSON.stringify({
+      model: "llama-3.3-70b-versatile",
+      max_tokens: 600,
+      messages: [{ role: "user", content: promptText }]
+    })
+  });
+  if(!response.ok){
+    const errText = await response.text().catch(()=>'');
+    throw new Error('GROQ_ERROR: ' + errText);
+  }
+  const data = await response.json();
+  const text = data?.choices?.[0]?.message?.content;
+  if(!text) throw new Error('No text in Groq response');
+  return text;
+}
+
+async function callClaudeAPI(promptText){
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-6",
+      max_tokens: 1000,
+      messages: [{ role: "user", content: promptText }]
+    })
+  });
+  const data = await response.json();
+  const textBlock = (data.content || []).find(b => b.type === 'text');
+  if(!textBlock) throw new Error('No text in response');
+  return textBlock.text;
+}
+
+async function callAI(promptText){
+  // Try Claude first (works automatically inside Claude.ai artifact mode)
+  if(!USE_CLAUDE_STORAGE){
+    // Standalone mode: go straight to Groq
+    return await callGroqAPI(promptText);
+  }
+  try{
+    return await callClaudeAPI(promptText);
+  }catch(e){
+    // Fallback to Groq if a key is configured
+    if(getGroqKey()) return await callGroqAPI(promptText);
+    throw e;
+  }
+}
+
+function showAiModal(title){
+  showModal(`
+    <h2>${title}</h2>
+    <div id="aiContent">
+      <div class="ai-loading"><div class="spinner"></div> Thinking...</div>
+    </div>
+  `);
+}
+
+function aiErrorContent(err){
+  const noKey = err && err.message === 'NO_GROQ_KEY';
+  if(noKey){
+    return `<div style="font-size:13px; color:var(--muted); line-height:1.6;">
+      AI feature ke liye ek free Groq API key chahiye.
+      <br><br>console.groq.com pe jaa ke free key bana, phir <b style="color:var(--gold2);">More tab → AI Settings</b> mein jaa ke wahan paste kar de.
+    </div>
+    <div class="row" style="gap:10px; margin-top:14px;">
+      <button class="btn" style="flex:1;" onclick="closeModal(); switchMainTab('more');">Go to Settings</button>
+      <button class="btn secondary" style="flex:1;" onclick="closeModal()">Close</button>
+    </div>`;
+  }
+  return `<div style="font-size:13px; color:var(--muted); line-height:1.6;">
+    AI request fail ho gayi. Apna internet connection check kar, ya Groq API key dobara check kar (More → AI Settings).
+  </div>
+  <button class="btn secondary" style="width:100%; margin-top:14px;" onclick="closeModal()">Close</button>`;
+}
+
+async function aiSuggestWorkout(clientId){
+  const c = clients.find(x=>x.id===clientId);
+  showAiModal(`AI Workout Suggestion — ${escapeHtml(c.name)}`);
+  const recentWorkouts = c.workouts.slice(-3).map(w=>`${w.title}: ${w.detail}`).join('\n');
+  const prompt = `You are an expert powerlifting/strength coach. Suggest a single, specific workout session for a gym client.
+Client goal: ${c.goal || 'general fitness'}.
+Recent workout history (most recent last):
+${recentWorkouts || 'No history yet, this is a new client.'}
+Give a structured workout with exercises, sets, reps, and suggested weights/progression if history is available. Keep it concise — under 150 words. Format as plain text with line breaks, no markdown headers.`;
+  try{
+    const result = await callAI(prompt);
+    document.getElementById('aiContent').innerHTML = `
+      <div class="ai-result">${escapeHtml(result)}</div>
+      <div class="row" style="gap:10px; margin-top:14px;">
+        <button class="btn" style="flex:1;" onclick="saveAiAsLog('workout','${clientId}', this)">Save as log</button>
+        <button class="btn secondary" style="flex:1;" onclick="closeModal()">Close</button>
+      </div>
+    `;
+    document.getElementById('aiContent').dataset.aiText = result;
+  }catch(e){
+    document.getElementById('aiContent').innerHTML = aiErrorContent(e);
+  }
+}
+
+async function aiSuggestDiet(clientId){
+  const c = clients.find(x=>x.id===clientId);
+  showAiModal(`AI Diet Suggestion — ${escapeHtml(c.name)}`);
+  const recentDiets = c.diets.slice(-2).map(d=>`${d.title}: ${d.detail}`).join('\n');
+  const lastWeight = [...c.progress].reverse().find(p=>p.weight);
+  const prompt = `You are an expert sports nutritionist for an Indian gym/supplement coaching client.
+Client goal: ${c.goal || 'general fitness'}. Current weight: ${lastWeight ? lastWeight.weight+'kg' : 'unknown'}.
+Recent diet history: ${recentDiets || 'No history yet.'}
+Suggest one day's Indian-style meal plan (breakfast, lunch, dinner, snacks) with approximate calories and protein. Keep it concise — under 150 words. Plain text, no markdown headers.`;
+  try{
+    const result = await callAI(prompt);
+    document.getElementById('aiContent').innerHTML = `
+      <div class="ai-result">${escapeHtml(result)}</div>
+      <div class="row" style="gap:10px; margin-top:14px;">
+        <button class="btn" style="flex:1;" onclick="saveAiAsLog('diet','${clientId}', this)">Save as log</button>
+        <button class="btn secondary" style="flex:1;" onclick="closeModal()">Close</button>
+      </div>
+    `;
+    document.getElementById('aiContent').dataset.aiText = result;
+  }catch(e){
+    document.getElementById('aiContent').innerHTML = aiErrorContent(e);
+  }
+}
+
+async function aiProgressInsight(clientId){
+  const c = clients.find(x=>x.id===clientId);
+  showAiModal(`AI Progress Insight — ${escapeHtml(c.name)}`);
+  if(c.progress.length === 0){
+    document.getElementById('aiContent').innerHTML = `<div class="empty">No progress entries yet to analyze.</div>
+    <button class="btn secondary" style="width:100%; margin-top:10px;" onclick="closeModal()">Close</button>`;
+    return;
+  }
+  const progressData = c.progress.map(p=>`${p.date}: ${p.weight ? p.weight+'kg' : 'no weight'}${p.notes ? ' - '+p.notes : ''}`).join('\n');
+  const prompt = `You are a strength coach analyzing a client's progress log.
+Client goal: ${c.goal || 'general fitness'}.
+Progress entries (chronological):
+${progressData}
+Give a short, encouraging but honest analysis: is the trend good, plateaued, or concerning? Give 1-2 specific actionable suggestions. Keep it under 120 words, plain text, no markdown headers.`;
+  try{
+    const result = await callAI(prompt);
+    document.getElementById('aiContent').innerHTML = `
+      <div class="ai-result">${escapeHtml(result)}</div>
+      <button class="btn secondary" style="width:100%; margin-top:14px;" onclick="closeModal()">Close</button>
+    `;
+  }catch(e){
+    document.getElementById('aiContent').innerHTML = aiErrorContent(e);
+  }
+}
+
+async function saveAiAsLog(type, clientId, btnEl){
+  const aiText = document.getElementById('aiContent').dataset.aiText;
+  const c = clients.find(x=>x.id===clientId);
+  const title = type === 'workout' ? 'AI Suggested Workout' : 'AI Suggested Diet Plan';
+  const entry = { id: uid(), date: todayStr(), title, detail: aiText };
+  if(type === 'workout') c.workouts.push(entry);
+  else c.diets.push(entry);
+  await saveClients();
+  closeModal();
+  render();
+}
 const modeBadge = document.getElementById('modeBadge');
 if(modeBadge){
   modeBadge.textContent = USE_CLAUDE_STORAGE ? 'synced via Claude' : 'saved on this device only';
