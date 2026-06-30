@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NutriPune Client Tracker</title>
+<style>
+  :root{
+    --bg:#0a0a0a; --card:#161616; --gold:#F5A800; --gold2:#FFC300;
+    --text:#fff; --muted:#9a9a9a; --border:#2a2a2a; --danger:#e24b4a; --success:#3b9d6d;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0; font-family:'Segoe UI', Arial, sans-serif; background:var(--bg); color:var(--text);
+    padding-bottom:80px;
+  }
+  header{
+    background:#000; padding:18px 16px; border-bottom:2px solid var(--gold);
+    display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:10;
+  }
+  header h1{font-size:18px; margin:0; letter-spacing:0.5px;}
+  header h1 span{color:var(--gold);}
+  .container{max-width:480px; margin:0 auto; padding:14px;}
+  .btn{
+    background:var(--gold); color:#000; border:none; padding:10px 16px; border-radius:8px;
+    font-weight:700; font-size:14px; cursor:pointer;
+  }
+  .btn.secondary{background:transparent; color:var(--gold); border:1.5px solid var(--gold);}
+  .btn.danger{background:transparent; color:var(--danger); border:1.5px solid var(--danger);}
+  .btn.small{padding:6px 10px; font-size:12px;}
+  .btn:active{transform:scale(0.97);}
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px;
+    margin-bottom:12px;
+  }
+  .client-card{display:flex; justify-content:space-between; align-items:center; cursor:pointer;}
+  .client-card:active{background:#1f1f1f;}
+  .client-name{font-weight:700; font-size:16px;}
+  .client-meta{color:var(--muted); font-size:12px; margin-top:2px;}
+  .avatar{
+    width:42px; height:42px; border-radius:50%; background:linear-gradient(180deg,var(--gold2),var(--gold));
+    display:flex; align-items:center; justify-content:center; font-weight:700; color:#000; font-size:15px; margin-right:12px;
+  }
+  .row{display:flex; align-items:center;}
+  input, select, textarea{
+    width:100%; background:#1f1f1f; border:1px solid var(--border); color:var(--text);
+    padding:10px; border-radius:8px; font-size:14px; margin-bottom:10px;
+  }
+  label{font-size:12px; color:var(--muted); display:block; margin-bottom:4px;}
+  .fab{
+    position:fixed; bottom:20px; right:20px; width:56px; height:56px; border-radius:50%;
+    background:var(--gold); color:#000; font-size:28px; border:none; display:flex;
+    align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.5); cursor:pointer; z-index:20;
+  }
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.7); display:flex; align-items:flex-end;
+    justify-content:center; z-index:50;
+  }
+  .modal{
+    background:#141414; width:100%; max-width:480px; border-radius:16px 16px 0 0; padding:18px;
+    max-height:85vh; overflow-y:auto;
+  }
+  .modal h2{margin-top:0; font-size:17px; color:var(--gold2);}
+  .tabs{display:flex; gap:8px; margin-bottom:14px; border-bottom:1px solid var(--border);}
+  .tab{padding:8px 4px; color:var(--muted); font-size:13px; font-weight:700; cursor:pointer; border-bottom:2px solid transparent;}
+  .tab.active{color:var(--gold); border-bottom:2px solid var(--gold);}
+  .log-item{
+    background:#1c1c1c; border-radius:8px; padding:10px 12px; margin-bottom:8px; border-left:3px solid var(--gold);
+  }
+  .log-item .log-date{font-size:11px; color:var(--muted);}
+  .log-item .log-title{font-weight:700; font-size:14px; margin:2px 0;}
+  .log-item .log-detail{font-size:13px; color:#ccc; white-space:pre-wrap;}
+  .empty{text-align:center; color:var(--muted); padding:30px 10px; font-size:14px;}
+  .back-btn{background:none; border:none; color:var(--gold); font-size:15px; cursor:pointer; margin-bottom:10px; padding:4px 0;}
+  .section-title{font-size:13px; color:var(--gold2); font-weight:700; margin:16px 0 8px; text-transform:uppercase; letter-spacing:0.5px;}
+  .stat-row{display:flex; gap:8px;}
+  .stat{flex:1; background:#1c1c1c; border-radius:8px; padding:10px; text-align:center;}
+  .stat .num{font-size:18px; font-weight:700; color:var(--gold);}
+  .stat .lbl{font-size:11px; color:var(--muted);}
+  .del-x{color:var(--danger); font-size:18px; cursor:pointer; padding:0 6px;}
+  .search-box{margin-bottom:14px;}
+  .loading{text-align:center; padding:40px; color:var(--muted);}
+  .menu-item{padding:12px 14px; font-size:13px; cursor:pointer; border-bottom:1px solid var(--border);}
+  .menu-item:last-child{border-bottom:none;}
+  .menu-item:active{background:#262626;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Nutri<span>Pune</span> · Clients</h1>
+  <div class="row" style="gap:10px;">
+    <div>
+      <div style="font-size:11px; color:var(--muted); text-align:right;" id="clientCount">0 clients</div>
+      <div id="modeBadge" style="font-size:10px; text-align:right; margin-top:2px;"></div>
+    </div>
+    <div style="position:relative;">
+      <button id="menuBtn" style="background:none; border:none; color:var(--gold); font-size:20px; cursor:pointer; padding:4px 8px;">⋮</button>
+      <div id="menuDropdown" style="display:none; position:absolute; right:0; top:32px; background:#1c1c1c; border:1px solid var(--border); border-radius:8px; min-width:160px; z-index:30; overflow:hidden;">
+        <div class="menu-item" onclick="exportData()">Export backup (.json)</div>
+        <div class="menu-item" onclick="document.getElementById('importFile').click()">Import backup</div>
+      </div>
+      <input type="file" id="importFile" accept="application/json" style="display:none;" onchange="importData(event)">
+    </div>
+  </div>
+</header>
+
+<div class="container" id="app">
+  <div class="loading">Loading...</div>
+</div>
+
+<button class="fab" id="addClientFab" title="Add client">+</button>
+
+<script>
+const STORAGE_KEY = 'np_clients_v1';
+let clients = [];
+let currentView = { screen: 'list', clientId: null, tab: 'workout' };
+const USE_CLAUDE_STORAGE = (typeof window.storage !== 'undefined' && window.storage !== null);
+
+const storageAdapter = {
+  async get(key){
+    if(USE_CLAUDE_STORAGE){
+      return await window.storage.get(key, false);
+    } else {
+      const v = localStorage.getItem(key);
+      return v ? { value: v } : null;
+    }
+  },
+  async set(key, value){
+    if(USE_CLAUDE_STORAGE){
+      return await window.storage.set(key, value, false);
+    } else {
+      localStorage.setItem(key, value);
+      return true;
+    }
+  }
+};
+
+async function loadClients(){
+  try{
+    const res = await storageAdapter.get(STORAGE_KEY);
+    clients = res && res.value ? JSON.parse(res.value) : [];
+  }catch(e){
+    clients = [];
+  }
+  render();
+}
+
+let saveInProgress = Promise.resolve();
+
+async function saveClients(){
+  saveInProgress = saveInProgress.then(() => doSave());
+  return saveInProgress;
+}
+
+async function doSave(){
+  const payload = JSON.stringify(clients);
+  let lastErr = null;
+  for(let attempt=0; attempt<5; attempt++){
+    try{
+      const result = await storageAdapter.set(STORAGE_KEY, payload);
+      if(result){
+        showSaveStatus('Saved');
+        return true;
+      }
+    }catch(e){
+      lastErr = e;
+      const delay = 500 * Math.pow(1.6, attempt);
+      await new Promise(r=>setTimeout(r, delay));
+    }
+  }
+  console.error('save failed after retries', lastErr);
+  showSaveStatus('Could not sync — your changes are kept locally, retrying...', true);
+  setTimeout(()=>{ retrySave(payload); }, 3000);
+  return false;
+}
+
+async function retrySave(payload){
+  try{
+    const result = await storageAdapter.set(STORAGE_KEY, payload);
+    if(result) showSaveStatus('Saved');
+  }catch(e){
+    setTimeout(()=>{ retrySave(payload); }, 5000);
+  }
+}
+
+function showSaveStatus(msg, isError){
+  let el = document.getElementById('saveStatus');
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'saveStatus';
+    el.style.cssText = 'position:fixed; top:60px; left:50%; transform:translateX(-50%); padding:6px 14px; border-radius:20px; font-size:12px; z-index:60; transition:opacity 0.3s;';
+    document.body.appendChild(el);
+  }
+  el.style.background = isError ? '#3a1414' : '#142a1a';
+  el.style.color = isError ? '#e24b4a' : '#3b9d6d';
+  el.textContent = msg;
+  el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(()=>{ el.style.opacity = '0'; }, isError ? 4000 : 1200);
+}
+
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function todayStr(){
+  const d = new Date();
+  return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+}
+function initials(name){
+  return name.trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+}
+
+function render(){
+  const app = document.getElementById('app');
+  document.getElementById('clientCount').textContent = clients.length + (clients.length===1?' client':' clients');
+  if(currentView.screen === 'list'){
+    renderList(app);
+  } else {
+    renderDetail(app);
+  }
+}
+
+function renderList(app){
+  if(clients.length === 0){
+    app.innerHTML = `<div class="empty">No clients yet.<br>Tap + to add your first client.</div>`;
+    return;
+  }
+  let html = `<input class="search-box" id="searchInput" placeholder="Search client..." oninput="filterList(this.value)">`;
+  html += `<div id="listContainer">`;
+  html += clients.map(c => clientCardHtml(c)).join('');
+  html += `</div>`;
+  app.innerHTML = html;
+}
+
+function clientCardHtml(c){
+  const lastWorkout = c.workouts[c.workouts.length-1];
+  const lastWeight = [...c.progress].reverse().find(p=>p.weight);
+  return `
+  <div class="card client-card" onclick="openClient('${c.id}')" data-name="${c.name.toLowerCase()}">
+    <div class="row">
+      <div class="avatar">${initials(c.name)}</div>
+      <div>
+        <div class="client-name">${escapeHtml(c.name)}</div>
+        <div class="client-meta">${c.goal ? escapeHtml(c.goal) : 'No goal set'}${lastWeight ? ' · '+lastWeight.weight+'kg' : ''}</div>
+      </div>
+    </div>
+    <div style="color:var(--muted); font-size:20px;">›</div>
+  </div>`;
+}
+
+function filterList(q){
+  q = q.toLowerCase();
+  document.querySelectorAll('#listContainer .client-card').forEach(el=>{
+    el.style.display = el.dataset.name.includes(q) ? 'flex' : 'none';
+  });
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function openClient(id){
+  currentView = { screen:'detail', clientId:id, tab:'workout' };
+  render();
+}
+
+function backToList(){
+  currentView = { screen:'list', clientId:null, tab:'workout' };
+  render();
+}
+
+function renderDetail(app){
+  const c = clients.find(x=>x.id===currentView.clientId);
+  if(!c){ backToList(); return; }
+  const lastWeight = [...c.progress].reverse().find(p=>p.weight);
+  const firstWeight = c.progress.find(p=>p.weight);
+
+  let html = `<button class="back-btn" onclick="backToList()">‹ Back to clients</button>`;
+  html += `
+    <div class="card">
+      <div class="row" style="justify-content:space-between;">
+        <div class="row">
+          <div class="avatar">${initials(c.name)}</div>
+          <div>
+            <div class="client-name">${escapeHtml(c.name)}</div>
+            <div class="client-meta">${c.phone ? escapeHtml(c.phone) : ''}</div>
+          </div>
+        </div>
+        <button class="btn small secondary" onclick="editClient('${c.id}')">Edit</button>
+      </div>
+      ${c.goal ? `<div style="margin-top:10px; font-size:13px; color:#ddd;"><b style="color:var(--gold2);">Goal:</b> ${escapeHtml(c.goal)}</div>` : ''}
+      <div class="stat-row" style="margin-top:12px;">
+        <div class="stat"><div class="num">${firstWeight ? firstWeight.weight : '–'}</div><div class="lbl">start kg</div></div>
+        <div class="stat"><div class="num">${lastWeight ? lastWeight.weight : '–'}</div><div class="lbl">current kg</div></div>
+        <div class="stat"><div class="num">${c.workouts.length}</div><div class="lbl">workouts</div></div>
+      </div>
+    </div>
+  `;
+
+  html += `<div class="tabs">
+    <div class="tab ${currentView.tab==='workout'?'active':''}" onclick="switchTab('workout')">Workout</div>
+    <div class="tab ${currentView.tab==='diet'?'active':''}" onclick="switchTab('diet')">Diet</div>
+    <div class="tab ${currentView.tab==='progress'?'active':''}" onclick="switchTab('progress')">Progress</div>
+  </div>`;
+
+  if(currentView.tab === 'workout'){
+    html += `<button class="btn" style="width:100%; margin-bottom:12px;" onclick="openLogModal('workout')">+ Add workout log</button>`;
+    html += renderLogs(c.workouts, 'workout');
+  } else if(currentView.tab === 'diet'){
+    html += `<button class="btn" style="width:100%; margin-bottom:12px;" onclick="openLogModal('diet')">+ Add diet log</button>`;
+    html += renderLogs(c.diets, 'diet');
+  } else {
+    html += `<button class="btn" style="width:100%; margin-bottom:12px;" onclick="openLogModal('progress')">+ Add weight / measurement</button>`;
+    html += renderProgress(c.progress);
+  }
+
+  app.innerHTML = html;
+}
+
+function renderLogs(arr, type){
+  if(!arr || arr.length === 0) return `<div class="empty">No ${type} logs yet.</div>`;
+  return [...arr].reverse().map(item => `
+    <div class="log-item">
+      <div class="row" style="justify-content:space-between;">
+        <span class="log-date">${item.date}</span>
+        <span class="del-x" onclick="deleteLog('${type}','${item.id}')">&times;</span>
+      </div>
+      <div class="log-title">${escapeHtml(item.title)}</div>
+      <div class="log-detail">${escapeHtml(item.detail)}</div>
+    </div>
+  `).join('');
+}
+
+function renderProgress(arr){
+  if(!arr || arr.length === 0) return `<div class="empty">No progress entries yet.</div>`;
+  return [...arr].reverse().map(item => `
+    <div class="log-item">
+      <div class="row" style="justify-content:space-between;">
+        <span class="log-date">${item.date}</span>
+        <span class="del-x" onclick="deleteLog('progress','${item.id}')">&times;</span>
+      </div>
+      <div class="log-title">${item.weight ? item.weight+' kg' : ''}</div>
+      ${item.notes ? `<div class="log-detail">${escapeHtml(item.notes)}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function switchTab(tab){
+  currentView.tab = tab;
+  render();
+}
+
+async function deleteLog(type, logId){
+  const c = clients.find(x=>x.id===currentView.clientId);
+  if(!c) return;
+  const key = type==='workout' ? 'workouts' : type==='diet' ? 'diets' : 'progress';
+  c[key] = c[key].filter(l=>l.id!==logId);
+  await saveClients();
+  render();
+}
+
+// --- Modals ---
+function showModal(innerHtml){
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.id = 'modalOverlay';
+  overlay.onclick = (e)=>{ if(e.target===overlay) closeModal(); };
+  overlay.innerHTML = `<div class="modal">${innerHtml}</div>`;
+  document.body.appendChild(overlay);
+}
+function closeModal(){
+  const o = document.getElementById('modalOverlay');
+  if(o) o.remove();
+}
+
+document.getElementById('addClientFab').addEventListener('click', ()=>{
+  if(currentView.screen === 'list'){
+    openClientModal();
+  } else {
+    openLogModal(currentView.tab);
+  }
+});
+
+function openClientModal(existing){
+  const isEdit = !!existing;
+  showModal(`
+    <h2>${isEdit ? 'Edit client' : 'New client'}</h2>
+    <label>Name</label>
+    <input id="f_name" value="${isEdit ? escapeHtml(existing.name) : ''}" placeholder="Client full name">
+    <label>Phone</label>
+    <input id="f_phone" value="${isEdit ? escapeHtml(existing.phone||'') : ''}" placeholder="+91...">
+    <label>Goal</label>
+    <input id="f_goal" value="${isEdit ? escapeHtml(existing.goal||'') : ''}" placeholder="e.g. Fat loss, strength, bulking">
+    <div class="row" style="gap:10px; margin-top:8px;">
+      <button class="btn" style="flex:1;" onclick="saveClientForm(${isEdit ? `'${existing.id}'` : 'null'})">Save</button>
+      <button class="btn secondary" style="flex:1;" onclick="closeModal()">Cancel</button>
+    </div>
+    ${isEdit ? `<button class="btn danger" style="width:100%; margin-top:10px;" onclick="deleteClient('${existing.id}')">Delete client</button>` : ''}
+  `);
+}
+
+function editClient(id){
+  const c = clients.find(x=>x.id===id);
+  if(c) openClientModal(c);
+}
+
+async function saveClientForm(id){
+  const name = document.getElementById('f_name').value.trim();
+  const phone = document.getElementById('f_phone').value.trim();
+  const goal = document.getElementById('f_goal').value.trim();
+  if(!name){ alert('Name is required'); return; }
+  if(id){
+    const c = clients.find(x=>x.id===id);
+    c.name = name; c.phone = phone; c.goal = goal;
+  } else {
+    clients.push({ id: uid(), name, phone, goal, workouts:[], diets:[], progress:[] });
+  }
+  await saveClients();
+  closeModal();
+  render();
+}
+
+async function deleteClient(id){
+  if(!confirm('Delete this client and all their records?')) return;
+  clients = clients.filter(x=>x.id!==id);
+  await saveClients();
+  closeModal();
+  backToList();
+}
+
+function openLogModal(type){
+  if(type === 'progress'){
+    showModal(`
+      <h2>Add progress entry</h2>
+      <label>Weight (kg)</label>
+      <input id="f_weight" type="number" step="0.1" placeholder="e.g. 78.5">
+      <label>Notes (measurements, photos taken, etc.)</label>
+      <textarea id="f_notes" rows="3" placeholder="Optional notes"></textarea>
+      <div class="row" style="gap:10px; margin-top:8px;">
+        <button class="btn" style="flex:1;" onclick="saveProgress()">Save</button>
+        <button class="btn secondary" style="flex:1;" onclick="closeModal()">Cancel</button>
+      </div>
+    `);
+  } else {
+    const label = type === 'workout' ? 'Workout' : 'Diet';
+    showModal(`
+      <h2>Add ${label.toLowerCase()} log</h2>
+      <label>Title</label>
+      <input id="f_title" placeholder="${type==='workout' ? 'e.g. Push day - Squat focus' : 'e.g. Day 3 meal plan'}">
+      <label>Details</label>
+      <textarea id="f_detail" rows="6" placeholder="${type==='workout' ? 'Sets, reps, weights used...' : 'Meals, macros, calories...'}"></textarea>
+      <div class="row" style="gap:10px; margin-top:8px;">
+        <button class="btn" style="flex:1;" onclick="saveLog('${type}')">Save</button>
+        <button class="btn secondary" style="flex:1;" onclick="closeModal()">Cancel</button>
+      </div>
+    `);
+  }
+}
+
+async function saveLog(type){
+  const title = document.getElementById('f_title').value.trim();
+  const detail = document.getElementById('f_detail').value.trim();
+  if(!title){ alert('Title is required'); return; }
+  const c = clients.find(x=>x.id===currentView.clientId);
+  const entry = { id: uid(), date: todayStr(), title, detail };
+  if(type === 'workout') c.workouts.push(entry);
+  else c.diets.push(entry);
+  await saveClients();
+  closeModal();
+  render();
+}
+
+async function saveProgress(){
+  const weight = document.getElementById('f_weight').value.trim();
+  const notes = document.getElementById('f_notes').value.trim();
+  if(!weight && !notes){ alert('Add a weight or note'); return; }
+  const c = clients.find(x=>x.id===currentView.clientId);
+  c.progress.push({ id: uid(), date: todayStr(), weight: weight ? parseFloat(weight) : null, notes });
+  await saveClients();
+  closeModal();
+  render();
+}
+
+// --- Menu toggle ---
+document.getElementById('menuBtn').addEventListener('click', (e)=>{
+  e.stopPropagation();
+  const d = document.getElementById('menuDropdown');
+  d.style.display = d.style.display === 'block' ? 'none' : 'block';
+});
+document.addEventListener('click', ()=>{
+  document.getElementById('menuDropdown').style.display = 'none';
+});
+
+// --- Export / Import ---
+function exportData(){
+  const dataStr = JSON.stringify(clients, null, 2);
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dateTag = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `nutripune-clients-backup-${dateTag}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showSaveStatus('Backup downloaded');
+}
+
+async function importData(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  try{
+    const text = await file.text();
+    const imported = JSON.parse(text);
+    if(!Array.isArray(imported)) throw new Error('Invalid file format');
+    const merge = confirm(`Found ${imported.length} client(s) in this backup.\n\nOK = Merge with existing clients\nCancel = Replace all existing clients`);
+    if(merge){
+      const existingIds = new Set(clients.map(c=>c.id));
+      imported.forEach(c => {
+        if(!existingIds.has(c.id)) clients.push(c);
+      });
+    } else {
+      clients = imported;
+    }
+    await saveClients();
+    render();
+    alert('Backup imported successfully.');
+  }catch(e){
+    alert('Could not read this backup file. Make sure it is a valid NutriPune backup JSON.');
+  }
+  event.target.value = '';
+}
+
+loadClients();
+const modeBadge = document.getElementById('modeBadge');
+if(modeBadge){
+  modeBadge.textContent = USE_CLAUDE_STORAGE ? 'synced via Claude' : 'saved on this device only';
+  modeBadge.style.color = USE_CLAUDE_STORAGE ? '#3b9d6d' : '#999';
+}
+</script>
+
+</body>
+</html>
