@@ -920,26 +920,32 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:44px 4% 2
 .shop-carousel{position:relative;overflow:hidden;border-radius:16px;margin-bottom:10px;background:var(--ink2);height:420px}
 @media(max-width:768px){.shop-carousel{height:340px}}
 .carousel-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);height:100%}
-.carousel-slide{min-width:100%;height:100%;position:relative;display:flex;align-items:flex-end;overflow:hidden;cursor:pointer}
-.cs-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform 6s ease}
-.carousel-slide:hover .cs-img{transform:scale(1.04)}
-.cs-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.5) 45%,rgba(0,0,0,.1) 100%)}
-.cs-content{position:relative;z-index:2;padding:28px 32px;width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
-@media(max-width:600px){.cs-content{padding:20px 18px;flex-direction:column;align-items:flex-start;gap:10px}}
+.carousel-slide{min-width:100%;height:100%;position:relative;display:flex;align-items:stretch;overflow:hidden;cursor:pointer;background:linear-gradient(135deg,#0c1825,#0a0f16)}
+.cs-img-wrap{flex:0 0 42%;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 45%,#1a2433 0%,#0d141d 100%);overflow:hidden}
+.cs-img{width:78%;height:78%;object-fit:contain;transition:transform .4s ease;filter:drop-shadow(0 12px 24px rgba(0,0,0,.5))}
+.carousel-slide:hover .cs-img{transform:scale(1.05)}
+.cs-content{position:relative;z-index:2;flex:1;padding:28px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px;min-width:0}
+@media(max-width:600px){.cs-content{padding:16px 18px;flex-direction:column;align-items:flex-start;gap:10px}}
 .cs-left{flex:1;min-width:0}
 .cs-brand{font-family:var(--fm);font-size:10px;color:var(--or);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
-.cs-name{font-family:var(--fd);font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px}
-@media(max-width:600px){.cs-name{font-size:20px}}
-.cs-desc{font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;max-width:440px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cs-name{font-family:var(--fd);font-size:24px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:8px}
+@media(max-width:600px){.cs-name{font-size:17px}}
+.cs-desc{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;max-width:440px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:600px){.cs-desc{display:none}}
 .cs-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
 @media(max-width:600px){.cs-right{flex-direction:row;align-items:center;width:100%;justify-content:space-between}}
 .cs-price-wrap{text-align:right}
-.cs-price{font-family:var(--fd);font-size:30px;font-weight:800;color:var(--or);line-height:1}
+.cs-price{font-family:var(--fd);font-size:28px;font-weight:800;color:var(--or);line-height:1}
 .cs-mrp{font-size:12px;color:rgba(255,255,255,.45);text-decoration:line-through}
 .cs-save{background:var(--or);color:#000;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;font-family:var(--fm)}
 .cs-cta{background:var(--or);color:#000;border:none;border-radius:8px;padding:11px 22px;font-size:13px;font-weight:800;cursor:pointer;font-family:var(--fm);letter-spacing:.5px;white-space:nowrap}
 .cs-cta:hover{background:#fb923c}
-.cs-badge{position:absolute;top:18px;left:18px;background:var(--or);color:#000;font-size:10px;font-weight:800;padding:4px 12px;border-radius:20px;font-family:var(--fm);letter-spacing:.5px;z-index:3}
+.cs-badge{position:absolute;top:16px;left:16px;background:var(--or);color:#000;font-size:10px;font-weight:800;padding:4px 12px;border-radius:20px;font-family:var(--fm);letter-spacing:.5px;z-index:3}
+@media(max-width:600px){
+  .carousel-slide{flex-direction:column}
+  .cs-img-wrap{flex:0 0 52%}
+  .cs-img{width:62%;height:62%}
+}
 .carousel-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:4}
 .cdot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .3s;border:none}
 .cdot.on{background:var(--or);width:22px;border-radius:4px}
@@ -4664,9 +4670,10 @@ function buildCarousel(){
   track.innerHTML=slides.map((p,i)=>{
     const save=Math.round((p.mrp-p.price)/p.mrp*100);
     return `<div class="carousel-slide" onclick="openProduct(${p.id})">
-      <img class="cs-img" data-icon="${p.icon}" src="${p.img}" alt="${p.name}" loading="${i===0?'eager':'lazy'}" referrerpolicy="no-referrer" onerror="this.parentNode.style.background='linear-gradient(145deg,#0c1825,#152234)';var fb=document.createElement('div');fb.textContent=this.dataset.icon;fb.style.cssText='font-size:110px;display:flex;align-items:center;justify-content:center;height:100%;opacity:.5;';this.replaceWith(fb)">
-      <div class="cs-overlay"></div>
-      ${p.badge?`<div class="cs-badge">${p.badge}</div>`:''}
+      <div class="cs-img-wrap">
+        ${p.badge?`<div class="cs-badge">${p.badge}</div>`:''}
+        <img class="cs-img" data-icon="${p.icon}" src="${p.img}" alt="${p.name}" loading="${i===0?'eager':'lazy'}" referrerpolicy="no-referrer" onerror="this.parentNode.style.background='linear-gradient(145deg,#0c1825,#152234)';var fb=document.createElement('div');fb.textContent=this.dataset.icon;fb.style.cssText='font-size:90px;display:flex;align-items:center;justify-content:center;height:100%;opacity:.5;';this.replaceWith(fb)">
+      </div>
       <div class="cs-content">
         <div class="cs-left">
           <div class="cs-brand">${p.brand}</div>
