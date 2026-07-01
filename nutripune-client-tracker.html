@@ -350,11 +350,27 @@ function backToList(){
   render();
 }
 
+function calcBMI(weight, height){
+  if(!weight || !height) return null;
+  return (weight / ((height/100) ** 2)).toFixed(1);
+}
+function bmiCategory(bmi){
+  if(!bmi) return '';
+  bmi = parseFloat(bmi);
+  if(bmi < 18.5) return { label:'Underweight', color:'#4fc3f7' };
+  if(bmi < 25) return { label:'Normal', color:'var(--success)' };
+  if(bmi < 30) return { label:'Overweight', color:'#FFC300' };
+  return { label:'Obese', color:'var(--danger)' };
+}
+
 function renderDetail(app){
   const c = clients.find(x=>x.id===currentView.clientId);
   if(!c){ backToList(); return; }
   const lastWeight = [...c.progress].reverse().find(p=>p.weight);
   const firstWeight = c.progress.find(p=>p.weight);
+  const currentWeight = lastWeight?.weight || c.startWeight;
+  const bmi = calcBMI(currentWeight, c.height);
+  const bmiCat = bmiCategory(bmi);
 
   let html = `<button class="back-btn" onclick="backToList()">‹ Back to clients</button>`;
   html += `
@@ -364,16 +380,25 @@ function renderDetail(app){
           <div class="avatar">${initials(c.name)}</div>
           <div>
             <div class="client-name">${escapeHtml(c.name)}</div>
-            <div class="client-meta">${c.phone ? escapeHtml(c.phone) : ''}</div>
+            <div class="client-meta">${[c.phone, c.age ? c.age+'y' : '', c.height ? c.height+'cm' : ''].filter(Boolean).join(' · ')}</div>
           </div>
         </div>
         <button class="btn small secondary" onclick="editClient('${c.id}')">Edit</button>
       </div>
-      ${c.goal ? `<div style="margin-top:10px; font-size:13px; color:#ddd;"><b style="color:var(--gold2);">Goal:</b> ${escapeHtml(c.goal)}</div>` : ''}
+      <div class="row" style="gap:8px; margin-top:8px; flex-wrap:wrap;">
+        ${c.goal ? `<span style="background:#1c1c1c; border-radius:20px; padding:4px 10px; font-size:12px; color:var(--gold2);">🎯 ${escapeHtml(c.goal)}</span>` : ''}
+        ${c.dietType ? `<span style="background:#1c1c1c; border-radius:20px; padding:4px 10px; font-size:12px; color:#ccc;">${c.dietType==='veg'?'🥦 Veg':c.dietType==='egg'?'🥚 Egg':'🍗 Non-Veg'}</span>` : ''}
+        ${c.fitnessLevel ? `<span style="background:#1c1c1c; border-radius:20px; padding:4px 10px; font-size:12px; color:#ccc;">💪 ${c.fitnessLevel}</span>` : ''}
+      </div>
+      ${c.medical ? `<div style="margin-top:6px; font-size:12px; color:var(--danger);">⚠️ ${escapeHtml(c.medical)}</div>` : ''}
       <div class="stat-row" style="margin-top:12px;">
-        <div class="stat"><div class="num">${firstWeight ? firstWeight.weight : '–'}</div><div class="lbl">start kg</div></div>
-        <div class="stat"><div class="num">${lastWeight ? lastWeight.weight : '–'}</div><div class="lbl">current kg</div></div>
-        <div class="stat"><div class="num">${c.workouts.length}</div><div class="lbl">workouts</div></div>
+        <div class="stat"><div class="num">${firstWeight?.weight || c.startWeight || '–'}</div><div class="lbl">start kg</div></div>
+        <div class="stat"><div class="num">${lastWeight?.weight || '–'}</div><div class="lbl">current kg</div></div>
+        <div class="stat">
+          <div class="num" style="color:${bmiCat?.color||'var(--gold)'};">${bmi || '–'}</div>
+          <div class="lbl">BMI${bmiCat ? ' · '+bmiCat.label : ''}</div>
+        </div>
+        <div class="stat"><div class="num">${c.workouts.length}</div><div class="lbl">sessions</div></div>
       </div>
     </div>
   `;
@@ -386,19 +411,19 @@ function renderDetail(app){
 
   if(currentView.tab === 'workout'){
     html += `<div class="row" style="gap:8px; margin-bottom:12px;">
-      <button class="btn" style="flex:1;" onclick="openLogModal('workout')">+ Add workout log</button>
-      <button class="btn secondary ai-btn" style="flex:1;" onclick="aiSuggestWorkout('${c.id}')">✨ AI Suggest</button>
+      <button class="btn" style="flex:1;" onclick="openLogModal('workout')">+ Add log</button>
+      <button class="btn secondary ai-btn" style="flex:1;" onclick="aiSuggestWorkout('${c.id}')">✨ AI Plan</button>
     </div>`;
     html += renderLogs(c.workouts, 'workout');
   } else if(currentView.tab === 'diet'){
     html += `<div class="row" style="gap:8px; margin-bottom:12px;">
-      <button class="btn" style="flex:1;" onclick="openLogModal('diet')">+ Add diet log</button>
-      <button class="btn secondary ai-btn" style="flex:1;" onclick="aiSuggestDiet('${c.id}')">✨ AI Suggest</button>
+      <button class="btn" style="flex:1;" onclick="openLogModal('diet')">+ Add log</button>
+      <button class="btn secondary ai-btn" style="flex:1;" onclick="aiSuggestDiet('${c.id}')">✨ AI Plan</button>
     </div>`;
     html += renderLogs(c.diets, 'diet');
   } else {
     html += `<div class="row" style="gap:8px; margin-bottom:12px;">
-      <button class="btn" style="flex:1;" onclick="openLogModal('progress')">+ Add weight / measurement</button>
+      <button class="btn" style="flex:1;" onclick="openLogModal('progress')">+ Add entry</button>
       <button class="btn secondary ai-btn" style="flex:1;" onclick="aiProgressInsight('${c.id}')">✨ AI Insight</button>
     </div>`;
     html += renderProgress(c.progress);
@@ -482,20 +507,57 @@ function closeModal(){
 
 function openClientModal(existing){
   const isEdit = !!existing;
+  const dietType = existing?.dietType || 'non-veg';
+  const fitnessLevel = existing?.fitnessLevel || 'intermediate';
   showModal(`
     <h2>${isEdit ? 'Edit client' : 'New client'}</h2>
-    <label>Name</label>
+    <label>Name *</label>
     <input id="f_name" value="${isEdit ? escapeHtml(existing.name) : ''}" placeholder="Client full name">
     <label>Phone</label>
     <input id="f_phone" value="${isEdit ? escapeHtml(existing.phone||'') : ''}" placeholder="+91...">
+    <div class="row" style="gap:8px;">
+      <div style="flex:1;"><label>Age</label><input id="f_age" type="number" value="${isEdit ? (existing.age||'') : ''}" placeholder="e.g. 25"></div>
+      <div style="flex:1;"><label>Height (cm)</label><input id="f_height" type="number" value="${isEdit ? (existing.height||'') : ''}" placeholder="e.g. 175"></div>
+      <div style="flex:1;"><label>Weight (kg)</label><input id="f_startweight" type="number" value="${isEdit ? (existing.startWeight||'') : ''}" placeholder="e.g. 75"></div>
+    </div>
     <label>Goal</label>
-    <input id="f_goal" value="${isEdit ? escapeHtml(existing.goal||'') : ''}" placeholder="e.g. Fat loss, strength, bulking">
-    <div class="row" style="gap:10px; margin-top:8px;">
+    <select id="f_goal">
+      ${['Fat Loss','Muscle Gain','Strength','Maintenance','Body Recomposition','Powerlifting','General Fitness'].map(g=>
+        `<option value="${g}" ${(existing?.goal||'')=== g ? 'selected':''}>${g}</option>`
+      ).join('')}
+    </select>
+    <label>Diet Type</label>
+    <div class="row" style="gap:8px; margin-bottom:10px;">
+      <div id="dt_veg" class="pill ${dietType==='veg'?'active':''}" style="flex:1; text-align:center;" onclick="selectDietType('veg')">🥦 Veg</div>
+      <div id="dt_egg" class="pill ${dietType==='egg'?'active':''}" style="flex:1; text-align:center;" onclick="selectDietType('egg')">🥚 Egg</div>
+      <div id="dt_nonveg" class="pill ${dietType==='non-veg'?'active':''}" style="flex:1; text-align:center;" onclick="selectDietType('non-veg')">🍗 Non-Veg</div>
+    </div>
+    <label>Fitness Level</label>
+    <select id="f_fitness">
+      ${['beginner','intermediate','advanced'].map(l=>
+        `<option value="${l}" ${fitnessLevel===l?'selected':''}>${l.charAt(0).toUpperCase()+l.slice(1)}</option>`
+      ).join('')}
+    </select>
+    <label>Medical Notes (optional)</label>
+    <input id="f_medical" value="${isEdit ? escapeHtml(existing.medical||'') : ''}" placeholder="Any injuries, conditions...">
+    <div class="row" style="gap:10px; margin-top:10px;">
       <button class="btn" style="flex:1;" onclick="saveClientForm(${isEdit ? `'${existing.id}'` : 'null'})">Save</button>
       <button class="btn secondary" style="flex:1;" onclick="closeModal()">Cancel</button>
     </div>
     ${isEdit ? `<button class="btn danger" style="width:100%; margin-top:10px;" onclick="deleteClient('${existing.id}')">Delete client</button>` : ''}
   `);
+  window._dietType = dietType;
+}
+
+function selectDietType(type){
+  window._dietType = type;
+  ['veg','egg','non-veg'].forEach(t=>{
+    const el = document.getElementById('dt_'+t.replace('-',''));
+    if(el) el.className = 'pill' + (t===type?' active':'');
+  });
+  // Fix id for non-veg
+  const nvEl = document.getElementById('dt_nonveg');
+  if(nvEl) nvEl.className = 'pill' + (type==='non-veg'?' active':'');
 }
 
 function editClient(id){
@@ -507,12 +569,21 @@ async function saveClientForm(id){
   const name = document.getElementById('f_name').value.trim();
   const phone = document.getElementById('f_phone').value.trim();
   const goal = document.getElementById('f_goal').value.trim();
+  const age = document.getElementById('f_age').value.trim();
+  const height = document.getElementById('f_height').value.trim();
+  const startWeight = document.getElementById('f_startweight').value.trim();
+  const dietType = window._dietType || 'non-veg';
+  const fitnessLevel = document.getElementById('f_fitness').value;
+  const medical = document.getElementById('f_medical').value.trim();
   if(!name){ alert('Name is required'); return; }
   if(id){
     const c = clients.find(x=>x.id===id);
-    c.name = name; c.phone = phone; c.goal = goal;
+    Object.assign(c, { name, phone, goal, age: age?+age:null, height: height?+height:null,
+      startWeight: startWeight?+startWeight:null, dietType, fitnessLevel, medical });
   } else {
-    clients.push({ id: uid(), name, phone, goal, workouts:[], diets:[], progress:[] });
+    clients.push({ id: uid(), name, phone, goal, age: age?+age:null, height: height?+height:null,
+      startWeight: startWeight?+startWeight:null, dietType, fitnessLevel, medical,
+      workouts:[], diets:[], progress:[] });
   }
   await saveClients();
   closeModal();
@@ -531,18 +602,28 @@ function openLogModal(type){
   if(type === 'progress'){
     showModal(`
       <h2>Add progress entry</h2>
-      <label>Weight (kg)</label>
-      <input id="f_weight" type="number" step="0.1" placeholder="e.g. 78.5">
-      <label>Notes (measurements, etc.)</label>
-      <textarea id="f_notes" rows="3" placeholder="Optional notes"></textarea>
-      <label>Photos (optional)</label>
+      <div class="row" style="gap:8px;">
+        <div style="flex:1;"><label>Weight (kg)</label><input id="f_weight" type="number" step="0.1" placeholder="e.g. 78.5"></div>
+        <div style="flex:1;"><label>Body Fat %</label><input id="f_bf" type="number" step="0.1" placeholder="Optional"></div>
+      </div>
+      <label>Measurements (cm) - optional</label>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
+        <input id="f_chest" type="number" step="0.1" placeholder="Chest">
+        <input id="f_waist" type="number" step="0.1" placeholder="Waist">
+        <input id="f_hips" type="number" step="0.1" placeholder="Hips">
+        <input id="f_arms" type="number" step="0.1" placeholder="Arms">
+      </div>
+      <label>Notes</label>
+      <textarea id="f_notes" rows="2" placeholder="How are you feeling, energy levels..."></textarea>
+      <label>Progress Photos (tap each to upload)</label>
       <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:10px;">
         ${['front','side','back'].map(angle => `
           <div style="text-align:center;">
-            <div id="preview_${angle}" style="width:100%; aspect-ratio:3/4; background:#1f1f1f; border:1px dashed var(--border); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:4px; cursor:pointer;" onclick="document.getElementById('file_${angle}').click()">
+            <div id="preview_${angle}" style="width:100%; aspect-ratio:3/4; background:#1f1f1f; border:1px dashed var(--border); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:4px; cursor:pointer;" onclick="triggerPhotoInput('${angle}')">
               <span style="font-size:11px; color:var(--muted);">+ ${angle}</span>
             </div>
             <input type="file" id="file_${angle}" accept="image/*" style="display:none;" onchange="handlePhotoSelect('${angle}', this)">
+            <div style="font-size:10px; color:var(--muted);">${angle}</div>
           </div>
         `).join('')}
       </div>
@@ -552,20 +633,62 @@ function openLogModal(type){
       </div>
     `);
     window._progressPhotos = {};
-  } else {
-    const label = type === 'workout' ? 'Workout' : 'Diet';
+  } else if(type === 'workout'){
     showModal(`
-      <h2>Add ${label.toLowerCase()} log</h2>
-      <label>Title</label>
-      <input id="f_title" placeholder="${type==='workout' ? 'e.g. Push day - Squat focus' : 'e.g. Day 3 meal plan'}">
-      <label>Details</label>
-      <textarea id="f_detail" rows="6" placeholder="${type==='workout' ? 'Sets, reps, weights used...' : 'Meals, macros, calories...'}"></textarea>
-      <div class="row" style="gap:10px; margin-top:8px;">
-        <button class="btn" style="flex:1;" onclick="saveLog('${type}')">Save</button>
+      <h2>Add workout log</h2>
+      <label>Day</label>
+      <select id="f_day">
+        <option value="">-- Select day --</option>
+        ${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(d=>`<option value="${d}">${d}</option>`).join('')}
+      </select>
+      <label>Session Type</label>
+      <select id="f_session">
+        <option value="Push (Chest/Shoulder/Triceps)">Push (Chest/Shoulder/Triceps)</option>
+        <option value="Pull (Back/Biceps)">Pull (Back/Biceps)</option>
+        <option value="Legs (Quad/Ham/Glute)">Legs (Quad/Ham/Glute)</option>
+        <option value="Full Body">Full Body</option>
+        <option value="Upper Body">Upper Body</option>
+        <option value="Lower Body">Lower Body</option>
+        <option value="Cardio/HIIT">Cardio/HIIT</option>
+        <option value="Core/Abs">Core/Abs</option>
+        <option value="Rest Day">Rest Day</option>
+        <option value="Custom">Custom</option>
+      </select>
+      <label>Exercises (sets × reps @ weight)</label>
+      <textarea id="f_detail" rows="6" placeholder="e.g.&#10;Squat: 5×5 @ 120kg&#10;Bench: 4×8 @ 70kg&#10;OHP: 3×10 @ 40kg"></textarea>
+      <label>Notes / RPE / Mood</label>
+      <input id="f_notes_w" placeholder="e.g. Felt strong, RPE 8">
+      <div class="row" style="gap:10px; margin-top:10px;">
+        <button class="btn" style="flex:1;" onclick="saveWorkoutLog()">Save</button>
+        <button class="btn secondary" style="flex:1;" onclick="closeModal()">Cancel</button>
+      </div>
+    `);
+  } else {
+    // Diet
+    showModal(`
+      <h2>Add diet log</h2>
+      <label>Day</label>
+      <select id="f_day">
+        <option value="">-- Select day --</option>
+        ${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(d=>`<option value="${d}">${d}</option>`).join('')}
+      </select>
+      <label>Meal Plan / Details</label>
+      <textarea id="f_detail" rows="6" placeholder="e.g.&#10;Breakfast: 4 eggs + oats&#10;Lunch: Chicken + rice&#10;Dinner: Paneer + roti&#10;Total: 2800 kcal, 180g protein"></textarea>
+      <label>Calories (kcal)</label>
+      <input id="f_kcal" type="number" placeholder="e.g. 2800">
+      <label>Protein (g)</label>
+      <input id="f_protein" type="number" placeholder="e.g. 180">
+      <div class="row" style="gap:10px; margin-top:10px;">
+        <button class="btn" style="flex:1;" onclick="saveDietLog()">Save</button>
         <button class="btn secondary" style="flex:1;" onclick="closeModal()">Cancel</button>
       </div>
     `);
   }
+}
+
+function triggerPhotoInput(angle){
+  // Small delay so previous file inputs don't conflict
+  setTimeout(() => document.getElementById('file_'+angle)?.click(), 50);
 }
 
 function compressImage(file, maxWidth=700, quality=0.7){
@@ -607,12 +730,40 @@ async function handlePhotoSelect(angle, input){
   }
 }
 
-async function saveLog(type){
-  const title = document.getElementById('f_title').value.trim();
+async function saveWorkoutLog(){
+  const day = document.getElementById('f_day').value;
+  const session = document.getElementById('f_session').value;
   const detail = document.getElementById('f_detail').value.trim();
-  if(!title){ alert('Title is required'); return; }
+  const notes = document.getElementById('f_notes_w').value.trim();
+  if(!detail && session !== 'Rest Day'){ alert('Add exercise details'); return; }
   const c = clients.find(x=>x.id===currentView.clientId);
-  const entry = { id: uid(), date: todayStr(), title, detail };
+  const title = `${day ? day+' · ' : ''}${session}`;
+  c.workouts.push({ id: uid(), date: todayStr(), title, detail, notes });
+  await saveClients();
+  closeModal();
+  render();
+}
+
+async function saveDietLog(){
+  const day = document.getElementById('f_day').value;
+  const detail = document.getElementById('f_detail').value.trim();
+  const kcal = document.getElementById('f_kcal').value.trim();
+  const protein = document.getElementById('f_protein').value.trim();
+  if(!detail){ alert('Add meal details'); return; }
+  const c = clients.find(x=>x.id===currentView.clientId);
+  const title = `${day ? day+' · ' : ''}Diet Plan${kcal ? ' · '+kcal+'kcal' : ''}${protein ? ' · '+protein+'g protein' : ''}`;
+  c.diets.push({ id: uid(), date: todayStr(), title, detail, kcal: kcal?+kcal:null, protein: protein?+protein:null });
+  await saveClients();
+  closeModal();
+  render();
+}
+
+async function saveLog(type){
+  const title = document.getElementById('f_title')?.value.trim();
+  const detail = document.getElementById('f_detail').value.trim();
+  if(!title && !detail){ alert('Add some details'); return; }
+  const c = clients.find(x=>x.id===currentView.clientId);
+  const entry = { id: uid(), date: todayStr(), title: title||'Log', detail };
   if(type === 'workout') c.workouts.push(entry);
   else c.diets.push(entry);
   await saveClients();
@@ -622,12 +773,18 @@ async function saveLog(type){
 
 async function saveProgress(){
   const weight = document.getElementById('f_weight').value.trim();
+  const bf = document.getElementById('f_bf').value.trim();
+  const chest = document.getElementById('f_chest').value.trim();
+  const waist = document.getElementById('f_waist').value.trim();
+  const hips = document.getElementById('f_hips').value.trim();
+  const arms = document.getElementById('f_arms').value.trim();
   const notes = document.getElementById('f_notes').value.trim();
   const photos = window._progressPhotos || {};
   const hasPhotos = Object.keys(photos).length > 0;
-  if(!weight && !notes && !hasPhotos){ alert('Add a weight, note, or photo'); return; }
+  if(!weight && !notes && !hasPhotos){ alert('Add at least a weight or note'); return; }
+  const measurements = (chest||waist||hips||arms) ? { chest:chest?+chest:null, waist:waist?+waist:null, hips:hips?+hips:null, arms:arms?+arms:null } : null;
   const c = clients.find(x=>x.id===currentView.clientId);
-  c.progress.push({ id: uid(), date: todayStr(), weight: weight ? parseFloat(weight) : null, notes, photos: hasPhotos ? photos : null });
+  c.progress.push({ id: uid(), date: todayStr(), weight: weight?+weight:null, bf: bf?+bf:null, notes, measurements, photos: hasPhotos?{...photos}:null });
   window._progressPhotos = {};
   await saveClients();
   closeModal();
@@ -929,49 +1086,140 @@ function aiErrorContent(err){
 
 async function aiSuggestWorkout(clientId){
   const c = clients.find(x=>x.id===clientId);
-  showAiModal(`AI Workout Suggestion — ${escapeHtml(c.name)}`);
-  const recentWorkouts = c.workouts.slice(-3).map(w=>`${w.title}: ${w.detail}`).join('\n');
-  const prompt = `You are an expert powerlifting/strength coach. Suggest a single, specific workout session for a gym client.
-Client goal: ${c.goal || 'general fitness'}.
-Recent workout history (most recent last):
-${recentWorkouts || 'No history yet, this is a new client.'}
-Give a structured workout with exercises, sets, reps, and suggested weights/progression if history is available. Keep it concise — under 150 words. Format as plain text with line breaks, no markdown headers.`;
+  showModal(`
+    <h2>✨ AI Workout Plan</h2>
+    <label>Days per week?</label>
+    <select id="ai_days">
+      <option value="3">3 days/week</option>
+      <option value="4">4 days/week</option>
+      <option value="5">5 days/week</option>
+      <option value="6">6 days/week</option>
+    </select>
+    <label>Training style</label>
+    <select id="ai_focus">
+      <option>Full body strength</option>
+      <option>Push Pull Legs (PPL)</option>
+      <option>Upper Lower split</option>
+      <option>Powerlifting (Squat/Bench/Deadlift)</option>
+      <option>Fat loss + cardio</option>
+      <option>Hypertrophy/muscle building</option>
+    </select>
+    <label>Equipment</label>
+    <select id="ai_equip">
+      <option>Full gym</option>
+      <option>Home gym (dumbbells + barbell)</option>
+      <option>Dumbbells only</option>
+      <option>Bodyweight only</option>
+    </select>
+    <label>Injuries / restrictions</label>
+    <input id="ai_injury" value="${c.medical ? escapeHtml(c.medical) : ''}" placeholder="e.g. knee pain">
+    <div class="row" style="gap:10px; margin-top:12px;">
+      <button class="btn" style="flex:1;" onclick="generateWorkoutPlan('${clientId}')">Generate ✨</button>
+      <button class="btn secondary" style="flex:1;" onclick="closeModal()">Cancel</button>
+    </div>
+  `);
+}
+
+async function generateWorkoutPlan(clientId){
+  const c = clients.find(x=>x.id===clientId);
+  const days = document.getElementById('ai_days').value;
+  const focus = document.getElementById('ai_focus').value;
+  const equip = document.getElementById('ai_equip').value;
+  const injury = document.getElementById('ai_injury').value.trim();
+  document.getElementById('modalOverlay').querySelector('.modal').innerHTML = `
+    <h2>✨ Generating ${days}-Day Plan...</h2>
+    <div class="ai-loading"><div class="spinner"></div> Building your plan...</div>
+  `;
+  const recentWorkouts = c.workouts.slice(-3).map(w=>w.title+': '+w.detail).join('\n');
+  const prompt = `You are an expert fitness coach. Create a ${days}-day/week workout plan.
+Client: ${c.name}, Goal: ${c.goal||'general fitness'}, Level: ${c.fitnessLevel||'intermediate'}, Age: ${c.age||'unknown'}.
+Focus: ${focus}. Equipment: ${equip}. Injuries: ${injury||'none'}.
+Recent workouts: ${recentWorkouts||'None'}.
+List each training day clearly with exercises, sets x reps, weights. Include rest days. Under 300 words.`;
   try{
     const result = await callAI(prompt);
-    document.getElementById('aiContent').innerHTML = `
-      <div class="ai-result">${escapeHtml(result)}</div>
-      <div class="row" style="gap:10px; margin-top:14px;">
-        <button class="btn" style="flex:1;" onclick="saveAiAsLog('workout','${clientId}', this)">Save as log</button>
+    const modal = document.getElementById('modalOverlay').querySelector('.modal');
+    modal.dataset.aiText = result;
+    modal.innerHTML = `
+      <h2>✨ ${days}-Day Workout Plan</h2>
+      <div class="ai-result" style="max-height:55vh;overflow-y:auto;">${escapeHtml(result)}</div>
+      <div class="row" style="gap:10px;margin-top:14px;">
+        <button class="btn" style="flex:1;" onclick="saveAiPlanToLog('workout','${clientId}','AI ${days}-Day Plan')">Save to logs</button>
         <button class="btn secondary" style="flex:1;" onclick="closeModal()">Close</button>
       </div>
     `;
-    document.getElementById('aiContent').dataset.aiText = result;
   }catch(e){
-    document.getElementById('aiContent').innerHTML = aiErrorContent(e);
+    document.getElementById('modalOverlay').querySelector('.modal').innerHTML = aiErrorContent(e)+'<button class="btn secondary" style="width:100%;margin-top:10px;" onclick="closeModal()">Close</button>';
   }
 }
 
 async function aiSuggestDiet(clientId){
   const c = clients.find(x=>x.id===clientId);
-  showAiModal(`AI Diet Suggestion — ${escapeHtml(c.name)}`);
-  const recentDiets = c.diets.slice(-2).map(d=>`${d.title}: ${d.detail}`).join('\n');
-  const lastWeight = [...c.progress].reverse().find(p=>p.weight);
-  const prompt = `You are an expert sports nutritionist for an Indian gym/supplement coaching client.
-Client goal: ${c.goal || 'general fitness'}. Current weight: ${lastWeight ? lastWeight.weight+'kg' : 'unknown'}.
-Recent diet history: ${recentDiets || 'No history yet.'}
-Suggest one day's Indian-style meal plan (breakfast, lunch, dinner, snacks) with approximate calories and protein. Keep it concise — under 150 words. Plain text, no markdown headers.`;
+  const dt = c.dietType||'non-veg';
+  showModal(`
+    <h2>✨ AI Diet Plan</h2>
+    <label>Diet preference</label>
+    <div class="row" style="gap:8px;margin-bottom:10px;">
+      <div id="adt_veg" class="pill ${dt==='veg'?'active':''}" style="flex:1;text-align:center;" onclick="selAIDiet('veg')">🥦 Veg</div>
+      <div id="adt_egg" class="pill ${dt==='egg'?'active':''}" style="flex:1;text-align:center;" onclick="selAIDiet('egg')">🥚 Egg</div>
+      <div id="adt_nonveg" class="pill ${dt==='non-veg'?'active':''}" style="flex:1;text-align:center;" onclick="selAIDiet('non-veg')">🍗 Non-Veg</div>
+    </div>
+    <label>Calorie goal</label>
+    <select id="ai_kcal">
+      <option value="maintenance">Maintenance</option>
+      <option value="deficit">Deficit (fat loss)</option>
+      <option value="surplus">Surplus (muscle gain)</option>
+    </select>
+    <label>Meals per day</label>
+    <select id="ai_meals"><option value="3">3 meals</option><option value="4">4 meals</option><option value="5">5-6 meals</option></select>
+    <label>Avoid / allergies</label>
+    <input id="ai_avoid" placeholder="e.g. dairy, peanuts">
+    <div class="row" style="gap:10px;margin-top:12px;">
+      <button class="btn" style="flex:1;" onclick="generateDietPlan('${clientId}')">Generate ✨</button>
+      <button class="btn secondary" style="flex:1;" onclick="closeModal()">Cancel</button>
+    </div>
+  `);
+  window._aiDietType = dt;
+}
+
+function selAIDiet(type){
+  window._aiDietType = type;
+  ['veg','egg','non-veg'].forEach(t=>{
+    const el = document.getElementById('adt_'+t.replace('-',''));
+    if(el) el.className='pill'+(t===type?' active':'');
+  });
+}
+
+async function generateDietPlan(clientId){
+  const c = clients.find(x=>x.id===clientId);
+  const dietType = window._aiDietType||'non-veg';
+  const kcal = document.getElementById('ai_kcal').value;
+  const meals = document.getElementById('ai_meals').value;
+  const avoid = document.getElementById('ai_avoid').value.trim();
+  const lw = [...c.progress].reverse().find(p=>p.weight);
+  document.getElementById('modalOverlay').querySelector('.modal').innerHTML = `
+    <h2>✨ Building Diet Plan...</h2>
+    <div class="ai-loading"><div class="spinner"></div> Calculating macros...</div>
+  `;
+  const prompt = `You are an Indian sports nutritionist. Create a 1-day Indian meal plan.
+Client: ${c.name}, Weight: ${lw?.weight||c.startWeight||'?'}kg, Height: ${c.height||'?'}cm, Age: ${c.age||'?'}, Goal: ${c.goal||'fitness'}.
+Diet: ${dietType}. Calories: ${kcal}. Meals: ${meals}/day. Avoid: ${avoid||'none'}.
+Use Indian foods (roti, dal, rice, paneer, chicken, eggs as appropriate).
+Include meal timing, food items with quantities, and daily macro totals. Under 250 words.`;
   try{
     const result = await callAI(prompt);
-    document.getElementById('aiContent').innerHTML = `
-      <div class="ai-result">${escapeHtml(result)}</div>
-      <div class="row" style="gap:10px; margin-top:14px;">
-        <button class="btn" style="flex:1;" onclick="saveAiAsLog('diet','${clientId}', this)">Save as log</button>
+    const modal = document.getElementById('modalOverlay').querySelector('.modal');
+    modal.dataset.aiText = result;
+    modal.innerHTML = `
+      <h2>✨ Diet Plan (${dietType})</h2>
+      <div class="ai-result" style="max-height:55vh;overflow-y:auto;">${escapeHtml(result)}</div>
+      <div class="row" style="gap:10px;margin-top:14px;">
+        <button class="btn" style="flex:1;" onclick="saveAiPlanToLog('diet','${clientId}','AI Diet Plan')">Save to logs</button>
         <button class="btn secondary" style="flex:1;" onclick="closeModal()">Close</button>
       </div>
     `;
-    document.getElementById('aiContent').dataset.aiText = result;
   }catch(e){
-    document.getElementById('aiContent').innerHTML = aiErrorContent(e);
+    document.getElementById('modalOverlay').querySelector('.modal').innerHTML = aiErrorContent(e)+'<button class="btn secondary" style="width:100%;margin-top:10px;" onclick="closeModal()">Close</button>';
   }
 }
 
@@ -979,38 +1227,34 @@ async function aiProgressInsight(clientId){
   const c = clients.find(x=>x.id===clientId);
   showAiModal(`AI Progress Insight — ${escapeHtml(c.name)}`);
   if(c.progress.length === 0){
-    document.getElementById('aiContent').innerHTML = `<div class="empty">No progress entries yet to analyze.</div>
-    <button class="btn secondary" style="width:100%; margin-top:10px;" onclick="closeModal()">Close</button>`;
+    document.getElementById('aiContent').innerHTML = `<div class="empty">No progress entries yet.</div><button class="btn secondary" style="width:100%;margin-top:10px;" onclick="closeModal()">Close</button>`;
     return;
   }
-  const progressData = c.progress.map(p=>`${p.date}: ${p.weight ? p.weight+'kg' : 'no weight'}${p.notes ? ' - '+p.notes : ''}`).join('\n');
-  const prompt = `You are a strength coach analyzing a client's progress log.
-Client goal: ${c.goal || 'general fitness'}.
-Progress entries (chronological):
-${progressData}
-Give a short, encouraging but honest analysis: is the trend good, plateaued, or concerning? Give 1-2 specific actionable suggestions. Keep it under 120 words, plain text, no markdown headers.`;
+  const progressData = c.progress.map(p=>`${p.date}: ${p.weight?p.weight+'kg':''}${p.bf?' BF:'+p.bf+'%':''}${p.notes?' - '+p.notes:''}`).join('\n');
+  const prompt = `You are a strength coach analyzing client progress.
+Client: ${c.name}, Goal: ${c.goal||'fitness'}, Age: ${c.age||'?'}, Height: ${c.height||'?'}cm.
+Progress log:\n${progressData}
+Analyze: is the trend on track, plateaued, or off? Give 2-3 specific actionable suggestions. Be honest but encouraging. Under 150 words.`;
   try{
     const result = await callAI(prompt);
     document.getElementById('aiContent').innerHTML = `
       <div class="ai-result">${escapeHtml(result)}</div>
-      <button class="btn secondary" style="width:100%; margin-top:14px;" onclick="closeModal()">Close</button>
+      <button class="btn secondary" style="width:100%;margin-top:14px;" onclick="closeModal()">Close</button>
     `;
   }catch(e){
     document.getElementById('aiContent').innerHTML = aiErrorContent(e);
   }
 }
 
-async function saveAiAsLog(type, clientId, btnEl){
-  const aiText = document.getElementById('aiContent').dataset.aiText;
+async function saveAiPlanToLog(type, clientId, title){
+  const aiText = document.getElementById('modalOverlay').querySelector('.modal').dataset.aiText;
   const c = clients.find(x=>x.id===clientId);
-  const title = type === 'workout' ? 'AI Suggested Workout' : 'AI Suggested Diet Plan';
-  const entry = { id: uid(), date: todayStr(), title, detail: aiText };
-  if(type === 'workout') c.workouts.push(entry);
-  else c.diets.push(entry);
+  c[type==='workout'?'workouts':'diets'].push({ id:uid(), date:todayStr(), title, detail:aiText });
   await saveClients();
   closeModal();
   render();
 }
+
 const modeBadge = document.getElementById('modeBadge');
 if(modeBadge){
   modeBadge.textContent = USE_CLAUDE_STORAGE ? 'synced via Claude' : 'saved on this device only';
